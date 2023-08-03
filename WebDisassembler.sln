@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Analyzer.Core", "WebDisassembler.Analyzer.Core\WebDisassembler.Analyzer.Core.csproj", "{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Architecture.Nes", "WebDisassembler.Architecture.Nes\WebDisassembler.Architecture.Nes.csproj", "{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analysis", "Analysis", "{52B29427-B812-4DA6-99B0-F9FD323A9573}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{10BED052-D920-426D-94BE-224FADB8E7D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.FileStorage", "WebDisassembler.FileStorage\WebDisassembler.FileStorage.csproj", "{2B1ACFF0-25FB-4F42-9BF9-A73DF4A15F29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.DataStorage", "WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj", "{26D95428-AE92-450D-832D-74A18ADE5DB1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3A0141C1-C0CE-4A09-8F93-A3D9C042D443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Api", "WebDisassembler.Api\WebDisassembler.Api.csproj", "{04D6D90D-8C3D-420A-9BB6-22874FB3F85A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.ServiceProtocol", "WebDisassembler.ServiceProtocol\WebDisassembler.ServiceProtocol.csproj", "{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Analyzer.Service", "WebDisassembler.Analyzer.Service\WebDisassembler.Analyzer.Service.csproj", "{60581886-9134-4389-B3FA-C1982C096B09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Core.Application", "WebDisassembler.Core.Application\WebDisassembler.Core.Application.csproj", "{77A50411-A651-4C02-99FD-110927B5693E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Core.Identity", "WebDisassembler.Core.Identity\WebDisassembler.Core.Identity.csproj", "{59F24AF7-1A2E-430B-AB3B-604872C934BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Core.Common", "WebDisassembler.Core.Common\WebDisassembler.Core.Common.csproj", "{FB2984C6-41CD-4F48-A842-5A1E1C5BF230}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B1ACFF0-25FB-4F42-9BF9-A73DF4A15F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1ACFF0-25FB-4F42-9BF9-A73DF4A15F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1ACFF0-25FB-4F42-9BF9-A73DF4A15F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1ACFF0-25FB-4F42-9BF9-A73DF4A15F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26D95428-AE92-450D-832D-74A18ADE5DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D95428-AE92-450D-832D-74A18ADE5DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D95428-AE92-450D-832D-74A18ADE5DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D95428-AE92-450D-832D-74A18ADE5DB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D6D90D-8C3D-420A-9BB6-22874FB3F85A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D6D90D-8C3D-420A-9BB6-22874FB3F85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D6D90D-8C3D-420A-9BB6-22874FB3F85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D6D90D-8C3D-420A-9BB6-22874FB3F85A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60581886-9134-4389-B3FA-C1982C096B09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60581886-9134-4389-B3FA-C1982C096B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60581886-9134-4389-B3FA-C1982C096B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60581886-9134-4389-B3FA-C1982C096B09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A50411-A651-4C02-99FD-110927B5693E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A50411-A651-4C02-99FD-110927B5693E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A50411-A651-4C02-99FD-110927B5693E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A50411-A651-4C02-99FD-110927B5693E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59F24AF7-1A2E-430B-AB3B-604872C934BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59F24AF7-1A2E-430B-AB3B-604872C934BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59F24AF7-1A2E-430B-AB3B-604872C934BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59F24AF7-1A2E-430B-AB3B-604872C934BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB2984C6-41CD-4F48-A842-5A1E1C5BF230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2984C6-41CD-4F48-A842-5A1E1C5BF230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2984C6-41CD-4F48-A842-5A1E1C5BF230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2984C6-41CD-4F48-A842-5A1E1C5BF230}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26} = {52B29427-B812-4DA6-99B0-F9FD323A9573}
+		{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D} = {52B29427-B812-4DA6-99B0-F9FD323A9573}
+		{2B1ACFF0-25FB-4F42-9BF9-A73DF4A15F29} = {10BED052-D920-426D-94BE-224FADB8E7D9}
+		{26D95428-AE92-450D-832D-74A18ADE5DB1} = {10BED052-D920-426D-94BE-224FADB8E7D9}
+		{04D6D90D-8C3D-420A-9BB6-22874FB3F85A} = {3A0141C1-C0CE-4A09-8F93-A3D9C042D443}
+		{60581886-9134-4389-B3FA-C1982C096B09} = {3A0141C1-C0CE-4A09-8F93-A3D9C042D443}
+		{FB2984C6-41CD-4F48-A842-5A1E1C5BF230} = {3A0141C1-C0CE-4A09-8F93-A3D9C042D443}
+	EndGlobalSection
+EndGlobal
