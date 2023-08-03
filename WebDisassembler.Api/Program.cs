@@ -1,25 +1,21 @@
+using WebDisassembler.Core.Application.Services;
 using WebDisassembler.Core.Identity;
 using WebDisassembler.Core.Mapping;
-using WebDisassembler.Core.Services;
-using WebDisassembler.DataStorage.Options;
-using WebDisassembler.DataStorage.Repositories;
-using WebDisassembler.DataStorage.Repositories.Impl;
-using WebDisassembler.DataStorage.Utility;
+using WebDisassembler.DataStorage.Extensions;
+using WebDisassembler.FileStorage;
+using WebDisassembler.FileStorage.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddDataStorage(builder.Configuration);
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-
-builder.Services.AddOptions<DataStorageOptions>()
-    .Bind(builder.Configuration.GetSection("DataStorage"))
-    .ValidateDataAnnotations();
-builder.Services.AddDbContext<DatabaseContext>();
-builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-
 builder.Services.AddScoped<ProjectService>();
-
+builder.Services.AddScoped<BinaryService>();
+builder.Services.AddScoped<FileService>();
 builder.Services.AddScoped<IdentityDetails>();
+builder.Services.AddScoped<IFileStorage, BlobStorageFileStorage>();
 
 
 if (builder.Environment.IsDevelopment())

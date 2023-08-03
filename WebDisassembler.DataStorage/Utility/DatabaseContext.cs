@@ -11,6 +11,8 @@ public class DatabaseContext : DbContext
     public required DbSet<Binary> Binaries { get; set; }
     public required DbSet<Section> Sections { get; set; }
 
+    public required DbSet<FileReference> FileReferences { get; set; }
+
     private readonly IOptions<DataStorageOptions> _options;
 
     public DatabaseContext(IOptions<DataStorageOptions> options)

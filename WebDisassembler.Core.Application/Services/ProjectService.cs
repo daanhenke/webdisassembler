@@ -4,7 +4,7 @@ using WebDisassembler.Core.Models.Projects;
 using WebDisassembler.DataStorage.Models;
 using WebDisassembler.DataStorage.Repositories;
 
-namespace WebDisassembler.Core.Services;
+namespace WebDisassembler.Core.Application.Services;
 
 public class ProjectService
 {
@@ -28,27 +28,15 @@ public class ProjectService
         _projectRepository.Add(project);
         await _projectRepository.Commit();
 
-        var binary = new Binary
-        {
-            Name = "Test Binary",
-            FilePath = "test",
-            OwnerId = userId
-        };
-
-        for (var i = 0; i < 3; i++)
-        {
-            binary.Sections.Add(new Section
-            {
-                Name = $"Section {i + 1}"
-            });
-        }
-        
-        project.Binaries.Add(binary);
-
-        _projectRepository.Update(project);
-        await _projectRepository.Commit();
-
         return project.Id;
+    }
+
+    public async ValueTask Delete(Guid projectId)
+    {
+        var project = await _projectRepository.GetRequired(projectId, true);
+
+        _projectRepository.Delete(project);
+        await _projectRepository.Commit();
     }
 
     public async ValueTask<PagedResponse<ProjectSummary>> GetProjects(Guid userId, PagedRequest request)

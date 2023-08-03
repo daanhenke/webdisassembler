@@ -5,8 +5,8 @@ using WebDisassembler.DataStorage.Utility;
 
 namespace WebDisassembler.DataStorage.Models;
 
-[PrimaryKey(nameof(OwnerId), nameof(ProjectId), nameof(Id))]
-public class Binary : IOwnedEntity
+[PrimaryKey(nameof(ProjectId), nameof(Id))]
+public class Binary : IIdentifiableEntity, IOwnedEntity, IAuditableEntity
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
@@ -17,4 +17,9 @@ public class Binary : IOwnedEntity
     public required string FilePath { get; set; }
 
     public List<Section> Sections = new();
+    
+    public Guid CreatedBy { get; set; }
+    public DateTimeKind CreatedAt { get; set; }
+    public Guid? UpdatedBy { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 }

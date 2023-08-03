@@ -2,12 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Core.Identity;
 using WebDisassembler.Core.Models.Projects;
-using WebDisassembler.Core.Services;
+using WebDisassembler.Core.Application.Services;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController]
-[Route("api/projects")]
+[ApiController, Route("api/projects")]
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;
@@ -32,5 +31,12 @@ public class ProjectController : ControllerBase
     {
         var id = await _projectService.Create(_identity.UserId!.Value, createProject);
         return id;
+    }
+
+    [HttpPost("{projectId:guid}/delete")]
+    public async ValueTask<ActionResult> Delete(Guid projectId)
+    {
+        await _projectService.Delete(projectId);
+        return NoContent();
     }
 }

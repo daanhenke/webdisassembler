@@ -17,6 +17,7 @@ services:
 
   service_bus:
     image: rabbitmq:3-management-alpine
+    restart: always
     ports:
       - '5672:5672'
       - '15672:15672'
@@ -25,10 +26,24 @@ services:
     networks: 
       - internal
 
+  blob_storage:
+    image: mcr.microsoft.com/azure-storage/azurite
+    restart: always
+    command: 'azurite --loose --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --location /workspace'
+    ports:
+      - '10000:10000'
+      - '10001:10001'
+    volumes:
+      - blob_storage_storage:/workspace
+    networks:
+      - internal
+
 volumes:
   database_storage:
     driver: local
   service_bus_storage:
+    driver: local
+  blob_storage_storage:
     driver: local
 
 networks:

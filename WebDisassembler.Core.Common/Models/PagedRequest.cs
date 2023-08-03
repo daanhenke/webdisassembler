@@ -1,3 +1,5 @@
-﻿namespace WebDisassembler.Core.Common.Models;
+﻿using System.ComponentModel;
 
-public record PagedRequest(int Index, int Size);
+namespace WebDisassembler.Core.Common.Models;
+
+public record PagedRequest(int Index, [property: DefaultValue(10)] int Size);
