@@ -1,5 +1,6 @@
 namespace WebDisassembler.Core.Application.Models;
 
 public record CreateBinary(
-    string Name
+    string Name,
+    Guid TemporaryFileId
 );

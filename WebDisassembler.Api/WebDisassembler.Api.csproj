@@ -28,6 +28,7 @@
       <ProjectReference Include="..\WebDisassembler.Core.Application\WebDisassembler.Core.Application.csproj" />
       <ProjectReference Include="..\WebDisassembler.Core.Identity\WebDisassembler.Core.Identity.csproj" />
       <ProjectReference Include="..\WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj" />
+      <ProjectReference Include="..\WebDisassembler.ServiceProtocol\WebDisassembler.ServiceProtocol.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,11 @@
-using WebDisassembler.Analyzer.Service;
+
+using WebDisassembler.ServiceProtocol.Extensions;
 
 IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services => { services.AddHostedService<Worker>(); })
+    .ConfigureServices((ctx, services) =>
+    {
+        services.AddServiceBus(ctx.Configuration);
+    })
     .Build();
 
 host.Run();

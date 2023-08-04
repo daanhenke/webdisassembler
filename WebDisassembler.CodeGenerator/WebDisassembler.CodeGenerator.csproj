@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0-preview.6.23329.7" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0-preview.6.23329.7" />
+      <PackageReference Include="Scriban.Signed" Version="5.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Templates\ServiceClient.liquid" />
+      <EmbeddedResource Include="Templates\ServiceClient.liquid" />
+    </ItemGroup>
+
+</Project>

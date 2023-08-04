@@ -1,0 +1,15 @@
+﻿{% for using in usings %}using {{ using }};
+{% endfor %}
+namespace WebDisassembler.ServiceProtocol.Clients;
+
+public interface I{{ name }}ServiceClient
+{
+{% for method in methods %}    ValueTask<{{ method.name }}Response> {{ method.name }}({{ method.arguments_for_prototype }});{% endfor %}
+}
+
+public class {{ name }}ServiceClient : ServiceClientBase, I{{ name }}ServiceClient
+{
+    public {{ name }}ServiceClient(IScopedClientFactory clientFactory) : base(clientFactory) {}
+    
+{% for method in methods %}    public async ValueTask<{{ method.name }}Response> {{ method.name }}({{ method.arguments_for_prototype }}) => await SendRequest<{{ method.name }}Request, {{ method.name }}Response>(new({{ method.arguments_for_call }}));{% endfor %}
+}

@@ -22,4 +22,11 @@ public class BinaryController : ControllerBase
     {
         return await _binaryService.CreateBinary(_identityDetails.UserId!.Value, projectId, createBinary);
     }
+
+    [HttpGet("{binaryId:guid}/analyze")]
+    public async ValueTask<ActionResult> Analyze(Guid projectId, Guid binaryId)
+    {
+        await _binaryService.StartAnalysis(_identityDetails.UserId!.Value, projectId, binaryId);
+        return NoContent();
+    }
 }

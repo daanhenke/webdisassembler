@@ -1,6 +1,10 @@
+using Azure;
 using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
+using Microsoft.Extensions.Options;
 using WebDisassembler.DataStorage.Models;
 using WebDisassembler.DataStorage.Repositories;
+using WebDisassembler.FileStorage.Options;
 
 namespace WebDisassembler.FileStorage.Impl;
 
@@ -8,11 +12,13 @@ public class BlobStorageFileStorage : IFileStorage
 {
     private readonly BlobServiceClient _blobServiceClient;
     private readonly IFileReferenceRepository _fileReferenceRepository;
+    private readonly IOptions<FileStorageOptions> _options;
 
-    public BlobStorageFileStorage(IFileReferenceRepository fileReferenceRepository)
+    public BlobStorageFileStorage(IFileReferenceRepository fileReferenceRepository, IOptions<FileStorageOptions> options)
     {
-        _blobServiceClient = new("DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;");
         _fileReferenceRepository = fileReferenceRepository;
+        _options = options;
+        _blobServiceClient = new(_options.Value.ConnectionString);
     }
 
     public async ValueTask<Guid> UploadTemporaryFile(Guid userId, Stream stream, string fileName)
@@ -33,7 +39,7 @@ public class BlobStorageFileStorage : IFileStorage
         _fileReferenceRepository.Update(reference);
         await _fileReferenceRepository.Commit();
 
-        var blob = await GetBlob(temporaryPath);
+        var blob = await GetTemporaryBlob(temporaryPath);
         await blob.UploadAsync(stream, true);
 
         return reference.Id;
@@ -44,13 +50,32 @@ public class BlobStorageFileStorage : IFileStorage
         var reference = await _fileReferenceRepository.GetRequired(fileId, true);
         _fileReferenceRepository.Delete(reference);
 
-        var blob = await GetBlob(GenerateTemporaryPath(reference));
+        var blob = await GetTemporaryBlob(GenerateTemporaryPath(reference));
         await blob.DeleteAsync();
     }
 
-    public ValueTask MoveTemporaryFile(Guid userId, Guid temporaryFileId, string path)
+    public async ValueTask<FileReference> MoveTemporaryFile(Guid userId, Guid temporaryFileId, string path)
     {
-        throw new NotImplementedException();
+        var reference = await _fileReferenceRepository.GetRequired(temporaryFileId, true);
+
+        var tempBlob = await GetTemporaryBlob(GenerateTemporaryPath(reference));
+
+        var persistentPath = GeneratePersistentPath(reference, path);
+        var persistentBlob = await GetBlob(persistentPath);
+
+        var tempUri = tempBlob.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.Now.AddMinutes(20));
+        var copyOperation = await persistentBlob.StartCopyFromUriAsync(tempUri);
+
+        await copyOperation.WaitForCompletionAsync();
+        await tempBlob.DeleteAsync();
+
+        reference.IsTemporary = false;
+        reference.Path = persistentPath;
+        _fileReferenceRepository.Update(reference);
+
+        await _fileReferenceRepository.Commit();
+
+        return reference;
     }
 
     public ValueTask Delete(string path)
@@ -71,21 +96,21 @@ public class BlobStorageFileStorage : IFileStorage
         return container.GetBlobClient(path);
     }
 
-    private async ValueTask<BlobContainerClient> GetContainerClient(string container)
+    private async ValueTask<BlobContainerClient> GetContainerClient(string containerName)
     {
-        var existingContainer = _blobServiceClient.GetBlobContainerClient(container);
+        var container = _blobServiceClient.GetBlobContainerClient(containerName);
+        await container.CreateIfNotExistsAsync();
 
-        if (existingContainer != null)
-        {
-            return existingContainer;
-        }
-
-        var createResult = await _blobServiceClient.CreateBlobContainerAsync(container);
-        return createResult.Value;
+        return container;
     }
 
     private string GenerateTemporaryPath(FileReference reference)
     {
         return $"{reference.OwnerId}/{reference.Id}-{reference.FileName}";
+    }
+
+    private string GeneratePersistentPath(FileReference reference, string directoryPath)
+    {
+        return $"{directoryPath}/{reference.Id}-{reference.FileName}";
     }
 }
