@@ -1,0 +1,11 @@
+{% for dep in dependencies %}import { {{ dep.value }} } from '{{ dep.key }}';
+{% endfor %}
+
+{% for model in models %}
+
+// {{ model.csharp_name }}
+export interface {{ model.name }}
+{
+{% for prop in model.properties %}    {{ prop.name }}: {{ prop.type }}
+{% endfor %}}
+{% endfor %}

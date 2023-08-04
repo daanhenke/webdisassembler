@@ -1,4 +1,4 @@
-﻿namespace WebDisassembler.CodeGenerator.Generators;
+﻿namespace WebDisassembler.CodeGenerator.Utility;
 
 public interface IGenerator
 {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -17,6 +17,10 @@
     <ItemGroup>
       <None Remove="Templates\ServiceClient.liquid" />
       <EmbeddedResource Include="Templates\ServiceClient.liquid" />
+      <None Remove="Templates\TypescriptModel.liquid" />
+      <EmbeddedResource Include="Templates\TypescriptModel.liquid" />
+      <None Remove="Templates\TypescriptHttpClient.liquid" />
+      <EmbeddedResource Include="Templates\TypescriptHttpClient.liquid" />
     </ItemGroup>
 
 </Project>

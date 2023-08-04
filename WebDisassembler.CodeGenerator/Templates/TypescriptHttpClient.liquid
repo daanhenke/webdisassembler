@@ -1,0 +1,11 @@
+{% for dep in dependencies %}import { {{ dep.value }} } from '{{ dep.key }}';
+{% endfor %}
+
+export default class {{ client.name }}Client
+{ {% for method in client.methods %}
+    // Generated method
+    async {{ method.name }}({{ method.prototype_arguments }}): Promise<{{ method.return_type }}>
+    {
+
+    }
+{% endfor %}}

@@ -21,7 +21,7 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPost("list")]
-    public async ValueTask<PagedResponse<ProjectSummary>> Create(PagedRequest request)
+    public async ValueTask<PagedResponse<ProjectSummary>> List(PagedRequest request)
     {
         return await _projectService.GetProjects(_identity.UserId!.Value, request);
     }

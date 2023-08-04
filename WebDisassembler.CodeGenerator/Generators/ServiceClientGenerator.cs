@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using WebDisassembler.CodeGenerator.Models;
+using WebDisassembler.CodeGenerator.Utility;
 
 namespace WebDisassembler.CodeGenerator.Generators;
 
@@ -15,9 +16,10 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
         var clientsPath = Path.Combine(projectPath, "Clients");
         foreach (var client in _serviceClients)
         {
-            var fileName = $"{client.Name}ServiceClient.cs";
-            var content = await RenderTemplateToString("ServiceClient", client);
-            await File.WriteAllTextAsync(Path.Combine(clientsPath, fileName), content);
+            await TemplateMethods.RenderTemplateToFile("ServiceClient", Path.Combine(clientsPath, $"{client.Name}ServiceClient.cs"), new Dictionary<string, object>()
+            {
+                { "client", client }
+            });
         }
     }
 
