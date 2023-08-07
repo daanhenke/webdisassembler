@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using WebDisassembler.DataStorage.Models;
 using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Utility;
 

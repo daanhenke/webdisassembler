@@ -41,7 +41,7 @@ public class AuthenticationService
     
     public async ValueTask<CurrentUser> GetCurrentUser(Guid userId)
     {
-        var user = await _userRepository.GetRequired(userId, false);
+        var user = await _userRepository.GetUserForCurrentUser(userId, false);
         return _mapper.Map<CurrentUser>(user);
     }
 

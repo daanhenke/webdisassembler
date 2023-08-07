@@ -1,4 +1,3 @@
-
 using WebDisassembler.ServiceProtocol.Extensions;
 
 IHost host = Host.CreateDefaultBuilder(args)

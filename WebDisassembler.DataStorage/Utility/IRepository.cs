@@ -1,3 +1,5 @@
+using WebDisassembler.Core.Common.Models;
+
 namespace WebDisassembler.DataStorage.Utility;
 
 public interface IRepository<TModel>
@@ -8,7 +10,7 @@ public interface IRepository<TModel>
 
     ValueTask<TModel?> Get(Guid id, bool tracked);
     ValueTask<TModel> GetRequired(Guid id, bool tracked);
-    ValueTask<IReadOnlyCollection<TModel>> GetMany(IReadOnlyCollection<Guid> ids, bool tracked);
+    ValueTask<IReadOnlyCollection<TModel>> GetMany(ISet<Guid> ids, bool tracked);
 
     void Track<T>(T model);
     Task Commit();

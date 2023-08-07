@@ -5,6 +5,7 @@ using WebDisassembler.Core.Extensions;
 using WebDisassembler.Core.Identity;
 using WebDisassembler.DataStorage.Extensions;
 using WebDisassembler.FileStorage.Extensions;
+using WebDisassembler.Search.Client.Extensions;
 using WebDisassembler.ServiceProtocol.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddDataStorage(builder.Configuration);
 builder.Services.AddFileStorage(builder.Configuration);
 builder.Services.AddServiceBus(builder.Configuration);
 builder.Services.AddCoreServices();
+builder.Services.AddElasticClients();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpContextAccessor();

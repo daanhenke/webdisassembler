@@ -8,7 +8,4 @@ const apiConfig: ApiConfig = {
     }
 };
 
-export const useAuthenticationClient = () =>
-{
-    return new Authentication(apiConfig);
-};
+export const useAuthenticationClient = () => new Authentication(apiConfig);

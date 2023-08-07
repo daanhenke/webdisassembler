@@ -1,0 +1,27 @@
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using WebDisassembler.Core.Application.Models;
+using WebDisassembler.Core.Application.Services.Admin;
+using WebDisassembler.Core.Identity;
+
+namespace WebDisassembler.Api.Controllers.Admin;
+
+[ApiController, Route("api/admin/tenant")]
+public class TenantAdminController : ControllerBase
+{
+    private readonly TenantAdminService _tenantAdminService;
+    private readonly IUserIdentity _userIdentity;
+
+    public TenantAdminController(TenantAdminService tenantAdminService, IUserIdentity userIdentity)
+    {
+        _tenantAdminService = tenantAdminService;
+        _userIdentity = userIdentity;
+    }
+
+    [HttpPost("create"), SwaggerOperation(OperationId = nameof(CreateDebugTenant))]
+    public async ValueTask<ActionResult> CreateDebugTenant(CreateTenant createTenant)
+    {
+        await _tenantAdminService.CreateDebugTenant(createTenant, _userIdentity.UserId);
+        return Ok();
+    }
+}

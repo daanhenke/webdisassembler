@@ -1,4 +1,5 @@
 ﻿import Dashboard from "@/pages/profile/Dashboard.vue";
+import Admin from "@/pages/admin/Settings.vue";
 import Login from "@/pages/Login.vue";
 import {createRouter, createWebHistory, Router, RouteRecordRaw} from "vue-router";
 import {useProfileStore} from "@/stores/profile.ts";
@@ -6,7 +7,7 @@ import {useProfileStore} from "@/stores/profile.ts";
 const routes: RouteRecordRaw[] = [
     { name: 'Profile', path: '/profile', component: Dashboard },
     { name: 'Login', path: '/login', component: Login },
-    { name: 'Admin', path: '/admin', component: Login },
+    { name: 'Admin', path: '/admin', component: Admin },
 ]
 
 const anonymousRouteList = [
@@ -20,15 +21,22 @@ export default (): Router =>
         routes: routes
     });
     
-    router.beforeEach(async (to, from) =>
+    router.beforeEach(async (to, _) =>
     {
         const profileStore = useProfileStore();
         if (! profileStore.hasIndexed)
         {
             await profileStore.update();
         }
+
+        const destination = to.name?.toString();
+        if (destination == undefined)
+        {
+            console.error(`Unnamed route: ${to}`);
+            throw new Error();
+        }
         
-        if (! anonymousRouteList.includes(to.name) && !profileStore.isLoggedIn)
+        if (! anonymousRouteList.includes(destination) && !profileStore.isLoggedIn)
         {
             console.warn('Redirecting to login page');
             return '/login';

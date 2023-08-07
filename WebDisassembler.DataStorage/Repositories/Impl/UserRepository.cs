@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebDisassembler.Core.Common.Models;
 using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Utility;
 
@@ -25,5 +26,20 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
                     t.ExpiresBy >= expirationDate
                 )
             );
+    }
+
+    public async ValueTask<User> GetUserForCurrentUser(Guid userId, bool tracked)
+    {
+        return await QueryRequired(q => q
+            .Include(u => u.Tenants)
+            .FirstOrDefaultAsync(u => u.Id == userId),
+            userId, tracked
+        );
+    }
+
+    public async ValueTask<PagedResponse<User>> GetAllForIndex(PagedRequest request)
+    {
+        return await Query()
+            .ToPaged(request);
     }
 }

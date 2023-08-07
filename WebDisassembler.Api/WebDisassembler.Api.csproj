@@ -45,6 +45,7 @@
       <Folder Include="ClientApp\source\pages\admin\" />
       <Folder Include="ClientApp\source\pages\tenant\" />
       <Folder Include="ClientApp\source\ui\form\" />
+      <Folder Include="Controllers/Identity/" />
     </ItemGroup>
 
 </Project>

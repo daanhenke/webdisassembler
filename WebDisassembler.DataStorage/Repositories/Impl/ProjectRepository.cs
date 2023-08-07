@@ -13,6 +13,8 @@ public class ProjectRepository : RepositoryBase<User>, IProjectRepository
 
     public async ValueTask<PagedResponse<User>> GetProjects(Guid userId, PagedRequest request)
     {
-        return await Query().ToPaged(request);
+        return await Query()
+            .Where(p => p.FileReferences.Any())
+            .ToPaged(request);
     }
 }

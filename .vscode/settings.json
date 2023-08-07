@@ -1,0 +1,15 @@
+{
+    "dotnet.defaultSolution": "WebDisassembler.sln",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Local",
+            "database": "WebDisassembler",
+            "username": "devel",
+            "password": "password"
+        }
+    ]
+}

@@ -20,6 +20,7 @@ public static class HostingExtensions
 
         services.AddScoped<IFileReferenceRepository, FileReferenceRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITenantRepository, TenantRepository>();
         
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IBinaryRepository, BinaryRepository>();

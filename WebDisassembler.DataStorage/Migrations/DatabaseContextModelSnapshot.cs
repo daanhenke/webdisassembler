@@ -59,6 +59,10 @@ namespace WebDisassembler.DataStorage.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TenantId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("FileReferences");
                 });
 
@@ -98,6 +102,10 @@ namespace WebDisassembler.DataStorage.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Permissions")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id", "TenantId");
 
                     b.ToTable("Role");
@@ -108,7 +116,8 @@ namespace WebDisassembler.DataStorage.Migrations
                             Id = new Guid("6ad2c1f1-c06b-43c8-986b-cbaab6970c56"),
                             TenantId = new Guid("5a8a414f-e050-459f-aa4d-3bc41037ce4f"),
                             IsAdministrator = true,
-                            Name = "Admin Role"
+                            Name = "Admin Role",
+                            Permissions = "[]"
                         });
                 });
 
@@ -121,6 +130,9 @@ namespace WebDisassembler.DataStorage.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("Public")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Subdomain")
                         .IsRequired()
@@ -138,6 +150,7 @@ namespace WebDisassembler.DataStorage.Migrations
                         {
                             Id = new Guid("5a8a414f-e050-459f-aa4d-3bc41037ce4f"),
                             Name = "Admin Tenant",
+                            Public = false,
                             Subdomain = "admin",
                             UserId = new Guid("a1bbbc3f-8358-4a7f-b214-9b155b6e97c4")
                         });
@@ -155,6 +168,8 @@ namespace WebDisassembler.DataStorage.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("UserId", "TenantId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("TenantUser");
 
@@ -199,6 +214,25 @@ namespace WebDisassembler.DataStorage.Migrations
                         });
                 });
 
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.FileReference", b =>
+                {
+                    b.HasOne("WebDisassembler.DataStorage.Models.Identity.Tenant", "Tenant")
+                        .WithMany("FileReferences")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebDisassembler.DataStorage.Models.Identity.User", "User")
+                        .WithMany("FileReferences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.AuthenticationToken", b =>
                 {
                     b.HasOne("WebDisassembler.DataStorage.Models.Identity.User", "User")
@@ -210,9 +244,39 @@ namespace WebDisassembler.DataStorage.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.TenantUser", b =>
+                {
+                    b.HasOne("WebDisassembler.DataStorage.Models.Identity.Tenant", "Tenant")
+                        .WithMany("TenantUsers")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebDisassembler.DataStorage.Models.Identity.User", "User")
+                        .WithMany("TenantUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.Tenant", b =>
+                {
+                    b.Navigation("FileReferences");
+
+                    b.Navigation("TenantUsers");
+                });
+
             modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.User", b =>
                 {
                     b.Navigation("AuthenticationTokens");
+
+                    b.Navigation("FileReferences");
+
+                    b.Navigation("TenantUsers");
                 });
 #pragma warning restore 612, 618
         }

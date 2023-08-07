@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-WebDisassembler.Search.Service-59085e5d-32ad-4718-9288-d65b4b6d5236</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WebDisassembler.ServiceProtocol\WebDisassembler.ServiceProtocol.csproj" />
+      <ProjectReference Include="..\WebDisassembler.Search.Data\WebDisassembler.Search.Data.csproj" />
+      <ProjectReference Include="..\WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj" />
+    </ItemGroup>
+
+</Project>

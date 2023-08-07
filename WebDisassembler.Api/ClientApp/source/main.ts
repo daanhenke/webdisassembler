@@ -2,9 +2,7 @@ import { createApp } from 'vue';
 import {createPinia} from "pinia";
 import App from '@/App.vue';
 
-import { createRouter, createWebHistory } from 'vue-router';
 import createRouter from '@/router.ts';
-
 
 import 'virtual:windi.css';
 import '@/style/vars.css';

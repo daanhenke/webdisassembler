@@ -13,6 +13,8 @@
       <ProjectReference Include="..\WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj" />
       <ProjectReference Include="..\WebDisassembler.FileStorage\WebDisassembler.FileStorage.csproj" />
       <ProjectReference Include="..\WebDisassembler.ServiceProtocol\WebDisassembler.ServiceProtocol.csproj" />
+      <ProjectReference Include="..\WebDisassembler.Search.Data\WebDisassembler.Search.Data.csproj" />
+      <ProjectReference Include="..\WebDisassembler.Search.Client\WebDisassembler.Search.Client.csproj" />
     </ItemGroup>
 
     <ItemGroup>

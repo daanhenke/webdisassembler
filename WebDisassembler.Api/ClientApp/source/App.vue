@@ -1,31 +1,5 @@
 <script setup lang="ts">
   import TopBar from "@/ui/TopBar.vue";
-  import {useProfileStore} from "@/stores/profile.ts";
-
-  const sidebarItems = [
-    {
-      title: "Binaries",
-      isOpenByDefault: true,
-      items: [
-        {
-          title: "test.exe",
-          items: [
-            {
-              title: "Symbols",
-              items: [
-                { title: "F_4240240" },
-                { title: "F_4240240" },
-                { title: "entry" }
-              ]
-            }
-          ]
-        },
-        {
-          title: "Upload new binary"
-        }
-      ]
-    }
-  ]
 </script>
 
 <template>

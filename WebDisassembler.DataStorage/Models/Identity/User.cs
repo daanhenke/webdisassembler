@@ -13,7 +13,10 @@ public class User : IIdentifiableEntity
     public required string Email { get; set; }
     public required string PasswordHash { get; set; }
 
-    [ForeignKey(nameof(AuthenticationToken.UserId))]
     public ICollection<AuthenticationToken> AuthenticationTokens { get; set; }
+    public ICollection<FileReference> FileReferences { get; set; }
+    public ICollection<Tenant> Tenants { get; set; }
+    public ICollection<TenantUser> TenantUsers { get; set; }
+
 
 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebDisassembler.Core.Common.Models;
+using WebDisassembler.DataStorage.Exceptions;
 
 namespace WebDisassembler.DataStorage.Utility;
 
@@ -39,11 +40,6 @@ public abstract class RepositoryBase<TModel> : IRepository<TModel> where TModel 
         _database.Attach(model);
     }
 
-    protected IQueryable<TModel> Query(bool tracked = false)
-    {
-        return tracked ? _table.AsTracking() : _table.AsNoTracking();
-    }
-
     public async ValueTask<TModel?> Get(Guid id, bool tracked)
     {
         return await Query(tracked)
@@ -57,16 +53,33 @@ public abstract class RepositoryBase<TModel> : IRepository<TModel> where TModel 
 
         if (result == null)
         {
-            throw new NotImplementedException();
+            throw new NotFoundException(id);
         }
 
         return result;
     }
 
-    public async ValueTask<IReadOnlyCollection<TModel>> GetMany(IReadOnlyCollection<Guid> ids, bool tracked)
+    public async ValueTask<IReadOnlyCollection<TModel>> GetMany(ISet<Guid> ids, bool tracked)
     {
         return await Query(tracked)
             .Where(model => ids.Contains(model.Id))
             .ToListAsync();
+    }
+
+    protected IQueryable<TModel> Query(bool tracked = false)
+    {
+        return tracked ? _table.AsTracking() : _table.AsNoTracking();
+    }
+
+    protected async ValueTask<TModel> QueryRequired(Func<IQueryable<TModel>, Task<TModel?>> queryCallback, Guid id, bool tracked)
+    {
+        var model = await queryCallback(Query(tracked));
+
+        if (model == null)
+        {
+            throw new NotFoundException(id);
+        }
+
+        return model;
     }
 }

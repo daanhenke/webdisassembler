@@ -12,4 +12,12 @@ public class Tenant : IIdentifiableEntity, IOwnedEntity
     public Guid UserId { get; set; }
     public required string Name { get; set; }
     public required string Subdomain { get; set; }
+    public required bool Public { get; set; }
+
+    public ICollection<FileReference> FileReferences { get; set; }
+
+    public ICollection<User> Users { get; set; }
+    public ICollection<TenantUser> TenantUsers { get; set; }
+
+    public ICollection<Role> Roles { get; set; }
 }
