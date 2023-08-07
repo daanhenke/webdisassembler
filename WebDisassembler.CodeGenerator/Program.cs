@@ -4,7 +4,7 @@ using WebDisassembler.CodeGenerator.Utility;
 var generators = new List<IGenerator>()
 {
     new ServiceClientGenerator(),
-    new ApiClientGenerator()
+    //new ApiClientGenerator()
 };
 
 foreach (var generator in generators)

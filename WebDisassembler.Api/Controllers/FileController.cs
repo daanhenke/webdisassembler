@@ -4,21 +4,21 @@ using WebDisassembler.Core.Identity;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController, Route("files")]
+[ApiController, Route("api/files")]
 public class FileController : ControllerBase
 {
     private readonly FileService _fileService;
-    private readonly IdentityDetails _identityDetails;
+    private readonly IUserIdentity _userIdentity;
 
-    public FileController(FileService fileService, IdentityDetails identityDetails)
+    public FileController(FileService fileService, IUserIdentity userIdentity)
     {
         _fileService = fileService;
-        _identityDetails = identityDetails;
+        _userIdentity = userIdentity;
     }
 
     [HttpPost("temporary/upload")]
     public async ValueTask<Guid> UploadTemporaryFile(IFormFile file)
     {
-        return await _fileService.UploadTemporaryFile(_identityDetails.UserId!.Value, file.OpenReadStream(), file.FileName);
+        return await _fileService.UploadTemporaryFile(_userIdentity.UserId, file.OpenReadStream(), file.FileName);
     }
 }

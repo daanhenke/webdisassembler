@@ -10,9 +10,10 @@ public static class HostingExtensions
     public static void AddCoreServices(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
+        services.AddScoped<FileService>();
+
+        services.AddScoped<AuthenticationService>();
         services.AddScoped<ProjectService>();
         services.AddScoped<BinaryService>();
-        services.AddScoped<FileService>();
-        services.AddScoped<IdentityDetails>();
     }
 }

@@ -1,6 +1,5 @@
 {% for dep in dependencies %}import { {{ dep.value }} } from '{{ dep.key }}';
 {% endfor %}
-
 export default class {{ client.name }}Client
 { {% for method in client.methods %}
     // Generated method

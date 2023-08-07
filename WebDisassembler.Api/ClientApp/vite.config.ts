@@ -2,6 +2,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import vue from '@vitejs/plugin-vue';
+import WindiCSS from 'vite-plugin-windicss';
 
 export default defineConfig({
     server: {
@@ -23,6 +24,7 @@ export default defineConfig({
         createHtmlPlugin({
             entry: 'source/main.ts'
         }),
-        vue()
+        vue(),
+        WindiCSS()
     ]
 });

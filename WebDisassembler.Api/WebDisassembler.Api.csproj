@@ -24,6 +24,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0-preview.6.23329.7" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -40,9 +41,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientApp/source/api/" />
       <Folder Include="ClientApp/source/api/http/" />
-      <Folder Include="ClientApp/source/api/models/" />
+      <Folder Include="ClientApp\source\pages\admin\" />
+      <Folder Include="ClientApp\source\pages\tenant\" />
+      <Folder Include="ClientApp\source\ui\form\" />
     </ItemGroup>
 
 </Project>

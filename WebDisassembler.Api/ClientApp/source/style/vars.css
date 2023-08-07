@@ -1,0 +1,13 @@
+﻿:root {
+    --bg-normal: #334;
+    --bg-darker: #223;
+    --bg-darkest: #112;
+    
+    --fg-normal: #eed;
+}
+
+body { 
+    @apply h-screen;
+    background: var(--bg-darkest);
+    color: var(--fg-normal);
+}

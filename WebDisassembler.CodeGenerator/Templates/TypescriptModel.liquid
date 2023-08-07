@@ -1,11 +1,8 @@
 {% for dep in dependencies %}import { {{ dep.value }} } from '{{ dep.key }}';
-{% endfor %}
-
-{% for model in models %}
+{% endfor %}{% for model in models %}
 
 // {{ model.csharp_name }}
-export interface {{ model.name }}
+export interface {{ model.generic_name }}
 {
-{% for prop in model.properties %}    {{ prop.name }}: {{ prop.type }}
-{% endfor %}}
-{% endfor %}
+{% for prop in model.properties %}    {{ prop.name }}: {{ prop.type }}{% if prop.is_array %}[]{% endif %}
+{% endfor %}}{% endfor %}

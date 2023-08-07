@@ -10,26 +10,26 @@ namespace WebDisassembler.Api.Controllers;
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;
-    private readonly IdentityDetails _identity;
+    private readonly IUserIdentity _userIdentity;
     private readonly ProjectService _projectService;
 
-    public ProjectController(ILogger<ProjectController> logger, ProjectService projectService, IdentityDetails identity)
+    public ProjectController(ILogger<ProjectController> logger, ProjectService projectService, IUserIdentity userIdentity)
     {
         _logger = logger;
         _projectService = projectService;
-        _identity = identity;
+        _userIdentity = userIdentity;
     }
 
     [HttpPost("list")]
     public async ValueTask<PagedResponse<ProjectSummary>> List(PagedRequest request)
     {
-        return await _projectService.GetProjects(_identity.UserId!.Value, request);
+        return await _projectService.GetProjects(_userIdentity.UserId, request);
     }
 
     [HttpPost("create")]
     public async ValueTask<Guid> Create(CreateProject createProject)
     {
-        var id = await _projectService.Create(_identity.UserId!.Value, createProject);
+        var id = await _projectService.Create(_userIdentity.UserId, createProject);
         return id;
     }
 

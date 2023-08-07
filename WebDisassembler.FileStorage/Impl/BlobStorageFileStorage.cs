@@ -27,7 +27,7 @@ public class BlobStorageFileStorage : IFileStorage
         {
             IsTemporary = true,
             FileName = fileName,
-            OwnerId = userId,
+            UserId = userId,
             Path = ""
         };
 
@@ -106,7 +106,7 @@ public class BlobStorageFileStorage : IFileStorage
 
     private string GenerateTemporaryPath(FileReference reference)
     {
-        return $"{reference.OwnerId}/{reference.Id}-{reference.FileName}";
+        return $"{reference.UserId}/{reference.Id}-{reference.FileName}";
     }
 
     private string GeneratePersistentPath(FileReference reference, string directoryPath)

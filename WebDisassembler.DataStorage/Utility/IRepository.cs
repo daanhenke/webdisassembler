@@ -10,5 +10,6 @@ public interface IRepository<TModel>
     ValueTask<TModel> GetRequired(Guid id, bool tracked);
     ValueTask<IReadOnlyCollection<TModel>> GetMany(IReadOnlyCollection<Guid> ids, bool tracked);
 
+    void Track<T>(T model);
     Task Commit();
 }

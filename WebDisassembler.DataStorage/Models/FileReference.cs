@@ -1,12 +1,15 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using WebDisassembler.DataStorage.Utility;
 
 namespace WebDisassembler.DataStorage.Models;
 
-public class FileReference : IIdentifiableEntity, IOwnedEntity, IAuditableEntity
+[PrimaryKey(nameof(Id))]
+public class FileReference : IIdentifiableEntity, ITenantEntity, IOwnedEntity, IAuditableEntity
 {
-    [Key] public Guid Id { get; set; }
-    public Guid OwnerId { get; set; }
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public Guid UserId { get; set; }
 
     public required bool IsTemporary { get; set; }
     public required string Path { get; set; }

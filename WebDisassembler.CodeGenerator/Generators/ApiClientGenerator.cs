@@ -34,10 +34,13 @@ public class ApiClientGenerator : GeneratorBase<ApiClientGenerator>
 
         foreach (var client in _clients)
         {
-            var models = client.Methods.SelectMany(m => m.Parameters.Select(p => p.Type)).ToList();
-            models.AddRange(client.Methods.Select(m => m.ReturnType));
-            var dependencies = ResolveImports(models);
+            var modelNames = client.Methods.SelectMany(m => m.Parameters.Select(p => p.Type)).ToList();
+            modelNames.AddRange(client.Methods.Select(m => m.ReturnType));
 
+            var models = modelNames.Where(name => _models.ContainsKey(name)).Select(name => _models[name]).ToList();
+            modelNames.AddRange(models.SelectMany(model => model.Generics));
+            
+            var dependencies = ResolveImports(modelNames);
             await TemplateMethods.RenderTemplateToFile("TypescriptHttpClient", Path.Combine(httpClientsDir, $"{ToCamelCase(client.Name)}.ts"), new Dictionary<string, object>()
             {
                 ["client"] = client,
@@ -108,7 +111,8 @@ public class ApiClientGenerator : GeneratorBase<ApiClientGenerator>
                     parameters.Add(new()
                     {
                         Name = ToCamelCase(methodParameters.First(p => p.ParameterType == model).Name),
-                        Type = name
+                        Type = name,
+                        IsArray = model.IsArray
                     });
                 }
             }
@@ -168,11 +172,12 @@ public class ApiClientGenerator : GeneratorBase<ApiClientGenerator>
             modelType = modelType.GetElementType()!;
         }
 
-        if (modelType.IsGenericType &&_arrayTypes.Contains(modelType.GetGenericTypeDefinition()))
+        if (modelType.IsGenericType && _arrayTypes.Contains(modelType.GetGenericTypeDefinition()))
         {
             modelType = modelType.GenericTypeArguments[0];
         }
 
+        var realType = modelType;
         if (modelType.IsGenericType)
         {
             modelType = modelType.GetGenericTypeDefinition();
@@ -184,15 +189,33 @@ public class ApiClientGenerator : GeneratorBase<ApiClientGenerator>
             return _typeMap[modelType.FullName!];
         }
 
+        var generics = new List<string>();
+        var genericNames = new List<string>();
         var tsName = modelType.Name;
+        var fullName = tsName;
         if (modelType.IsGenericType)
         {
+            var genericTasks = realType
+                .GenericTypeArguments
+                .Select(type => AnalyzeModel(type).AsTask())
+                .ToList();
+            var genericNameTasks = modelType
+                .GetGenericTypeDefinition()
+                .GetGenericArguments()
+                .Select(type => AnalyzeModel(type).AsTask())
+                .ToList();
+            await Task.WhenAll(genericTasks);
+            await Task.WhenAll(genericNameTasks);
+            generics = genericTasks.Select(task => task.Result).ToList();
+            genericNames = genericNameTasks.Select(task => task.Result).ToList();
+            
             tsName = tsName.Split('`').First();
+            fullName = $"{tsName}<{string.Join(", ", generics)}>";
         }
 
-        if (_models.ContainsKey(tsName))
+        if (_models.ContainsKey(fullName))
         {
-            return tsName;
+            return fullName;
         }
 
         var tsNamespace = ToCamelCase(modelType.Assembly
@@ -205,21 +228,33 @@ public class ApiClientGenerator : GeneratorBase<ApiClientGenerator>
         var model = new ApiModel()
         {
             Name = tsName,
+            FullName = fullName,
             Namespace = tsNamespace,
-            CsharpName = modelType.FullName!
+            CsharpName = modelType.FullName!,
+            Generics = generics,
+            GenericNames = genericNames
         };
-
+        
         foreach (var prop in modelType.GetProperties())
         {
-            var tsType = await AnalyzeModel(prop.PropertyType);
+            var tsType = prop.PropertyType.Name;
+            if (! model.GenericNames.Contains(tsName.Split('[').First()))
+            {
+                tsType = await AnalyzeModel(prop.PropertyType);
+            }
+
+            var genericProp = prop.PropertyType.IsGenericType
+                ? prop.PropertyType.GetGenericTypeDefinition()
+                : prop.PropertyType;
             model.Properties.Add(new()
             {
                 Type = tsType,
-                Name = ToCamelCase(prop.Name)
+                Name = ToCamelCase(prop.Name),
+                IsArray = prop.PropertyType.IsArray || prop.PropertyType.HasElementType || _arrayTypes.Contains(genericProp)
             });
         }
 
-        _models.Add(tsName, model);
-        return tsName;
+        _models.Add(fullName, model);
+        return fullName;
     }
 }

@@ -4,15 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "generate-http-api": "swagger-typescript-api -p http://localhost:3000/swagger/v1/swagger.json -o ./source/api/http --modular --module-name-index 1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
+    "pinia": "^2.1.6",
+    "swagger-typescript-api": "^13.0.2",
     "typescript": "^5.1.6",
     "vite": "^4.4.8",
     "vite-plugin-generate-html": "^0.1.7",
+    "vite-plugin-windicss": "^1.9.0",
     "vue": "^3.3.4",
-    "vue-tsc": "^1.8.8"
+    "vue-router": "^4.2.4",
+    "vue-tsc": "^1.8.8",
+    "windicss": "^3.5.6"
   },
   "dependencies": {
     "vite-plugin-html": "^3.2.0"

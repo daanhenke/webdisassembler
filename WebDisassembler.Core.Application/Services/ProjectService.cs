@@ -19,16 +19,17 @@ public class ProjectService
 
     public async ValueTask<Guid> Create(Guid userId, CreateProject createProject)
     {
-        var project = new Project
-        {
-            Name = createProject.Name,
-            OwnerId = userId
-        };
-
-        _projectRepository.Add(project);
-        await _projectRepository.Commit();
-
-        return project.Id;
+        throw new NotImplementedException();
+        // var project = new Project
+        // {
+        //     Name = createProject.Name,
+        //     OwnerId = userId
+        // };
+        //
+        // _projectRepository.Add(project);
+        // await _projectRepository.Commit();
+        //
+        // return project.Id;
     }
 
     public async ValueTask Delete(Guid projectId)
@@ -41,7 +42,8 @@ public class ProjectService
 
     public async ValueTask<PagedResponse<ProjectSummary>> GetProjects(Guid userId, PagedRequest request)
     {
-        var projects = await _projectRepository.GetProjects(userId, request);
-        return _mapper.Map<PagedResponse<Project>, PagedResponse<ProjectSummary>>(projects);
+        throw new NotImplementedException();
+        // var projects = await _projectRepository.GetProjects(userId, request);
+        // return _mapper.Map<PagedResponse<Project>, PagedResponse<ProjectSummary>>(projects);
     }
 }

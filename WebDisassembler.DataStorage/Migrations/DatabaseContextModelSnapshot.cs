@@ -22,43 +22,6 @@ namespace WebDisassembler.DataStorage.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Binary", b =>
-                {
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("CreatedAt")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("ProjectId", "Id");
-
-                    b.ToTable("Binaries");
-                });
-
             modelBuilder.Entity("WebDisassembler.DataStorage.Models.FileReference", b =>
                 {
                     b.Property<Guid>("Id")
@@ -78,17 +41,20 @@ namespace WebDisassembler.DataStorage.Migrations
                     b.Property<bool>("IsTemporary")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -96,84 +62,157 @@ namespace WebDisassembler.DataStorage.Migrations
                     b.ToTable("FileReferences");
                 });
 
-            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Project", b =>
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.AuthenticationToken", b =>
+                {
+                    b.Property<string>("Token")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("ExpiresBy")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Token", "UserId");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AuthenticationToken");
+                });
+
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsAdministrator")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id", "TenantId");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("6ad2c1f1-c06b-43c8-986b-cbaab6970c56"),
+                            TenantId = new Guid("5a8a414f-e050-459f-aa4d-3bc41037ce4f"),
+                            IsAdministrator = true,
+                            Name = "Admin Role"
+                        });
+                });
+
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("CreatedAt")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Subdomain")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("UpdatedBy")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Tenants");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5a8a414f-e050-459f-aa4d-3bc41037ce4f"),
+                            Name = "Admin Tenant",
+                            Subdomain = "admin",
+                            UserId = new Guid("a1bbbc3f-8358-4a7f-b214-9b155b6e97c4")
+                        });
                 });
 
-            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Section", b =>
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.TenantUser", b =>
                 {
-                    b.Property<Guid>("OwnerId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ProjectId")
+                    b.Property<Guid>("TenantId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BinaryId")
+                    b.Property<Guid>("RoleId")
                         .HasColumnType("uuid");
 
+                    b.HasKey("UserId", "TenantId");
+
+                    b.ToTable("TenantUser");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("a1bbbc3f-8358-4a7f-b214-9b155b6e97c4"),
+                            TenantId = new Guid("5a8a414f-e050-459f-aa4d-3bc41037ce4f"),
+                            RoleId = new Guid("6ad2c1f1-c06b-43c8-986b-cbaab6970c56")
+                        });
+                });
+
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.User", b =>
+                {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CreatedAt")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasKey("OwnerId", "ProjectId", "BinaryId", "Id");
+                    b.HasKey("Id");
 
-                    b.ToTable("Sections");
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a1bbbc3f-8358-4a7f-b214-9b155b6e97c4"),
+                            Email = "admin@webdisassembler.io",
+                            PasswordHash = "123",
+                            Username = "admin"
+                        });
                 });
 
-            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Binary", b =>
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.AuthenticationToken", b =>
                 {
-                    b.HasOne("WebDisassembler.DataStorage.Models.Project", null)
-                        .WithMany("Binaries")
-                        .HasForeignKey("ProjectId")
+                    b.HasOne("WebDisassembler.DataStorage.Models.Identity.User", "User")
+                        .WithMany("AuthenticationTokens")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Project", b =>
+            modelBuilder.Entity("WebDisassembler.DataStorage.Models.Identity.User", b =>
                 {
-                    b.Navigation("Binaries");
+                    b.Navigation("AuthenticationTokens");
                 });
 #pragma warning restore 612, 618
         }

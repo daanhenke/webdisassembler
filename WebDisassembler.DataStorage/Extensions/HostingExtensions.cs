@@ -19,6 +19,8 @@ public static class HostingExtensions
         services.AddDbContext<DatabaseContext>();
 
         services.AddScoped<IFileReferenceRepository, FileReferenceRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IBinaryRepository, BinaryRepository>();
     }

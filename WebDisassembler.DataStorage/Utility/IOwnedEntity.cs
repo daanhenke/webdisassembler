@@ -2,7 +2,7 @@ namespace WebDisassembler.DataStorage.Utility;
 
 public interface IOwnedEntity
 {
-    public Guid OwnerId { get; set; }
+    public Guid UserId { get; set; }
 }
 
 public interface IAuditableEntity

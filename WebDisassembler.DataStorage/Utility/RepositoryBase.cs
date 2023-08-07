@@ -34,6 +34,11 @@ public abstract class RepositoryBase<TModel> : IRepository<TModel> where TModel 
         await _database.SaveChangesAsync();
     }
 
+    public void Track<T>(T model)
+    {
+        _database.Attach(model);
+    }
+
     protected IQueryable<TModel> Query(bool tracked = false)
     {
         return tracked ? _table.AsTracking() : _table.AsNoTracking();
