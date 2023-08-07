@@ -1,4 +1,4 @@
-﻿namespace WebDisassembler.ServiceProtocol.Options;
+﻿namespace WebDisassembler.Core.ServiceProtocol.Options;
 
 public class ServiceProtocolOptions
 {

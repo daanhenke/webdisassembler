@@ -1,10 +1,10 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebDisassembler.ServiceProtocol.Options;
-using WebDisassembler.ServiceProtocol.Utility;
+using WebDisassembler.Core.ServiceProtocol.Options;
+using WebDisassembler.Core.ServiceProtocol.Utility;
 
-namespace WebDisassembler.ServiceProtocol.Extensions;
+namespace WebDisassembler.Core.ServiceProtocol.Extensions;
 
 public static class HostingExtensions
 {

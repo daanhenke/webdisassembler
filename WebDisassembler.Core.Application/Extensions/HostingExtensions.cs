@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using WebDisassembler.Core.Application.Mapping;
 using WebDisassembler.Core.Application.Services;
 using WebDisassembler.Core.Application.Services.Admin;
-using WebDisassembler.Core.Mapping;
 
-namespace WebDisassembler.Core.Extensions;
+namespace WebDisassembler.Core.Application.Extensions;
 
 public static class HostingExtensions
 {

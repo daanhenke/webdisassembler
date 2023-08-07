@@ -12,5 +12,6 @@ public static class HostingExtensions
         services.AddScoped<ElasticSearchClient>();
         services.AddScoped<ITenantIndex, TenantIndex>();
         services.AddScoped<IUserIndex, UserIndex>();
+        services.AddScoped<IProjectIndex, ProjectIndex>();
     }
 }

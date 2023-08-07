@@ -1,14 +1,16 @@
 using AutoMapper;
 using WebDisassembler.Core.Application.Models;
+using WebDisassembler.Core.Application.Models.Admin;
+using WebDisassembler.Core.Application.Models.Authentication;
+using WebDisassembler.Core.Application.Models.Binaries;
+using WebDisassembler.Core.Application.Models.Identity;
+using WebDisassembler.Core.Application.Models.Projects;
 using WebDisassembler.Core.Common.Models;
-using WebDisassembler.Core.Models.Authentication;
-using WebDisassembler.Core.Models.Identity;
-using WebDisassembler.Core.Models.Projects;
 using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Models.Projects;
 using WebDisassemlber.Search.Data.Models;
 
-namespace WebDisassembler.Core.Mapping;
+namespace WebDisassembler.Core.Application.Mapping;
 
 public class MappingProfile : Profile
 {
@@ -27,5 +29,8 @@ public class MappingProfile : Profile
         CreateMap<IndexedTenant, TenantSummary>();
         
         CreateMap<CreateProject, Project>();
+        
+        CreateMap<CreateBinary, Binary>()
+            .ForMember(b => b.Metadata, m => m.MapFrom(_ => new Dictionary<string, string>()));
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using WebDisassembler.Core.Application.Models;
+using WebDisassembler.Core.Application.Models.Binaries;
 using WebDisassembler.Core.Application.Services;
 using WebDisassembler.Core.Identity;
 

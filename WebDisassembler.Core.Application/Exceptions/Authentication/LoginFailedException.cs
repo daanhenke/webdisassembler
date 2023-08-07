@@ -1,4 +1,4 @@
-﻿namespace WebDisassembler.Core.Exceptions.Authentication;
+﻿namespace WebDisassembler.Core.Application.Exceptions.Authentication;
 
 public class LoginFailedException : Exception
 {

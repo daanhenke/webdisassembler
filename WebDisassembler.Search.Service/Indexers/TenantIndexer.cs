@@ -1,5 +1,6 @@
 using AutoMapper;
 using WebDisassembler.Core.Common.Models;
+using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Repositories;
 using WebDisassembler.Search.Service.Utility;
 using WebDisassemlber.Search.Data.Models;
@@ -7,7 +8,7 @@ using WebDisassemlber.Search.Data.Utility;
 
 namespace WebDisassembler.Search.Service.Indexers;
 
-public class TenantIndexer : IndexerBase<IndexedTenant>
+public class TenantIndexer : IndexerBase<Tenant, IndexedTenant>
 {
     private readonly ITenantRepository _tenantRepository;
 
@@ -16,13 +17,13 @@ public class TenantIndexer : IndexerBase<IndexedTenant>
         _tenantRepository = tenantRepository;
     }
 
-    protected override async ValueTask<PagedResponse<IndexedTenant>> FetchAllFromDatabase(PagedRequest request)
+    protected override async ValueTask<PagedResponse<Tenant>> FetchAllFromDatabase(PagedRequest request)
     {
-        return _mapper.Map<PagedResponse<IndexedTenant>>(await _tenantRepository.GetAllForIndex(request));
+        return await _tenantRepository.GetAllForIndex(request);
     }
 
-    protected override async ValueTask<IReadOnlyCollection<IndexedTenant>> FetchFromDatabase(ISet<Guid> ids)
+    protected override async ValueTask<IReadOnlyCollection<Tenant>> FetchFromDatabase(ISet<Guid> ids)
     {
-        return _mapper.Map<List<IndexedTenant>>(await _tenantRepository.GetMany(ids, false));
+        return await _tenantRepository.GetMany(ids, false);
     }
 }

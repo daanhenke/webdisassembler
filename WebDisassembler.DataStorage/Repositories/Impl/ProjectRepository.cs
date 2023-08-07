@@ -22,8 +22,18 @@ public class ProjectRepository : RepositoryBase<Project>, IProjectRepository
     public async ValueTask<Project> GetWithBinaries(Guid projectId, bool tracked)
     {
         return await QueryRequired(projectId, tracked, q => q
+            .Include(p => p.ProjectMembers)
             .Include(p => p.Binaries)
             .FirstOrDefaultAsync(p => p.Id == projectId)
         );
+    }
+
+    public async ValueTask<IReadOnlyCollection<Project>> GetForIndex(ISet<Guid> ids, bool tracked)
+    {
+        return await Query(tracked)
+            .Include(p => p.ProjectMembers)
+            .Include(p => p.Binaries)
+            .Where(p => ids.Contains(p.Id))
+            .ToListAsync();
     }
 }

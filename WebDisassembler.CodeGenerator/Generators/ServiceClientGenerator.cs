@@ -10,7 +10,7 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
 
     public override async ValueTask Generate()
     {
-        var projectPath = Path.Combine(GetSolutionPath(), "WebDisassembler.ServiceProtocol");
+        var projectPath = Path.Combine(GetSolutionPath(), "WebDisassembler.Core.ServiceProtocol");
         await AnalyzeContracts(projectPath);
 
         var clientsPath = Path.Combine(projectPath, "Clients");
@@ -49,8 +49,8 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
 
         result.Name = fileName;
         result.Usings.Add("MassTransit");
-        result.Usings.Add("WebDisassembler.ServiceProtocol.Contracts");
-        result.Usings.Add("WebDisassembler.ServiceProtocol.Utility");
+        result.Usings.Add("WebDisassembler.Core.ServiceProtocol.Contracts");
+        result.Usings.Add("WebDisassembler.Core.ServiceProtocol.Utility");
 
         foreach (var line in lines)
         {

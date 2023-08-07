@@ -1,6 +1,8 @@
-﻿namespace WebDisassemlber.Search.Data.Models;
+﻿using WebDisassembler.Search.Data.Utility;
 
-public class IndexedProject
+namespace WebDisassemlber.Search.Data.Models;
+
+public class IndexedProject : IIndexedEntity
 {
     public Guid Id { get; set; }
     public required string Name { get; set; }
@@ -8,6 +10,7 @@ public class IndexedProject
     public Guid UserId { get; set; }
     public List<IndexedProjectMember> ProjectMembers { get; set; }
     public List<string> BinaryNames { get; set; }
+    public Dictionary<string, object> FileTree { get; set; }
 }
 
 public class IndexedProjectMember

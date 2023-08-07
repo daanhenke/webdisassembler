@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 #
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Analyzer.Core", "WebDisassembler.Analyzer.Core\WebDisassembler.Analyzer.Core.csproj", "{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Analyzer.Tests", "WebDisassembler.Analyzer.Tests\WebDisassembler.Analyzer.Tests.csproj", "{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Architecture.Nes", "WebDisassembler.Architecture.Nes\WebDisassembler.Architecture.Nes.csproj", "{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D}"
 EndProject
@@ -15,11 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.FileStorage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.DataStorage", "WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj", "{26D95428-AE92-450D-832D-74A18ADE5DB1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3A0141C1-C0CE-4A09-8F93-A3D9C042D443}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{3A0141C1-C0CE-4A09-8F93-A3D9C042D443}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Api", "WebDisassembler.Api\WebDisassembler.Api.csproj", "{04D6D90D-8C3D-420A-9BB6-22874FB3F85A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.ServiceProtocol", "WebDisassembler.ServiceProtocol\WebDisassembler.ServiceProtocol.csproj", "{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Core.ServiceProtocol", "WebDisassembler.Core.ServiceProtocol\WebDisassembler.Core.ServiceProtocol.csproj", "{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Analyzer.Service", "WebDisassembler.Analyzer.Service\WebDisassembler.Analyzer.Service.csproj", "{60581886-9134-4389-B3FA-C1982C096B09}"
 EndProject
@@ -42,6 +42,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Search.Data", "WebDisassembler.Search.Data\WebDisassembler.Search.Data.csproj", "{5F6F36DE-23F4-4EF4-B32E-8DF8C8F46DFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{35FF19E3-3347-49CF-8733-98015CC2398B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Loader.PortableExecutable", "WebDisassembler.Loader.PortableExecutable\WebDisassembler.Loader.PortableExecutable.csproj", "{F32F8544-E5D7-4B16-BE61-A790A68CB917}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Analyzer.Core", "WebDisassembler.Analyzer.Core\WebDisassembler.Analyzer.Core.csproj", "{4E4D4650-F932-4627-B2DB-FB363E5D9317}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +109,14 @@ Global
 		{5F6F36DE-23F4-4EF4-B32E-8DF8C8F46DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F6F36DE-23F4-4EF4-B32E-8DF8C8F46DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F6F36DE-23F4-4EF4-B32E-8DF8C8F46DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F32F8544-E5D7-4B16-BE61-A790A68CB917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F32F8544-E5D7-4B16-BE61-A790A68CB917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F32F8544-E5D7-4B16-BE61-A790A68CB917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F32F8544-E5D7-4B16-BE61-A790A68CB917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E4D4650-F932-4627-B2DB-FB363E5D9317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E4D4650-F932-4627-B2DB-FB363E5D9317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E4D4650-F932-4627-B2DB-FB363E5D9317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E4D4650-F932-4627-B2DB-FB363E5D9317}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,5 +135,8 @@ Global
 		{5F6F36DE-23F4-4EF4-B32E-8DF8C8F46DFD} = {5ED586FA-7979-4A29-A267-ED841D93F751}
 		{1F72BD32-AED7-43C2-A640-BD658EBFCF41} = {5ED586FA-7979-4A29-A267-ED841D93F751}
 		{40037BEA-5128-4676-923A-79200285FDA0} = {35FF19E3-3347-49CF-8733-98015CC2398B}
+		{18D56D62-E3F1-4E39-9F56-8A1E4C178BFF} = {9FE6EFD4-5B94-4CCD-BE63-C8E88361A266}
+		{F32F8544-E5D7-4B16-BE61-A790A68CB917} = {52B29427-B812-4DA6-99B0-F9FD323A9573}
+		{4E4D4650-F932-4627-B2DB-FB363E5D9317} = {52B29427-B812-4DA6-99B0-F9FD323A9573}
 	EndGlobalSection
 EndGlobal

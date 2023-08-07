@@ -7,7 +7,7 @@ namespace WebDisassembler.CodeGenerator.Utility;
 public static class TemplateMethods
 {
     private readonly static Assembly _sourceGeneratorAssembly = Assembly.GetExecutingAssembly();
-    private readonly static string _templatesNamespace = "WebDisassembler.CodeGenerator.Templates";
+    private readonly static string _templatesNamespace = "WebDisassembler.Tools.CodeGenerator.Templates";
     
     public static async ValueTask<string> RenderTemplate(string templateName, Dictionary<string, object>? templateParameters)
     {

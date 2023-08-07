@@ -1,6 +1,8 @@
+using WebDisassembler.Search.Data.Utility;
+
 namespace WebDisassemlber.Search.Data.Models;
 
-public class IndexedUser
+public class IndexedUser : IIndexedEntity
 {
     public Guid Id { get; set; }
     public required string Email { get; set; }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using WebDisassembler.Core.Application.Models;
+using WebDisassembler.Core.Application.Models.Admin;
 using WebDisassembler.Core.Application.Services.Admin;
 using WebDisassembler.Core.Identity;
 

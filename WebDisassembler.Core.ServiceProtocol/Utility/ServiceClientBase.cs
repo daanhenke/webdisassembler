@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 
-namespace WebDisassembler.ServiceProtocol.Utility;
+namespace WebDisassembler.Core.ServiceProtocol.Utility;
 
 public abstract class ServiceClientBase
 {

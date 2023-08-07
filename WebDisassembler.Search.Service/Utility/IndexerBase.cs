@@ -1,10 +1,14 @@
 using AutoMapper;
+using Elastic.Clients.Elasticsearch.Mapping;
 using WebDisassembler.Core.Common.Models;
+using WebDisassembler.Search.Data.Utility;
 using WebDisassemlber.Search.Data.Utility;
 
 namespace WebDisassembler.Search.Service.Utility;
 
-public abstract class IndexerBase<TModel> where TModel : class
+public abstract class IndexerBase<TSourceModel, TIndexModel>
+    where TSourceModel : class
+    where TIndexModel : class, IIndexedEntity
 {
     private readonly ElasticSearchClient _client;
     protected readonly IMapper _mapper;
@@ -16,28 +20,28 @@ public abstract class IndexerBase<TModel> where TModel : class
     }
 
     public string IndexName
-        => _client.IndexName<TModel>();
+        => _client.IndexName<TIndexModel>();
 
     public async ValueTask IndexEntities(ISet<Guid> ids)
     {
-        if (! await _client.DoesIndexExist<TModel>())
+        if (! await _client.DoesIndexExist<TIndexModel>())
         {
-            await _client.CreateIndex<TModel>();
+            await _client.CreateIndex<TIndexModel>(SetIndexMappingInternal);
         }
 
         var models = await FetchFromDatabase(ids);
-        await _client.IndexModels(models);
+        await _client.IndexModels(models.Select(Map).ToHashSet());
     }
 
 
 
     public async ValueTask RecreateIndex()
     {
-        if (await _client.DoesIndexExist<TModel>())
+        if (await _client.DoesIndexExist<TIndexModel>())
         {
-            await _client.DeleteIndex<TModel>();
+            await _client.DeleteIndex<TIndexModel>();
         }
-        await _client.CreateIndex<TModel>();
+        await _client.CreateIndex<TIndexModel>(SetIndexMappingInternal);
 
         var request = new PagedRequest(0, 50);
         while (true)
@@ -49,11 +53,25 @@ public abstract class IndexerBase<TModel> where TModel : class
                 break;
             }
 
-            await _client.IndexModels(response.Items);
+            await _client.IndexModels(response.Items.Select(Map).ToHashSet());
             request = request with { Index = request.Index + 1 };
         }
     }
 
-    protected abstract ValueTask<IReadOnlyCollection<TModel>> FetchFromDatabase(ISet<Guid> ids);
-    protected abstract ValueTask<PagedResponse<TModel>> FetchAllFromDatabase(PagedRequest request);
+    protected virtual TIndexModel Map(TSourceModel model)
+        => _mapper.Map<TIndexModel>(model);
+
+    private void SetIndexMappingInternal(TypeMappingDescriptor<TIndexModel> descriptor)
+    {
+        descriptor.Properties(p =>
+        {
+            p.Keyword(m => m.Id, m => m.Index());
+            SetIndexMapping(p);
+        });
+    }
+    
+    protected virtual void SetIndexMapping(PropertiesDescriptor<TIndexModel> descriptor) {}
+
+    protected abstract ValueTask<IReadOnlyCollection<TSourceModel>> FetchFromDatabase(ISet<Guid> ids);
+    protected abstract ValueTask<PagedResponse<TSourceModel>> FetchAllFromDatabase(PagedRequest request);
 }

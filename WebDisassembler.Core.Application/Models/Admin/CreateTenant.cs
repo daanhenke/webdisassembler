@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebDisassembler.Core.Application.Models;
+namespace WebDisassembler.Core.Application.Models.Admin;
 
 public class CreateTenant
 {

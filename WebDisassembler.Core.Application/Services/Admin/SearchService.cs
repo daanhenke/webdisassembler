@@ -1,4 +1,4 @@
-using WebDisassembler.ServiceProtocol.Clients;
+using WebDisassembler.Core.ServiceProtocol.Clients;
 
 namespace WebDisassembler.Core.Application.Services.Admin;
 

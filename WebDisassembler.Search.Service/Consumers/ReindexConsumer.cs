@@ -1,13 +1,14 @@
 using MassTransit;
 using WebDisassembler.Search.Service.Indexers;
-using WebDisassembler.ServiceProtocol.Contracts;
+using WebDisassembler.Core.ServiceProtocol.Contracts;
 
 namespace WebDisassembler.Search.Service.Consumers;
 
 public class ReindexConsumer :
     IConsumer<IndexAllRecordsRequest>,
     IConsumer<IndexUsersRequest>,
-    IConsumer<IndexTenantsRequest>
+    IConsumer<IndexTenantsRequest>,
+    IConsumer<IndexProjectsRequest>
 {
     private readonly UserIndexer _userIndexer;
     private readonly TenantIndexer _tenantIndexer;
@@ -54,4 +55,9 @@ public class ReindexConsumer :
         await context.RespondAsync<IndexTenantsResponse>(new());
     }
 
+    public async Task Consume(ConsumeContext<IndexProjectsRequest> context)
+    {
+        await _projectIndexed.IndexEntities(context.Message.ProjectIds.ToHashSet());
+        await context.RespondAsync<IndexProjectsResponse>(new());
+    }
 }

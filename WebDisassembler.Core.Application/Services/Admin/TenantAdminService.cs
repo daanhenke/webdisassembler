@@ -1,8 +1,9 @@
 using AutoMapper;
 using WebDisassembler.Core.Application.Models;
+using WebDisassembler.Core.Application.Models.Admin;
 using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Repositories;
-using WebDisassembler.ServiceProtocol.Clients;
+using WebDisassembler.Core.ServiceProtocol.Clients;
 
 namespace WebDisassembler.Core.Application.Services.Admin;
 

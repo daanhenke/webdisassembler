@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using AutoMapper;
-using WebDisassembler.Core.Exceptions.Authentication;
-using WebDisassembler.Core.Models.Authentication;
+using WebDisassembler.Core.Application.Exceptions.Authentication;
+using WebDisassembler.Core.Application.Models.Authentication;
 using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Repositories;
 

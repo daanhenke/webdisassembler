@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using WebDisassembler.Core.Application.Models.Projects;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Core.Identity;
-using WebDisassembler.Core.Models.Projects;
 using WebDisassembler.Core.Application.Services;
 
 namespace WebDisassembler.Api.Controllers;
@@ -38,5 +38,11 @@ public class ProjectController : ControllerBase
     {
         await _projectService.Delete(projectId);
         return NoContent();
+    }
+
+    [HttpPost("{projectId:guid}/files")]
+    public async ValueTask<Dictionary<string, object>> FileTree(Guid projectId)
+    {
+        return await _projectService.GetProjectFileTree(projectId);
     }
 }

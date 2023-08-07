@@ -1,8 +1,8 @@
-namespace WebDisassembler.Core.Models.Identity;
+namespace WebDisassembler.Core.Application.Models.Identity;
 
 public class TenantSummary
 {
     public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Subdomain { get; set; }
+    public required string Name { get; set; }
+    public required string Subdomain { get; set; }
 }

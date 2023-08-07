@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using WebDisassembler.Api.Authentication;
-using WebDisassembler.Core.Extensions;
+using WebDisassembler.Core.Application.Extensions;
 using WebDisassembler.Core.Identity;
 using WebDisassembler.DataStorage.Extensions;
 using WebDisassembler.FileStorage.Extensions;
 using WebDisassembler.Search.Client.Extensions;
-using WebDisassembler.ServiceProtocol.Extensions;
+using WebDisassembler.Core.ServiceProtocol.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

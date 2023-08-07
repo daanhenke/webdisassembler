@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using WebDisassembler.ServiceProtocol.Extensions;
+using WebDisassembler.Core.ServiceProtocol.Extensions;
 using WebDisassembler.DataStorage.Extensions;
 using WebDisassemlber.Search.Data.Utility;
 using WebDisassembler.Search.Service.Indexers;

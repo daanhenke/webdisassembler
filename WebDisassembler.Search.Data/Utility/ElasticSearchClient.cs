@@ -1,5 +1,7 @@
 using Elastic.Clients.Elasticsearch;
+using Elastic.Clients.Elasticsearch.Mapping;
 using WebDisassembler.Core.Common.Models;
+using WebDisassembler.Search.Data.Utility;
 
 namespace WebDisassemlber.Search.Data.Utility;
 
@@ -9,12 +11,19 @@ public class ElasticSearchClient
 
     public ElasticSearchClient()
     {
-        _client = new(new Uri("http://localhost:9201"));
+
+        var settings = new ElasticsearchClientSettings(new Uri("http://localhost:9201"))
+            .DisableDirectStreaming();
+        
+        _client = new(settings);
     }
 
-    public async ValueTask CreateIndex<TModel>() where TModel : class
+    public async ValueTask CreateIndex<TModel>(Action<TypeMappingDescriptor<TModel>> mapCallback) where TModel : class
     {
-        var response = await _client.Indices.CreateAsync(IndexName<TModel>());
+        var response = await _client.Indices.CreateAsync<TModel>(d => d
+            .Index(IndexName<TModel>())
+            .Mappings(m => mapCallback(m))
+        );
 
         if (! response.IsSuccess())
         {
@@ -83,5 +92,16 @@ public class ElasticSearchClient
         }
 
         return response;
+    }
+
+    public async ValueTask<TModel> GetById<TModel>(Guid id) where TModel : class, IIndexedEntity
+    {
+        var response = await FindInternal<TModel>(q => q
+            .Query(q => q
+                .Term(m => m.Id, id)
+            )
+        );
+
+        return response.Documents.First();
     }
 }

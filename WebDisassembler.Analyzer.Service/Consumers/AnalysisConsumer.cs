@@ -1,13 +1,13 @@
 ﻿using MassTransit;
-using WebDisassembler.ServiceProtocol.Contracts;
+using WebDisassembler.Core.ServiceProtocol.Contracts;
 
 namespace WebDisassembler.Analyzer.Service.Consumers;
 
 public class AnalysisConsumer :
-    IConsumer<StartAnalyzeBinaryRequest>
+    IConsumer<StartBinaryAnalysisRequest>
 {
-    public async Task Consume(ConsumeContext<StartAnalyzeBinaryRequest> context)
+    public async Task Consume(ConsumeContext<StartBinaryAnalysisRequest> context)
     {
-        await context.RespondAsync(new StartAnalyzeBinaryResponse());
+        await context.RespondAsync(new StartBinaryAnalysisResponse());
     }
 }

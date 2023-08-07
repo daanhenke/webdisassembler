@@ -6,16 +6,17 @@ using WebDisassemlber.Search.Data.Models;
 
 namespace WebDisassembler.Search.Service.Mapping;
 
-class UserMapping : Profile
+class MappingProfile : Profile
 {
-    public UserMapping()
+    public MappingProfile()
     {
         CreateMap(typeof(PagedResponse<>), typeof(PagedResponse<>));
         CreateMap<User, IndexedUser>();
         CreateMap<Tenant, IndexedTenant>();
         
         CreateMap<Project, IndexedProject>()
-            .ForMember(p => p.BinaryNames, m => m.MapFrom(p => p.Binaries.Select(b => b.Filename)));
+            .ForMember(p => p.BinaryNames, m => m.MapFrom(p => p.Binaries.Select(b => b.ProjectPath)))
+            .ForMember(p => p.FileTree, m => m.Ignore());
         CreateMap<ProjectMember, IndexedProjectMember>();
     }
 }

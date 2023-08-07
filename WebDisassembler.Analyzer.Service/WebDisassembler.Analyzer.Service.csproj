@@ -19,7 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WebDisassembler.ServiceProtocol\WebDisassembler.ServiceProtocol.csproj" />
+      <ProjectReference Include="..\WebDisassembler.Analyzer.Core\WebDisassembler.Analyzer.Core.csproj" />
+      <ProjectReference Include="..\WebDisassembler.Core.ServiceProtocol\WebDisassembler.Core.ServiceProtocol.csproj" />
+      <ProjectReference Include="..\WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj" />
+      <ProjectReference Include="..\WebDisassembler.Loader.PortableExecutable\WebDisassembler.Loader.PortableExecutable.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-namespace WebDisassembler.Analyzer;
+namespace WebDisassembler.Analyzer.Tests;
 
 public class Tests
 {

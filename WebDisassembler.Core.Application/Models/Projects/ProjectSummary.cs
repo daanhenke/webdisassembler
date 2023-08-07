@@ -1,4 +1,4 @@
-namespace WebDisassembler.Core.Models.Projects;
+namespace WebDisassembler.Core.Application.Models.Projects;
 
 public class ProjectSummary
 {

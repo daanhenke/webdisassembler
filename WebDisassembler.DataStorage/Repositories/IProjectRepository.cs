@@ -9,4 +9,5 @@ public interface IProjectRepository : IRepository<Project>
 {
     ValueTask<PagedResponse<Project>> GetAllForIndex(PagedRequest request);
     ValueTask<Project> GetWithBinaries(Guid projectId, bool tracked);
+    ValueTask<IReadOnlyCollection<Project>> GetForIndex(ISet<Guid> ids, bool tracked);
 }

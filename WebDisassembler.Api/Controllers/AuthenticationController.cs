@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Swashbuckle.AspNetCore.Annotations;
 using WebDisassembler.Api.Authentication;
+using WebDisassembler.Core.Application.Models.Authentication;
 using WebDisassembler.Core.Application.Services;
 using WebDisassembler.Core.Identity;
-using WebDisassembler.Core.Models.Authentication;
 
 namespace WebDisassembler.Api.Controllers;
 

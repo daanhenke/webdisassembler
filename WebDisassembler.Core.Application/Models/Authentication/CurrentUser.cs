@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebDisassembler.Core.Models.Authentication;
+namespace WebDisassembler.Core.Application.Models.Authentication;
 
 public class CurrentUser
 {

@@ -1,6 +1,6 @@
 using AutoMapper;
+using WebDisassembler.Core.Application.Models.Identity;
 using WebDisassembler.Core.Common.Models;
-using WebDisassembler.Core.Models.Identity;
 using WebDisassembler.Search.Client.Indices;
 
 namespace WebDisassembler.Core.Application.Services;
