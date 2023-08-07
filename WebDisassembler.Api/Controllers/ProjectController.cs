@@ -6,7 +6,7 @@ using WebDisassembler.Core.Application.Services;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController, Route("api/projects")]
+[ApiController, Route("api/tenant/{tenantId:guid}/projects")]
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;
@@ -21,15 +21,15 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPost("list")]
-    public async ValueTask<PagedResponse<ProjectSummary>> List(PagedRequest request)
+    public async ValueTask<PagedResponse<ProjectSummary>> List(Guid tenantId, PagedRequest request)
     {
         return await _projectService.GetProjects(_userIdentity.UserId, request);
     }
 
     [HttpPost("create")]
-    public async ValueTask<Guid> Create(CreateProject createProject)
+    public async ValueTask<Guid> Create(Guid tenantId, CreateProject createProject)
     {
-        var id = await _projectService.Create(_userIdentity.UserId, createProject);
+        var id = await _projectService.Create(tenantId, _userIdentity.UserId, createProject);
         return id;
     }
 

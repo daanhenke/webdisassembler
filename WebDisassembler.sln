@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+#
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Analyzer.Core", "WebDisassembler.Analyzer.Core\WebDisassembler.Analyzer.Core.csproj", "{3A6C835B-0C28-42AA-94EC-5A6B35CD1E26}"
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Search.Client", "WebDisassembler.Search.Client\WebDisassembler.Search.Client.csproj", "{862FF93D-DA8D-4C1C-9A15-FAF5A78E543F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Search.Data", "WebDisassembler.Search.Data\WebDisassembler.Search.Data.csproj", "{5F6F36DE-23F4-4EF4-B32E-8DF8C8F46DFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{35FF19E3-3347-49CF-8733-98015CC2398B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,5 +119,9 @@ Global
 		{77A50411-A651-4C02-99FD-110927B5693E} = {9FE6EFD4-5B94-4CCD-BE63-C8E88361A266}
 		{59F24AF7-1A2E-430B-AB3B-604872C934BF} = {9FE6EFD4-5B94-4CCD-BE63-C8E88361A266}
 		{FB2984C6-41CD-4F48-A842-5A1E1C5BF230} = {9FE6EFD4-5B94-4CCD-BE63-C8E88361A266}
+		{862FF93D-DA8D-4C1C-9A15-FAF5A78E543F} = {5ED586FA-7979-4A29-A267-ED841D93F751}
+		{5F6F36DE-23F4-4EF4-B32E-8DF8C8F46DFD} = {5ED586FA-7979-4A29-A267-ED841D93F751}
+		{1F72BD32-AED7-43C2-A640-BD658EBFCF41} = {5ED586FA-7979-4A29-A267-ED841D93F751}
+		{40037BEA-5128-4676-923A-79200285FDA0} = {35FF19E3-3347-49CF-8733-98015CC2398B}
 	EndGlobalSection
 EndGlobal

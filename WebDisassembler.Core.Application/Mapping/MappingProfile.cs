@@ -3,7 +3,9 @@ using WebDisassembler.Core.Application.Models;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Core.Models.Authentication;
 using WebDisassembler.Core.Models.Identity;
+using WebDisassembler.Core.Models.Projects;
 using WebDisassembler.DataStorage.Models.Identity;
+using WebDisassembler.DataStorage.Models.Projects;
 using WebDisassemlber.Search.Data.Models;
 
 namespace WebDisassembler.Core.Mapping;
@@ -22,7 +24,8 @@ public class MappingProfile : Profile
             .ForMember(t => t.TenantId, m => m.MapFrom(t => t.Id));
 
         CreateMap<CreateTenant, Tenant>();
-
         CreateMap<IndexedTenant, TenantSummary>();
+        
+        CreateMap<CreateProject, Project>();
     }
 }

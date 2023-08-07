@@ -16,6 +16,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddScoped<ElasticSearchClient>();
         services.AddScoped<UserIndexer>();
         services.AddScoped<TenantIndexer>();
+        services.AddScoped<ProjectIndexer>();
     })
     .Build();
 

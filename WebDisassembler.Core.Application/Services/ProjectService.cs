@@ -2,6 +2,7 @@
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Core.Models.Projects;
 using WebDisassembler.DataStorage.Models;
+using WebDisassembler.DataStorage.Models.Projects;
 using WebDisassembler.DataStorage.Repositories;
 
 namespace WebDisassembler.Core.Application.Services;
@@ -17,19 +18,16 @@ public class ProjectService
         _mapper = mapper;
     }
 
-    public async ValueTask<Guid> Create(Guid userId, CreateProject createProject)
+    public async ValueTask<Guid> Create(Guid tenantId, Guid userId, CreateProject createProject)
     {
-        throw new NotImplementedException();
-        // var project = new Project
-        // {
-        //     Name = createProject.Name,
-        //     OwnerId = userId
-        // };
-        //
-        // _projectRepository.Add(project);
-        // await _projectRepository.Commit();
-        //
-        // return project.Id;
+        var project = _mapper.Map<Project>(createProject);
+        project.UserId = userId;
+        project.TenantId = tenantId;
+        
+        _projectRepository.Add(project);
+        await _projectRepository.Commit();
+
+        return project.Id;
     }
 
     public async ValueTask Delete(Guid projectId)

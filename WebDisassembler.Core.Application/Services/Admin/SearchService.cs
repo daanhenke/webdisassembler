@@ -15,7 +15,7 @@ public class SearchService
     {
         await _searchServiceClient.IndexAllRecords(new HashSet<string>()
         {
-            "User", "Tenant"
+            "User", "Tenant", "Project"
         });
     }
 }

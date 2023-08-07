@@ -71,7 +71,7 @@ public abstract class RepositoryBase<TModel> : IRepository<TModel> where TModel 
         return tracked ? _table.AsTracking() : _table.AsNoTracking();
     }
 
-    protected async ValueTask<TModel> QueryRequired(Func<IQueryable<TModel>, Task<TModel?>> queryCallback, Guid id, bool tracked)
+    protected async ValueTask<TModel> QueryRequired(Guid id, bool tracked, Func<IQueryable<TModel>, Task<TModel?>> queryCallback)
     {
         var model = await queryCallback(Query(tracked));
 

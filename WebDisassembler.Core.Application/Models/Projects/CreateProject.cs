@@ -1,3 +1,3 @@
 namespace WebDisassembler.Core.Models.Projects;
 
-public record CreateProject(string Name);
+public record CreateProject(string Name, string ShortDescription);

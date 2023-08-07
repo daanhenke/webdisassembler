@@ -54,7 +54,7 @@ public class BlobStorageFileStorage : IFileStorage
         await blob.DeleteAsync();
     }
 
-    public async ValueTask<FileReference> MoveTemporaryFile(Guid userId, Guid temporaryFileId, string path)
+    public async ValueTask<FileReference> MoveTemporaryFile(Guid tenantId, Guid userId, Guid temporaryFileId, string path)
     {
         var reference = await _fileReferenceRepository.GetRequired(temporaryFileId, true);
 
@@ -71,6 +71,7 @@ public class BlobStorageFileStorage : IFileStorage
 
         reference.IsTemporary = false;
         reference.Path = persistentPath;
+        reference.TenantId = tenantId;
         _fileReferenceRepository.Update(reference);
 
         await _fileReferenceRepository.Commit();

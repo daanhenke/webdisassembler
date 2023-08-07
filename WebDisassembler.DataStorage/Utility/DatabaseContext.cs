@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using WebDisassembler.DataStorage.Models;
 using WebDisassembler.DataStorage.Models.Identity;
+using WebDisassembler.DataStorage.Models.Projects;
 using WebDisassembler.DataStorage.Options;
 
 namespace WebDisassembler.DataStorage.Utility;
@@ -12,6 +13,9 @@ public class DatabaseContext : DbContext
     public required DbSet<User> Users { get; set; }
 
     public required DbSet<FileReference> FileReferences { get; set; }
+    
+    public required DbSet<Project> Projects { get; set; }
+    
 
     private readonly IOptions<DataStorageOptions> _options;
     
@@ -22,58 +26,111 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.AuthenticationTokens)
-            .WithOne(t => t.User)
-            .HasForeignKey(t => t.UserId)
-            .HasPrincipalKey(u => u.Id);
+        modelBuilder.Entity<User>(entityBuilder =>
+        {
+            entityBuilder
+                .HasMany(u => u.AuthenticationTokens)
+                .WithOne(t => t.User)
+                .HasForeignKey(t => t.UserId)
+                .HasPrincipalKey(u => u.Id);
+            
+            entityBuilder
+                .HasMany(t => t.FileReferences)
+                .WithOne(f => f.User)
+                .HasForeignKey(f => f.UserId)
+                .HasPrincipalKey(t => t.Id);
+        });
+            
 
         modelBuilder.Entity<AuthenticationToken>()
             .HasIndex(a => a.Token)
             .IsUnique();
 
-        modelBuilder.Entity<Tenant>()
-            .HasMany(t => t.FileReferences)
-            .WithOne(f => f.Tenant)
-            .HasForeignKey(f => f.TenantId)
-            .HasPrincipalKey(t => t.Id);
-
-        modelBuilder.Entity<User>()
-            .HasMany(t => t.FileReferences)
-            .WithOne(f => f.User)
-            .HasForeignKey(f => f.UserId)
-            .HasPrincipalKey(t => t.Id);
-
         modelBuilder.Entity<Role>()
             .Property(r => r.Permissions)
             .HasConversion<ListDataConverter<Permission>>();
 
-        modelBuilder.Entity<Tenant>()
-            .HasMany(t => t.Users)
-            .WithMany(u => u.Tenants)
-            .UsingEntity<TenantUser>(
-                j => j
-                    .HasOne(tu => tu.User)
-                    .WithMany(u => u.TenantUsers)
-                    .HasForeignKey(tu => tu.UserId),
-                j => j
-                    .HasOne(tu => tu.Tenant)
-                    .WithMany(t => t.TenantUsers)
-                    .HasForeignKey(tu => tu.TenantId),
-                j => j
-                    .HasKey(tu => new { tu.UserId, tu.TenantId })
-            );
+        modelBuilder.Entity<Tenant>(entityBuilder =>
+        {
+            entityBuilder
+                .HasIndex(t => t.Subdomain)
+                .IsUnique();
+            
+            entityBuilder
+                .HasMany(t => t.Roles)
+                .WithOne(r => r.Tenant)
+                .HasForeignKey(r => r.TenantId)
+                .HasPrincipalKey(t => t.Id);
+            
+            entityBuilder
+                .HasMany(t => t.FileReferences)
+                .WithOne(f => f.Tenant)
+                .HasForeignKey(f => f.TenantId)
+                .HasPrincipalKey(t => t.Id);
+            
+            entityBuilder
+                .HasMany(t => t.Projects)
+                .WithOne(f => f.Tenant)
+                .HasForeignKey(f => f.TenantId)
+                .HasPrincipalKey(t => t.Id);
 
-        modelBuilder.Entity<Tenant>()
-            .HasMany(t => t.Roles)
-            .WithOne(r => r.Tenant)
-            .HasForeignKey(r => r.TenantId)
-            .HasPrincipalKey(t => t.Id);
+            entityBuilder
+                .HasMany(t => t.Users)
+                .WithMany(u => u.Tenants)
+                .UsingEntity<TenantUser>(
+                    j => j
+                        .HasOne(tu => tu.User)
+                        .WithMany(u => u.TenantUsers)
+                        .HasForeignKey(tu => tu.UserId),
+                    j => j
+                        .HasOne(tu => tu.Tenant)
+                        .WithMany(t => t.TenantUsers)
+                        .HasForeignKey(tu => tu.TenantId),
+                    j => j
+                        .HasKey(tu => new { tu.UserId, tu.TenantId })
+                );
+        });
 
-        modelBuilder.Entity<Tenant>()
-            .HasIndex(t => t.Subdomain)
-            .IsUnique();
+        modelBuilder.Entity<Project>(entityBuilder =>
+        {
+            entityBuilder
+                .HasMany(p => p.Binaries)
+                .WithOne(b => b.Project)
+                .HasForeignKey(b => b.ProjectId)
+                .HasPrincipalKey(p => p.Id);
+            
+            entityBuilder
+                .HasOne(p => p.User)
+                .WithMany(u => u.OwnedProjects)
+                .HasForeignKey(p => p.UserId)
+                .HasPrincipalKey(u => u.Id);
 
+            entityBuilder
+                .HasMany(p => p.Users)
+                .WithMany(u => u.Projects)
+                .UsingEntity<ProjectMember>(
+                    j => j
+                        .HasOne(pm => pm.User)
+                        .WithMany(u => u.ProjectMembers)
+                        .HasForeignKey(tu => tu.UserId),
+                    j => j
+                        .HasOne(pm => pm.Project)
+                        .WithMany(p => p.ProjectMembers)
+                        .HasForeignKey(pm => pm.ProjectId),
+                    j => j
+                        .HasKey(pm => new { pm.UserId, pm.ProjectId })
+                );
+        });
+
+        modelBuilder.Entity<Binary>(entityBuilder =>
+        {
+            entityBuilder
+                .HasMany(b => b.Sections)
+                .WithOne(bs => bs.Binary)
+                .HasForeignKey(bs => bs.BinaryId)
+                .HasPrincipalKey(b => b.Id);
+        });
+        
         SeedDatabase(modelBuilder);
         base.OnModelCreating(modelBuilder);
     }

@@ -11,16 +11,18 @@ public class ReindexConsumer :
 {
     private readonly UserIndexer _userIndexer;
     private readonly TenantIndexer _tenantIndexer;
+    private readonly ProjectIndexer _projectIndexed;
 
-    public ReindexConsumer(UserIndexer userIndexer, TenantIndexer tenantIndexer)
+    public ReindexConsumer(UserIndexer userIndexer, TenantIndexer tenantIndexer, ProjectIndexer projectIndexed)
     {
         _userIndexer = userIndexer;
         _tenantIndexer = tenantIndexer;
+        _projectIndexed = projectIndexed;
     }
 
     public async Task Consume(ConsumeContext<IndexAllRecordsRequest> context)
     {
-        var indices = context.Message.Indices.Select(index => $"indexed{index.ToLowerInvariant()}");
+        var indices = context.Message.Indices.Select(index => $"indexed{index.ToLowerInvariant()}").ToHashSet();
 
         if (indices.Contains(_userIndexer.IndexName))
         {
@@ -30,6 +32,11 @@ public class ReindexConsumer :
         if (indices.Contains(_tenantIndexer.IndexName))
         {
             await _tenantIndexer.RecreateIndex();
+        }
+
+        if (indices.Contains(_projectIndexed.IndexName))
+        {
+            await _projectIndexed.RecreateIndex();
         }
 
         await context.RespondAsync<IndexAllRecordsResponse>(new());

@@ -30,10 +30,9 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
 
     public async ValueTask<User> GetUserForCurrentUser(Guid userId, bool tracked)
     {
-        return await QueryRequired(q => q
+        return await QueryRequired(userId, tracked, q => q
             .Include(u => u.Tenants)
-            .FirstOrDefaultAsync(u => u.Id == userId),
-            userId, tracked
+            .FirstOrDefaultAsync(u => u.Id == userId)
         );
     }
 

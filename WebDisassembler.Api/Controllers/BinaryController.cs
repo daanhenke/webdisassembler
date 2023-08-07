@@ -6,7 +6,7 @@ using WebDisassembler.Core.Identity;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController, Route("api/projects/{projectId:guid}/binaries")]
+[ApiController, Route("api/tenants/{tenantId:guid}/projects/{projectId:guid}/binaries")]
 public class BinaryController : ControllerBase
 {
     private readonly BinaryService _binaryService;

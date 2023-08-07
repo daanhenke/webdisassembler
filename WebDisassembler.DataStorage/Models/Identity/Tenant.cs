@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using WebDisassembler.DataStorage.Models.Identity;
+using WebDisassembler.DataStorage.Models.Projects;
 using WebDisassembler.DataStorage.Utility;
 
 namespace WebDisassembler.DataStorage.Models.Identity;
@@ -20,4 +21,6 @@ public class Tenant : IIdentifiableEntity, IOwnedEntity
     public ICollection<TenantUser> TenantUsers { get; set; }
 
     public ICollection<Role> Roles { get; set; }
+    
+    public ICollection<Project> Projects { get; set; }
 }
