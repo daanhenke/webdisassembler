@@ -2,7 +2,7 @@
 
 public class ServiceClient
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
     
     public List<ServiceEvent> Events { get; set; } = new();
     public List<ServiceMethod> Methods { get; set; } = new();

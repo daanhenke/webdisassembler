@@ -110,7 +110,7 @@ public class ApiClientGenerator : GeneratorBase<ApiClientGenerator>
                 {
                     parameters.Add(new()
                     {
-                        Name = ToCamelCase(methodParameters.First(p => p.ParameterType == model).Name),
+                        Name = ToCamelCase(methodParameters.First(p => p.ParameterType == model).Name!),
                         Type = name,
                         IsArray = model.IsArray
                     });

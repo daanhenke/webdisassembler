@@ -15,12 +15,12 @@ public class Tenant : IIdentifiableEntity, IOwnedEntity
     public required string Subdomain { get; set; }
     public required bool Public { get; set; }
 
-    public ICollection<FileReference> FileReferences { get; set; }
+    public ICollection<FileReference> FileReferences { get; set; } = null!;
 
-    public ICollection<User> Users { get; set; }
-    public ICollection<TenantUser> TenantUsers { get; set; }
+    public ICollection<User> Users { get; set; } = null!;
+    public ICollection<TenantUser> TenantUsers { get; set; } = null!;
 
-    public ICollection<Role> Roles { get; set; }
+    public ICollection<Role> Roles { get; set; } = null!;
     
-    public ICollection<Project> Projects { get; set; }
+    public ICollection<Project> Projects { get; set; } = null!;
 }

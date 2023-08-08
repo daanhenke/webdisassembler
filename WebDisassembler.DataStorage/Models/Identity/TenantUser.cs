@@ -7,8 +7,8 @@ namespace WebDisassembler.DataStorage.Models.Identity;
 public class TenantUser : ITenantEntity, IOwnedEntity
 {
     public Guid UserId { get; set; }
-    public User User { get; set; }
+    public User User { get; set; } = null!;
     public Guid TenantId { get; set; }
-    public Tenant Tenant { get; set; }
+    public Tenant Tenant { get; set; } = null!;
     public Guid RoleId { get; set; }
 }

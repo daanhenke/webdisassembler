@@ -6,7 +6,7 @@ using WebDisassembler.Core.Application.Services;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController, Route("api/tenant/{tenantId:guid}/projects")]
+[ApiController, Route("api/projects")]
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;

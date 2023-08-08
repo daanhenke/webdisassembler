@@ -7,7 +7,7 @@ public class BinarySection : IIdentifiableEntity
     public Guid Id { get; set; }
     
     public Guid BinaryId { get; set; }
-    public Binary Binary { get; set; }
+    public Binary Binary { get; set; } = null!;
     
     public required string Name { get; set; }
     

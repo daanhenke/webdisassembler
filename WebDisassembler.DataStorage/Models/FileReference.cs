@@ -12,7 +12,7 @@ public class FileReference : IIdentifiableEntity, IOwnedEntity
     public Guid? TenantId { get; set; }
     public Tenant? Tenant { get;  set; }
     public Guid UserId { get; set; }
-    public User User { get; set; }
+    public User User { get; set; } = null!;
 
     public required bool IsTemporary { get; set; }
     public required string Path { get; set; }

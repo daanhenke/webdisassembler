@@ -2,6 +2,6 @@
 
 public class ServiceArgument
 {
-    public string Type { get; set; }
-    public string Name { get; set; }
+    public required string Type { get; set; }
+    public required  string Name { get; set; }
 }

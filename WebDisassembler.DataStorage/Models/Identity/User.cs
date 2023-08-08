@@ -14,13 +14,13 @@ public class User : IIdentifiableEntity
     public required string Email { get; set; }
     public required string PasswordHash { get; set; }
 
-    public ICollection<AuthenticationToken> AuthenticationTokens { get; set; }
-    public ICollection<FileReference> FileReferences { get; set; }
-    public ICollection<Tenant> Tenants { get; set; }
-    public ICollection<TenantUser> TenantUsers { get; set; }
-    public ICollection<Project> Projects { get; set; }
-    public ICollection<ProjectMember> ProjectMembers { get; set; }
-    public ICollection<Project> OwnedProjects { get; set; }
+    public ICollection<AuthenticationToken> AuthenticationTokens { get; set; } = null!;
+    public ICollection<FileReference> FileReferences { get; set; } = null!;
+    public ICollection<Tenant> Tenants { get; set; } = null!;
+    public ICollection<TenantUser> TenantUsers { get; set; } = null!;
+    public ICollection<Project> Projects { get; set; } = null!;
+    public ICollection<ProjectMember> ProjectMembers { get; set; } = null!;
+    public ICollection<Project> OwnedProjects { get; set; } = null!;
 
 
 }

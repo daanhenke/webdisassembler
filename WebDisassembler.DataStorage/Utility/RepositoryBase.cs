@@ -35,7 +35,7 @@ public abstract class RepositoryBase<TModel> : IRepository<TModel> where TModel 
         await _database.SaveChangesAsync();
     }
 
-    public void Track<T>(T model)
+    public void Track<T>(T model) where T : class
     {
         _database.Attach(model);
     }

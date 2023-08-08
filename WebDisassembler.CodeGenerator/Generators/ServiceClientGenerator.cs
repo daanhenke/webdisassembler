@@ -11,7 +11,7 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
     public override async ValueTask Generate()
     {
         var projectPath = Path.Combine(GetSolutionPath(), "WebDisassembler.Core.ServiceProtocol");
-        await AnalyzeContracts(projectPath);
+        AnalyzeContracts(projectPath);
 
         var clientsPath = Path.Combine(projectPath, "Clients");
         foreach (var client in _serviceClients)
@@ -23,7 +23,7 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
         }
     }
 
-    private async ValueTask AnalyzeContracts(string projectPath)
+    private void AnalyzeContracts(string projectPath)
     {
         var contractsDir = Path.Combine(projectPath, "Contracts");
         var contractFiles = Directory
@@ -33,13 +33,12 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
 
         foreach (var contractFilePath in contractFiles)
         {
-            _serviceClients.Add(await AnalyzeContract(contractFilePath));
+            _serviceClients.Add(AnalyzeContract(contractFilePath));
         }
     }
 
-    private async ValueTask<ServiceClient> AnalyzeContract(string contractFilePath)
+    private ServiceClient AnalyzeContract(string contractFilePath)
     {
-        var result = new ServiceClient();
 
         var fileName = Path.GetFileName(contractFilePath)
             .Split('.')
@@ -47,7 +46,11 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
         var lines = File.ReadAllLines(contractFilePath)
             .Select(l => l.Trim());
 
-        result.Name = fileName;
+        var result = new ServiceClient()
+        {
+            Name = fileName
+        };
+
         result.Usings.Add("MassTransit");
         result.Usings.Add("WebDisassembler.Core.ServiceProtocol.Contracts");
         result.Usings.Add("WebDisassembler.Core.ServiceProtocol.Utility");
