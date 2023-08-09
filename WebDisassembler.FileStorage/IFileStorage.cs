@@ -8,5 +8,7 @@ public interface IFileStorage
     public ValueTask DeleteTemporaryFile(Guid userId, Guid fileId);
     public ValueTask<FileReference> MoveTemporaryFile(Guid tenantId, Guid userId, Guid temporaryFileId, string path);
 
-    public ValueTask Delete(string path);
+    
+    public ValueTask Delete(Guid id);
+    public ValueTask<(Stream, FileReference)> OpenRead(Guid id);
 }

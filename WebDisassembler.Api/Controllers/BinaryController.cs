@@ -7,7 +7,7 @@ using WebDisassembler.Core.Identity;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController, Route("api/tenants/{tenantId:guid}/projects/{projectId:guid}/binaries")]
+[ApiController, Route("api/binaries/{projectId:guid}")]
 public class BinaryController : ControllerBase
 {
     private readonly BinaryService _binaryService;
@@ -19,13 +19,13 @@ public class BinaryController : ControllerBase
         _userIdentity = userIdentity;
     }
 
-    [HttpPost("create"), SwaggerOperation("Create")]
+    [HttpPost("create"), SwaggerOperation(nameof(Create))]
     public async ValueTask<Guid> Create(Guid projectId, CreateBinary createBinary)
     {
         return await _binaryService.CreateBinary(_userIdentity.UserId, projectId, createBinary);
     }
 
-    [HttpGet("{binaryId:guid}/analyze"), SwaggerOperation(OperationId = "Analyze")]
+    [HttpGet("{binaryId:guid}/analyze"), SwaggerOperation(OperationId = nameof(Analyze))]
     public async ValueTask<ActionResult> Analyze(Guid projectId, Guid binaryId)
     {
         await _binaryService.StartAnalysis(_userIdentity.UserId, projectId, binaryId);

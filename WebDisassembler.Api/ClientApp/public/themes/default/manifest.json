@@ -1,0 +1,9 @@
+﻿{
+  "name": "Builtin Theme",
+  "colors": [
+    "mocha.colors.json"
+  ],
+  "icons": [
+    "icons.json"
+  ]
+}

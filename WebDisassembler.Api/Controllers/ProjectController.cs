@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using WebDisassembler.Core.Application.Models.Projects;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Core.Identity;
@@ -6,7 +7,7 @@ using WebDisassembler.Core.Application.Services;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController, Route("api/projects")]
+[ApiController, Route("api/projects/{tenantId:guid}")]
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;
@@ -33,14 +34,14 @@ public class ProjectController : ControllerBase
         return id;
     }
 
-    [HttpPost("{projectId:guid}/delete")]
+    [HttpPost("{projectId:guid}/delete"), SwaggerOperation(OperationId = nameof(Delete))]
     public async ValueTask<ActionResult> Delete(Guid projectId)
     {
         await _projectService.Delete(projectId);
         return NoContent();
     }
 
-    [HttpPost("{projectId:guid}/files")]
+    [HttpPost("{projectId:guid}/filetree"), SwaggerOperation(OperationId = nameof(FileTree))]
     public async ValueTask<Dictionary<string, object>> FileTree(Guid projectId)
     {
         return await _projectService.GetProjectFileTree(projectId);

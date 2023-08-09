@@ -26,7 +26,7 @@
     
     .header {
       @apply pl-4;
-      background: var(--bg-darkest);
+      background: var(--bg-crust);
     }
     
     .items {

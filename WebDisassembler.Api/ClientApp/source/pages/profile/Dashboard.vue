@@ -6,7 +6,7 @@
 
 <template>
   dashboard
-  <div>
+  <div style="color: var(--success)">
     hello {{ profileStore.userId }}
   </div>
 </template>

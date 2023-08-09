@@ -1,0 +1,13 @@
+﻿{
+  "name": "Catppuccin Icons",
+  "commonPrefix": "icons/",
+  "commonSuffix": ".svg",
+  "icons": {
+    "folders": {
+      "default": {
+        "open": "folder",
+        "closed": "folder__open"
+      }
+    }
+  }
+}

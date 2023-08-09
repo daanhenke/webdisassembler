@@ -79,9 +79,33 @@ public class BlobStorageFileStorage : IFileStorage
         return reference;
     }
 
-    public ValueTask Delete(string path)
+    public async ValueTask Delete(Guid id)
     {
-        throw new NotImplementedException();
+        var reference = await _fileReferenceRepository.GetRequired(id, true);
+        
+        var blob = reference.IsTemporary ? await GetTemporaryBlob(reference.Path) : await GetBlob(reference.Path);
+        await blob.DeleteAsync();
+
+        _fileReferenceRepository.Delete(reference);
+        await _fileReferenceRepository.Commit();
+    }
+
+    public async ValueTask<(Stream, FileReference)> OpenRead(Guid id)
+    {
+        var reference = await _fileReferenceRepository.GetRequired(id, false);
+        if (reference.IsTemporary)
+        {
+            throw new NotSupportedException();
+        }
+
+        var blob = await GetBlob(reference.Path);
+        var stream = await blob.OpenReadAsync();
+        if (stream == null)
+        {
+            throw new NotSupportedException();
+        }
+
+        return (stream, reference);
     }
 
     private async ValueTask<BlobClient> GetBlob(string path)

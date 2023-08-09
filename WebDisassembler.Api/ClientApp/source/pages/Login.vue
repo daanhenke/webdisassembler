@@ -50,7 +50,7 @@ const onSubmit = async e =>
     @apply flex justify-center items-center h-full; 
     form {
       @apply p-4 flex flex-col;
-      background: var(--bg-normal);
+      background: var(--bg-base);
       
       span {
         @apply my-2 flex justify-between;

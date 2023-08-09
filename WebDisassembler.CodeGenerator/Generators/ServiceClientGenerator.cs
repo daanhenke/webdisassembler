@@ -57,7 +57,7 @@ public class ServiceClientGenerator : GeneratorBase<ServiceClientGenerator>
 
         foreach (var line in lines)
         {
-            var chunks = line.Split(new [] { ' ', '(', ')' }).ToList();
+            var chunks = line.Split(',', ' ', '(', ')').Where(s => s.Length > 0).ToList();
             if (line.Contains("record"))
             {
                 var recordIndex = chunks.FindIndex(c => c == "record");

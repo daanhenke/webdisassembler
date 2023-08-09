@@ -1,13 +1,19 @@
 ﻿:root {
-    --bg-normal: #334;
-    --bg-darker: #223;
-    --bg-darkest: #112;
-    
-    --fg-normal: #eed;
+    --bg-base: #334;
+    --bg-mantle: #223;
+    --bg-crust: #112;
+
+    --text-normal: #eed;
+    --text-subtextPrimary: #eed;
+    --text-subtextSecondary: #eed;
+
+    --error: #eed;
+    --warning: #eed;
+    --success: #eed;
 }
 
 body { 
     @apply h-screen;
-    background: var(--bg-darkest);
-    color: var(--fg-normal);
+    background: var(--bg-crust);
+    color: var(--text-normal);
 }

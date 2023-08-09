@@ -17,6 +17,6 @@ defineProps<{
 <style scoped>
   .sidebar {
     @apply flex flex-col w-1/4;
-    background: var(--bg-darker);
+    background: var(--bg-mantle);
   }
 </style>

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using WebDisassembler.Core.Application.Services;
 using WebDisassembler.Core.Identity;
 
@@ -16,7 +17,7 @@ public class FileController : ControllerBase
         _userIdentity = userIdentity;
     }
 
-    [HttpPost("temporary/upload")]
+    [HttpPost("temporary/upload"), SwaggerOperation(OperationId = nameof(UploadTemporaryFile))]
     public async ValueTask<Guid> UploadTemporaryFile(IFormFile file)
     {
         return await _fileService.UploadTemporaryFile(_userIdentity.UserId, file.OpenReadStream(), file.FileName);

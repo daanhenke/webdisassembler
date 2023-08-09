@@ -44,6 +44,6 @@ public class BinaryService
 
     public async ValueTask StartAnalysis(Guid userId, Guid projectId, Guid binaryId)
     {
-        await _analysisServiceClient.StartBinaryAnalysis(binaryId);
+        await _analysisServiceClient.StartBinaryAnalysis(projectId, binaryId);
     }
 }

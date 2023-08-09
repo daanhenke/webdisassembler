@@ -6,13 +6,16 @@ import createRouter from '@/router.ts';
 
 import 'virtual:windi.css';
 import '@/style/vars.css';
+import {loadInitialTheme, loadTheme} from "@/lib/theming";
 
-window.addEventListener('load', () =>
+window.addEventListener('load', async () =>
 {
+    const themePromise = loadInitialTheme();
     const app = createApp(App);
     
     app.use(createRouter());
     app.use(createPinia());
     
+    await themePromise;
     app.mount('body');
 });

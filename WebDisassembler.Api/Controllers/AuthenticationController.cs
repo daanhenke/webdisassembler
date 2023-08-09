@@ -22,7 +22,7 @@ public class AuthenticationController : ControllerBase
         _userIdentity = userIdentity;
     }
 
-    [HttpPost("login"), SwaggerOperation(OperationId = "Login"), AllowAnonymous]
+    [HttpPost("login"), SwaggerOperation(OperationId = nameof(Login)), AllowAnonymous]
     public async ValueTask<ActionResult> Login(LoginRequest request)
     {
         var token = await _authenticationService.Login(request);
@@ -30,7 +30,7 @@ public class AuthenticationController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("me"), SwaggerOperation(OperationId = "Me")]
+    [HttpGet("me"), SwaggerOperation(OperationId = nameof(Me))]
     public async ValueTask<CurrentUser> Me()
     {
         return await _authenticationService.GetCurrentUser(_userIdentity.UserId);
