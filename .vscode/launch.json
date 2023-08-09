@@ -1,0 +1,64 @@
+{
+      "version": "0.2.0",
+      "compounds": [
+          {
+              "name": "All services",
+              "configurations": [
+                "WebDisassembler.Api",
+                "WebDisassembler.Search.Service",
+                "WebDisassembler.Analyzer.Service"
+              ],
+              "preLaunchTask": "build",
+              "stopAll": true
+          },
+      ],
+      "configurations": [
+          {
+              "name": "WebDisassembler.Api",
+              "type": "coreclr",
+              "request": "launch",
+              "preLaunchTask": "build",
+              "program": "${workspaceFolder}/WebDisassembler.Api/bin/Debug/net7.0/WebDisassembler.Api.dll",
+              "args": [],
+              "cwd": "${workspaceFolder}/WebDisassembler.Api",
+              "stopAtEntry": false,
+              "env": {
+                  "ASPNETCORE_ENVIRONMENT": "Development"
+              }
+          },
+          {
+              "name": "WebDisassembler.Search.Service",
+              "type": "coreclr",
+              "request": "launch",
+              "preLaunchTask": "build",
+              "program": "${workspaceFolder}/WebDisassembler.Search.Service/bin/Debug/net7.0/WebDisassembler.Search.Service.dll",
+              "args": [],
+              "cwd": "${workspaceFolder}/WebDisassembler.Search.Service",
+              "stopAtEntry": false
+          },
+          {
+              "name": "WebDisassembler.Analyzer.Service",
+              "type": "coreclr",
+              "request": "launch",
+              "preLaunchTask": "build",
+              "program": "${workspaceFolder}/WebDisassembler.Analyzer.Service/bin/Debug/net7.0/WebDisassembler.Analyzer.Service.dll",
+              "args": [],
+              "cwd": "${workspaceFolder}/WebDisassembler.Analyzer.Service",
+              "stopAtEntry": false
+          },
+          {
+              "name": "Vite Dev Server",
+              "type": "node-terminal",
+              "request": "launch",
+              "cwd": "${workspaceFolder}/WebDisassembler.Api/ClientApp",
+              "command": "npm run dev"
+          },
+          {
+              "name": "Docker Services",
+              "type": "coreclr",
+              "request": "launch",
+              "cwd": "${workspaceFolder}/WebDisassembler.Api/ClientApp",
+              "command": "npm run dev"
+          }
+      ]
+  }

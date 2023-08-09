@@ -7,7 +7,7 @@ using WebDisassembler.Core.Application.Services;
 
 namespace WebDisassembler.Api.Controllers;
 
-[ApiController, Route("api/projects/{tenantId:guid}")]
+[ApiController, Route("api/projects")]
 public class ProjectController : ControllerBase
 {
     private readonly ILogger<ProjectController> _logger;
@@ -28,9 +28,9 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async ValueTask<Guid> Create(Guid tenantId, CreateProject createProject)
+    public async ValueTask<Guid> Create(CreateProject createProject)
     {
-        var id = await _projectService.Create(tenantId, _userIdentity.UserId, createProject);
+        var id = await _projectService.Create(_userIdentity.UserId, createProject);
         return id;
     }
 

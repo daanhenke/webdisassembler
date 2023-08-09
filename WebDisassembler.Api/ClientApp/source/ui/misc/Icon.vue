@@ -41,6 +41,9 @@ themeStore.$subscribe(async () =>
 </template>
 
 <style>
-.icon { @apply align-middle; }
-.icon > svg { @apply w-6 h-6; }
+.icon {  
+  vertical-align: center;
+}
+.icon > svg { @apply w-6 h-6 align-middle; }
+.icon.icon-action { @apply cursor-pointer; }
 </style>

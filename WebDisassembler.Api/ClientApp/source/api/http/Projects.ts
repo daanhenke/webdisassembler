@@ -9,40 +9,10 @@
  * ---------------------------------------------------------------
  */
 
-import { CreateBinary, CreateProject, PagedRequest, ProjectSummaryPagedResponse } from "./data-contracts";
+import { CreateProject, PagedRequest, ProjectSummaryPagedResponse } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
 export class Projects<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
-  /**
-   * No description
-   *
-   * @tags Binary
-   * @name ProjectsBinariesCreateCreate
-   * @summary Create
-   * @request POST:/api/projects/{projectId}/binaries/create
-   */
-  projectsBinariesCreateCreate = (projectId: string, data: CreateBinary, params: RequestParams = {}) =>
-    this.request<string, any>({
-      path: `/api/projects/${projectId}/binaries/create`,
-      method: "POST",
-      body: data,
-      type: ContentType.Json,
-      format: "json",
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Binary
-   * @name Analyze
-   * @request GET:/api/projects/{projectId}/binaries/{binaryId}/analyze
-   */
-  analyze = (projectId: string, binaryId: string, params: RequestParams = {}) =>
-    this.request<void, any>({
-      path: `/api/projects/${projectId}/binaries/${binaryId}/analyze`,
-      method: "GET",
-      ...params,
-    });
   /**
    * No description
    *
@@ -50,10 +20,18 @@ export class Projects<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name ProjectsListCreate
    * @request POST:/api/projects/list
    */
-  projectsListCreate = (data: PagedRequest, params: RequestParams = {}) =>
+  projectsListCreate = (
+    data: PagedRequest,
+    query?: {
+      /** @format uuid */
+      tenantId?: string;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<ProjectSummaryPagedResponse, any>({
       path: `/api/projects/list`,
       method: "POST",
+      query: query,
       body: data,
       type: ContentType.Json,
       format: "json",
@@ -79,13 +57,27 @@ export class Projects<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * No description
    *
    * @tags Project
-   * @name ProjectsDeleteCreate
+   * @name Delete
    * @request POST:/api/projects/{projectId}/delete
    */
-  projectsDeleteCreate = (projectId: string, params: RequestParams = {}) =>
+  delete = (projectId: string, params: RequestParams = {}) =>
     this.request<void, any>({
       path: `/api/projects/${projectId}/delete`,
       method: "POST",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Project
+   * @name FileTree
+   * @request POST:/api/projects/{projectId}/filetree
+   */
+  fileTree = (projectId: string, params: RequestParams = {}) =>
+    this.request<Record<string, any>, any>({
+      path: `/api/projects/${projectId}/filetree`,
+      method: "POST",
+      format: "json",
       ...params,
     });
 }

@@ -1,3 +1,3 @@
 namespace WebDisassembler.Core.Application.Models.Projects;
 
-public record CreateProject(string Name, string ShortDescription);
+public record CreateProject(Guid TenantId, string Name, string ShortDescription);

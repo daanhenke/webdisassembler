@@ -1,6 +1,7 @@
 ﻿import Dashboard from "@/pages/profile/Dashboard.vue";
 import Admin from "@/pages/admin/Settings.vue";
 import Login from "@/pages/Login.vue";
+import CreateProject from "@/pages/project/Create.vue";
 import {createRouter, createWebHistory, Router, RouteRecordRaw} from "vue-router";
 import {useProfileStore} from "@/stores/profile.ts";
 
@@ -8,6 +9,8 @@ const routes: RouteRecordRaw[] = [
     { name: 'Profile', path: '/profile', component: Dashboard },
     { name: 'Login', path: '/login', component: Login },
     { name: 'Admin', path: '/admin', component: Admin },
+
+    { name: 'Create Project', path: '/project/create', component: CreateProject }
 ]
 
 const anonymousRouteList = [

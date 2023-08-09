@@ -24,11 +24,10 @@ public class ProjectService
         _projectIndex = projectIndex;
     }
 
-    public async ValueTask<Guid> Create(Guid tenantId, Guid userId, CreateProject createProject)
+    public async ValueTask<Guid> Create(Guid userId, CreateProject createProject)
     {
         var project = _mapper.Map<Project>(createProject);
         project.UserId = userId;
-        project.TenantId = tenantId;
         
         _projectRepository.Add(project);
         await _projectRepository.Commit();

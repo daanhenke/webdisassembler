@@ -29,6 +29,7 @@ public class MappingProfile : Profile
         CreateMap<IndexedTenant, TenantSummary>();
         
         CreateMap<CreateProject, Project>();
+        CreateMap<IndexedProject, ProjectSummary>();
         
         CreateMap<CreateBinary, Binary>()
             .ForMember(b => b.Metadata, m => m.MapFrom(_ => new Dictionary<string, string>()));

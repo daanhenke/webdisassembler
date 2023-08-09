@@ -22,7 +22,7 @@ export default defineConfig({
     },
     plugins: [
         createHtmlPlugin({
-            entry: 'source/main.ts'
+            entry: '/source/main.ts'
         }),
         vue(),
         WindiCSS()

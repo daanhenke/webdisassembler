@@ -16,13 +16,24 @@ export interface BinarySummary {
 }
 
 export interface CreateBinary {
-  name?: string | null;
+  projectPath?: string | null;
   /** @format uuid */
-  temporaryFileId?: string;
+  fileId?: string;
 }
 
 export interface CreateProject {
+  /** @format uuid */
+  tenantId?: string;
   name?: string | null;
+  shortDescription?: string | null;
+}
+
+export interface CreateTenant {
+  /** @minLength 1 */
+  name: string;
+  /** @minLength 1 */
+  subdomain: string;
+  public: boolean;
 }
 
 export interface CurrentUser {
@@ -30,6 +41,14 @@ export interface CurrentUser {
   userId: string;
   /** @minLength 1 */
   username: string;
+  tenants: CurrentUserTenant[];
+}
+
+export interface CurrentUserTenant {
+  /** @format uuid */
+  tenantId: string;
+  /** @minLength 1 */
+  name: string;
 }
 
 export interface LoginRequest {
@@ -51,11 +70,25 @@ export interface ProjectSummary {
   /** @format uuid */
   id?: string;
   name?: string | null;
+  shortDescription?: string | null;
   binaries?: BinarySummary[] | null;
 }
 
 export interface ProjectSummaryPagedResponse {
   /** @format int32 */
-  total?: number | null;
+  total?: number;
   items?: ProjectSummary[] | null;
+}
+
+export interface TenantSummary {
+  /** @format uuid */
+  id?: string;
+  name?: string | null;
+  subdomain?: string | null;
+}
+
+export interface TenantSummaryPagedResponse {
+  /** @format int32 */
+  total?: number;
+  items?: TenantSummary[] | null;
 }

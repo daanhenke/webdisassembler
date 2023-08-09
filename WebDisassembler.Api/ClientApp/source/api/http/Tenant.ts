@@ -9,28 +9,23 @@
  * ---------------------------------------------------------------
  */
 
+import { PagedRequest, TenantSummaryPagedResponse } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
-export class Files<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Tenant<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
-   * @tags File
-   * @name UploadTemporaryFile
-   * @request POST:/api/files/temporary/upload
+   * @tags Tenant
+   * @name GetPublicTenants
+   * @request POST:/api/tenant/list
    */
-  uploadTemporaryFile = (
-    data: {
-      /** @format binary */
-      file?: File;
-    },
-    params: RequestParams = {},
-  ) =>
-    this.request<string, any>({
-      path: `/api/files/temporary/upload`,
+  getPublicTenants = (data: PagedRequest, params: RequestParams = {}) =>
+    this.request<TenantSummaryPagedResponse, any>({
+      path: `/api/tenant/list`,
       method: "POST",
       body: data,
-      type: ContentType.FormData,
+      type: ContentType.Json,
       format: "json",
       ...params,
     });

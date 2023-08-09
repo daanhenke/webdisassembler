@@ -8,7 +8,7 @@ namespace WebDisassembler.DataStorage.Models.Identity;
 public class AuthenticationToken
 {
     public Guid UserId { get; set; }
-    public User User { get; set; }
+    public User User { get; set; } = null!;
     public required string Token { get; set; }
     public required DateTimeOffset ExpiresBy { get; set; }
 }
