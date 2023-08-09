@@ -1,0 +1,3 @@
+WebDisassembler.Api/ClientApp/node_modules
+WebDisassembler.Api/ClientApp/package-lock.json
+WebDisassembler.Api/ClientApp/source/api/http
