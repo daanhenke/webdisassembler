@@ -7,21 +7,24 @@ const themeStore = useThemeStore();
 const props = defineProps<{
   name: string
 }>();
-let iconRaw = ref('');
+const iconRaw = ref('');
+const fillColor = ref('');
 
 const fetchIcon = async (name: string) =>
 {
   if (themeStore.iconTheme === undefined) return;
-  console.log(themeStore.iconTheme);
 
   const theme = themeStore.iconTheme;
-  const icon = theme.icons[name];
+  const iconCfg = theme.icons[name];
+  const isSimple = typeof iconCfg === 'string';
+
+  const icon = isSimple ? iconCfg : iconCfg.file;
+  fillColor.value = isSimple ? '' : iconCfg.fillColor;
   
   const iconPath = `${theme.base}/${theme.commonPrefix}${icon}${theme.commonSuffix}`;
   const response = await fetch(iconPath);
   
   iconRaw.value = await response.text();
-  console.log(iconRaw, response)
 }
 
 onMounted(async () =>
@@ -37,7 +40,7 @@ themeStore.$subscribe(async () =>
 </script>
 
 <template>
-<span class="icon" v-html="iconRaw"></span>
+<span class="icon" :style="{fill: fillColor}" v-html="iconRaw"></span>
 </template>
 
 <style>

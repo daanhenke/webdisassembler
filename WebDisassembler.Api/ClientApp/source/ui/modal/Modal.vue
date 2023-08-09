@@ -12,7 +12,7 @@ const emit = defineEmits(['close']);
             <div class="modal-header">
                 <span class="modal-title">{{ props.title }}</span>
                 <div>
-                    <Icon class="icon-action" @click="emit('close');" name="folder-default-open" />
+                    <Icon class="icon-action" @click="emit('close');" name="close" />
                 </div>
             </div>
             <div class="modal-content">

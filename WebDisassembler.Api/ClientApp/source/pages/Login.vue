@@ -4,24 +4,28 @@ import {ref} from "vue";
 import { useAuthenticationClient } from "@/api/http-clients.ts";
 import {useProfileStore} from "@/stores/profile.ts";
 import {useRouter} from "vue-router";
-
-const usernameOrEmail = ref('');
-const password = ref('');
+import Form from "@/ui/form/Form.vue";
+import Button from "@/ui/misc/Button.vue";
+import TextField from "@/ui/form/TextField.vue";
 
 const profileStore = useProfileStore();
 const authClient = useAuthenticationClient();
 const router = useRouter();
 
-const onSubmit = async e =>
+const formElement = ref<Form>();
+
+const onSubmit = async props =>
 {
-  e.preventDefault();
+  console.log(props);
+  alert('ey');
   const result = await authClient.login({
-    usernameOrEmail: usernameOrEmail.value,
-    password: password.value
+    usernameOrEmail: props.usernameOrEmail,
+    password: props.password
   });
   
   if (result.ok)
   {
+    alert('Login success');
     await profileStore.update();
     await router.push("/profile")
   }
@@ -30,18 +34,17 @@ const onSubmit = async e =>
 
 <template>
   <div class="page">
-    <form @submit="onSubmit">
-      Login
-      <span>
+    <Form ref="formElement" @submit="onSubmit" >
+      <div>
         <label>Email / Username:</label>
-        <input v-model="usernameOrEmail" type="text" />
-      </span>
-      <span>
+        <TextField name="usernameOrEmail" />
+      </div>
+      <div>
         <label>Password:</label>
-        <input v-model="password" type="password" />
-      </span>
-      <input value="Login" type="submit" />
-    </form>
+        <TextField name="password" type="password" />
+      </div>
+      <Button @click="formElement.submit();">Login</Button>
+    </Form>
   </div>
 </template>
 
