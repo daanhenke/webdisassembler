@@ -34,9 +34,8 @@ export interface ColorTheme
 export interface IconTheme
 {
     name: string;
+    base: string;
     commonPrefix?: string;
     commonSuffix?: string;
-    icons: {
-        folders?: Map<string, IconThemeFolderIcon>;
-    }
+    icons: { [id: string]: string }
 }
