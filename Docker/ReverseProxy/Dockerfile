@@ -13,5 +13,5 @@ WORKDIR "/src"
 RUN npm run build
 
 FROM base AS final
-COPY --from=build /src/WebDisassembler.Api/ClientApp/dist ./client
+COPY --from=build /src/dist ./client
 COPY Docker/ReverseProxy/nginx.conf /etc/nginx/nginx.conf
