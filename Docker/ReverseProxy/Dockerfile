@@ -7,7 +7,7 @@ FROM node:20-alpine AS build
 WORKDIR /src
 
 COPY WebDisassembler.Api/ClientApp "/src"
-RUN cd /src/WebDisassembler.Api/ClientApp && npm install
+RUN npm install
 COPY . .
 WORKDIR "/src"
 RUN npm run build
