@@ -24,7 +24,6 @@ build-analyzer-service:
     PROJECT_NAME: "WebDisassembler.Analyzer.Service"
     CONTAINER_NAME: "analyzer"
 
-
 release-analyzer-service:
   extends: .release-docker-container
   variables:

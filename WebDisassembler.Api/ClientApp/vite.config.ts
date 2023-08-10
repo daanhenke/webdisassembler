@@ -14,17 +14,7 @@ export default defineConfig({
             '@': resolve(__dirname, 'source')
         }
     },
-    build: {
-        rollupOptions: {
-            input: {
-                app: resolve(__dirname, 'source/main.ts')
-            }
-        }
-    },
     plugins: [
-        createHtmlPlugin({
-            entry: '/source/main.ts'
-        }),
         vue(),
         WindiCSS()
     ]
