@@ -2,6 +2,8 @@ include:
   - local: 'Gitlab/docker-tasks.yml'
 
 stages:
+  - build
+  - release
   - test
 
 build-api:
