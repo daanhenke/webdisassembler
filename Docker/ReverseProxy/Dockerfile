@@ -14,4 +14,4 @@ RUN npm run build
 
 FROM base AS final
 COPY --from=build /src/dist ./client
-COPY Docker/ReverseProxy/nginx.conf /etc/nginx/nginx.conf
+COPY Docker/ReverseProxy/nginx.conf /etc/nginx/conf.d/api.conf
