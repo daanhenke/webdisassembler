@@ -1,10 +1,11 @@
 FROM mcr.microsoft.com/dotnet/runtime:7.0 AS base
 WORKDIR /app
-
 ARG PROJECT_NAME
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
+ARG PROJECT_NAME
+
 COPY ["$PROJECT_NAME/$PROJECT_NAME.csproj", "$PROJECT_NAME/"]
 RUN dotnet restore "$PROJECT_NAME/$PROJECT_NAME.csproj"
 COPY . .
