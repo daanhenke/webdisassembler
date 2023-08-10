@@ -17,6 +17,14 @@ public class UserIndexer : IndexerBase<User, IndexedUser>
         _userRepository = userRepository;
     }
 
+    protected override IndexedUser Map(User model)
+    {
+        var indexedUser = _mapper.Map<IndexedUser>(model);
+        indexedUser.IsAdministrator = model.Tenants.Any(t => t.Subdomain == "admin");
+
+        return indexedUser;
+    }
+
     protected override async ValueTask<PagedResponse<User>> FetchAllFromDatabase(PagedRequest request)
     {
         return await _userRepository.GetAllForIndex(request);

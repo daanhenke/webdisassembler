@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import TopBar from "@/ui/TopBar.vue";
+  import NotificationManager from "@/ui/notification/NotificationManager.vue";
 </script>
 
 <template>
@@ -8,7 +9,10 @@
   <main>
     <RouterView />
   </main>
-  <div id="modal-container" />
+  <div>
+    <div id="modal-container" />
+    <NotificationManager />
+  </div>
 </div>
 </template>
 

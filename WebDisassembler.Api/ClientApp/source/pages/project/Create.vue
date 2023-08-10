@@ -1,3 +1,0 @@
-<template>
-    Create project
-</template>

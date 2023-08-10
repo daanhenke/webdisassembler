@@ -18,11 +18,10 @@ public class MappingProfile : Profile
     {
         CreateMap(typeof(PagedResponse<>), typeof(PagedResponse<>));
 
-        CreateMap<User, CurrentUser>()
-            .ForMember(u => u.UserId, m => m.MapFrom(u => u.Id))
-            .ForMember(u => u.Tenants, m => m.MapFrom(u => u.Tenants));
+        CreateMap<IndexedUser, CurrentUser>()
+            .ForMember(u => u.UserId, m => m.MapFrom(u => u.Id));
 
-        CreateMap<Tenant, CurrentUserTenant>()
+        CreateMap<IndexedUserTenant, CurrentUserTenant>()
             .ForMember(t => t.TenantId, m => m.MapFrom(t => t.Id));
 
         CreateMap<CreateTenant, Tenant>();

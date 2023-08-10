@@ -4,6 +4,9 @@ import {useAuthenticationClient} from "@/api/http-clients.ts";
 interface ProfileStoreState
 {
     userId?: string;
+    isAdministrator: boolean;
+    username: string;
+    
     hasIndexed: boolean;
 }
 
@@ -11,7 +14,9 @@ export const useProfileStore = defineStore('profile', {
     state: () => {
         return <ProfileStoreState> {
             userId: undefined,
-            hasIndexed: false
+            hasIndexed: false,
+            isAdministrator: false,
+            username: ''
         }
     },
     getters: {
@@ -28,6 +33,8 @@ export const useProfileStore = defineStore('profile', {
                 {
                     const user = response.data;
                     this.userId = user.userId;
+                    this.username = user.username;
+                    this.isAdministrator = user.isAdministrator;
                 }
 
                 this.hasIndexed = true;

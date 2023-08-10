@@ -1,12 +1,11 @@
 ﻿<script setup lang="ts">
 import {useProjectsClient,useTenantsClient} from "@/api/http-clients.ts";
-import {onMounted, ref} from "vue";
+import {nextTick, onMounted, ref} from "vue";
 import Modal from "@/ui/modal/Modal.vue";
 import TextField from "@/ui/form/TextField.vue";
 import Button from "@/ui/misc/Button.vue";
 import Form from "@/ui/form/Form.vue";
-import {ProjectSummary} from "@/api/http/data-contracts.ts";
-import SelectBox from "@/ui/form/SelectBox.vue";
+import {CreateProject, ProjectSummary} from "@/api/http/data-contracts.ts";
 import TenantSelectBox from "@/ui/form/select/TenantSelectBox.vue";
 
 const projectsClient = useProjectsClient();
@@ -21,16 +20,27 @@ let projects = ref<ProjectSummary[]>([]);
 const doCreateProject = ref(false);
 const createProjectForm = ref<Form>();
 
-onMounted(async () =>
+const refreshProjects = async () =>
 {
   const result = await projectsClient.projectsListCreate(pagedRequest);
   projects.value = result.data.items;
+}
+
+onMounted(async () =>
+{
+  await refreshProjects();
 });
 
-const onCreateTenantSubmit = createTenant =>
+const onCreateTenantSubmit = async (createProject: CreateProject) =>
 {
-  console.log('Create tenant', createTenant);
+  console.log('Create project', createProject);
   doCreateProject.value = false;
+  
+  const response = await projectsClient.projectsCreateCreate(createProject);
+  if (response.ok) {
+    //alert('cool!');
+    await nextTick(refreshProjects);
+  }
 }
 </script>
 
@@ -59,6 +69,10 @@ const onCreateTenantSubmit = createTenant =>
       <div>
         <label for="tenantId">Tenant:</label>
         <TenantSelectBox name="tenantId" />
+      </div>
+      <div>
+        <label for="shortDescription">Short Description:</label>
+        <TextField name="shortDescription" />
       </div>
     </Form>
     <template v-slot:actions>
