@@ -1,5 +1,5 @@
 include:
-  - docker: 'Gitlab/docker-tasks.yml'
+  - local: 'Gitlab/docker-tasks.yml'
 
 build-api:
   extends: build-docker-container
