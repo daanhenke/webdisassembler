@@ -23,4 +23,4 @@ WORKDIR /app
 ARG PROJECT_NAME
 
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "$PROJECT_NAME.dll"]
+ENTRYPOINT ["dotnet", "${PROJECT_NAME}.dll"]

@@ -6,14 +6,24 @@ services:
     restart: always
     networks:
       - internal
+
   analyzer:
     image: registry.gitlab.com/daanhenke/web-disassembler/analyzer
     restart: always
     networks:
       - internal
+
   search:
     image: registry.gitlab.com/daanhenke/web-disassembler/search
     restart: always
+    networks:
+      - internal
+
+  reverse_proxy:
+    image: registry.gitlab.com/daanhenke/web-disassembler/reverse-proxy
+    restart: always
+    ports:
+      - '3000:3000'
     networks:
       - internal
 
