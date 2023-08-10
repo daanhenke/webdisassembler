@@ -48,7 +48,7 @@ deploy:
     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - chmod 400 "$DEPLOY_SSH_KEY"
-    - echo "$DEPLOY_SSH_KEY"
+    - cat "$DEPLOY_SSH_KEY"
     - ssh-add "$DEPLOY_SSH_KEY"
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
