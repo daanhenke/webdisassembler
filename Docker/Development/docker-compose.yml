@@ -4,6 +4,8 @@ services:
   api:
     image: registry.gitlab.com/daanhenke/web-disassembler/api
     restart: always
+    ports:
+      - '80:80'
     networks:
       - internal
     env_file:
