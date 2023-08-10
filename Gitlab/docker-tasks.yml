@@ -1,13 +1,7 @@
-default:
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
 stages:
   - build
   - release
+  - deploy
 
 variables:
   DOCKER_HOST: tcp://docker:2376
@@ -16,6 +10,11 @@ variables:
   CONTAINER_RELEASE_VERSION: latest
 
 .build-docker-container:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   stage: build
   variables:
     PROJECT_NAME: ""
@@ -26,6 +25,11 @@ variables:
     - docker push $CI_REGISTRY_IMAGE/$CONTAINER_NAME:$CONTAINER_DEVELOPMENT_VERSION
 
 .release-docker-container:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   stage: release
   variables:
     PROJECT_NAME: ""
@@ -33,5 +37,25 @@ variables:
     - docker pull $CI_REGISTRY_IMAGE/$CONTAINER_NAME:$CONTAINER_DEVELOPMENT_VERSION
     - docker tag $CI_REGISTRY_IMAGE/$CONTAINER_NAME:$CONTAINER_DEVELOPMENT_VERSION $CI_REGISTRY_IMAGE/$CONTAINER_NAME:$CONTAINER_RELEASE_VERSION
     - docker push $CI_REGISTRY_IMAGE/$CONTAINER_NAME:$CONTAINER_RELEASE_VERSION
+  only:
+    - master
+
+deploy:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - chmod 400 "$DEPLOY_SSH_KEY"
+    - ssh-add "$DEPLOY_SSH_KEY"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  stage: deploy
+  script:
+    - docker compose -H "ssh://daan@daan.vodka" down --remove-orphans
+    - docker compose -H "ssh://daan@daan.vodka" pull
+    - docker compose -H "ssh://daan@daan.vodka" up -d
   only:
     - master

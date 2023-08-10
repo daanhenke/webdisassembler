@@ -5,6 +5,9 @@ stages:
   - build
   - test
   - release
+  - deploy
+
+
 
 build-api:
   extends: .build-docker-container
