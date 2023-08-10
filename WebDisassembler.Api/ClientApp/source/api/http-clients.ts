@@ -4,8 +4,10 @@ import { Projects } from "./http/Projects";
 import {Tenant} from "@/api/http/Tenant.ts";
 import {Admin} from "@/api/http/Admin.ts";
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 const apiConfig: ApiConfig = {
-    baseUrl: `http://${window.location.hostname}:3000`,
+    baseUrl: apiUrl,
     baseApiParams: {
         credentials: 'include',
     }
