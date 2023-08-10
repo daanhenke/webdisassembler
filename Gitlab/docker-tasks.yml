@@ -14,7 +14,7 @@ variables:
   CONTAINER_DEVELOPMENT_VERSION: $CI_COMMIT_REF_SLUG
   CONTAINER_RELEASE_VERSION: latest
 
-build-docker-container:
+.build-docker-container:
   stage: build
   variables:
     PROJECT_NAME: ""
@@ -23,7 +23,7 @@ build-docker-container:
     - docker build --pull -f $DOCKERFILE -t $CI_REGISTRY_IMAGE/$PROJECT_NAME:$CONTAINER_DEVELOPMENT_VERSION .
     - docker push $CI_REGISTRY_IMAGE/$PROJECT_NAME:$CONTAINER_DEVELOPMENT_VERSION
 
-release-docker-container:
+.release-docker-container:
   stage: release
   variables:
     PROJECT_NAME: ""

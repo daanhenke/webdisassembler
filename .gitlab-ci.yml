@@ -2,33 +2,33 @@ include:
   - local: 'Gitlab/docker-tasks.yml'
 
 build-api:
-  extends: build-docker-container
+  extends: .build-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Api"
     DOCKERFILE: "Docker/AspNet.Dockerfile"
 
 release-api:
-  extends: release-docker-container
+  extends: .release-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Api"
 
 build-analysis-service:
-  extends: build-docker-container
+  extends: .build-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Analysis.Service"
 
 release-analysis-service:
-  extends: release-docker-container
+  extends: .release-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Analysis.Service"
     
 build-search-service:
-  extends: build-docker-container
+  extends: .build-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Search.Service"
 
 release-search-service:
-  extends: release-docker-container
+  extends: .release-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Search.Service"
 
