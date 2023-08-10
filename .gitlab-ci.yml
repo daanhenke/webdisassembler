@@ -41,6 +41,17 @@ release-search-service:
   variables:
     CONTAINER_NAME: "search"
 
+build-reverse-proxy:
+  extends: .build-docker-container
+  variables:
+    DOCKERFILE: "Docker/ReverseProxy/Dockerfile"
+    CONTAINER_NAME: "reverse-proxy"
+
+release-reverse-proxy:
+  extends: .release-docker-container
+  variables:
+    CONTAINER_NAME: "reverse-proxy"
+
 sonarqube-check:
   image: mcr.microsoft.com/dotnet/sdk:latest
   variables:
