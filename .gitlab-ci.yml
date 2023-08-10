@@ -3,39 +3,43 @@ include:
 
 stages:
   - build
-  - release
   - test
+  - release
 
 build-api:
   extends: .build-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Api"
+    CONTAINER_NAME: "api"
     DOCKERFILE: "Docker/AspNet.Dockerfile"
 
 release-api:
   extends: .release-docker-container
   variables:
-    PROJECT_NAME: "WebDisassembler.Api"
+    CONTAINER_NAME: "api"
 
-build-analysis-service:
+build-analyzer-service:
   extends: .build-docker-container
   variables:
-    PROJECT_NAME: "WebDisassembler.Analysis.Service"
+    PROJECT_NAME: "WebDisassembler.Analyzer.Service"
+    CONTAINER_NAME: "analyzer"
 
-release-analysis-service:
+
+release-analyzer-service:
   extends: .release-docker-container
   variables:
-    PROJECT_NAME: "WebDisassembler.Analysis.Service"
-    
+    CONTAINER_NAME: "analyzer"
+
 build-search-service:
   extends: .build-docker-container
   variables:
     PROJECT_NAME: "WebDisassembler.Search.Service"
+    CONTAINER_NAME: "search"
 
 release-search-service:
   extends: .release-docker-container
   variables:
-    PROJECT_NAME: "WebDisassembler.Search.Service"
+    CONTAINER_NAME: "search"
 
 sonarqube-check:
   image: mcr.microsoft.com/dotnet/sdk:latest
