@@ -1,3 +1,37 @@
+include:
+  - docker: 'Gitlab/docker-tasks.yml'
+
+build-api:
+  extends: build-docker-container
+  variables:
+    PROJECT_NAME: "WebDisassembler.Api"
+    DOCKERFILE: "Docker/AspNet.Dockerfile"
+
+release-api:
+  extends: release-docker-container
+  variables:
+    PROJECT_NAME: "WebDisassembler.Api"
+
+build-analysis-service:
+  extends: build-docker-container
+  variables:
+    PROJECT_NAME: "WebDisassembler.Analysis.Service"
+
+release-analysis-service:
+  extends: release-docker-container
+  variables:
+    PROJECT_NAME: "WebDisassembler.Analysis.Service"
+    
+build-search-service:
+  extends: build-docker-container
+  variables:
+    PROJECT_NAME: "WebDisassembler.Search.Service"
+
+release-search-service:
+  extends: release-docker-container
+  variables:
+    PROJECT_NAME: "WebDisassembler.Search.Service"
+
 sonarqube-check:
   image: mcr.microsoft.com/dotnet/sdk:latest
   variables:

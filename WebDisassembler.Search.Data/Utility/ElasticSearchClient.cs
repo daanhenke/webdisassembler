@@ -1,4 +1,5 @@
 using Elastic.Clients.Elasticsearch;
+using Elastic.Clients.Elasticsearch.Core.Bulk;
 using Elastic.Clients.Elasticsearch.Mapping;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Search.Data.Utility;
@@ -50,7 +51,17 @@ public class ElasticSearchClient
 
     public async ValueTask IndexModels<TModel>(IReadOnlyCollection<TModel> models) where TModel : class
     {
-        var response = await _client.IndexManyAsync(models, IndexName<TModel>());
+        var request = new BulkRequest(IndexName<TModel>())
+        {
+            Operations = new BulkOperationsCollection(
+                models
+                    .Select(m => new BulkIndexOperation<TModel>(m))
+                    .ToArray()
+            ),
+            Refresh = Refresh.WaitFor
+        };
+
+        var response = await _client.BulkAsync(request);
 
         if (! response.IsSuccess())
         {

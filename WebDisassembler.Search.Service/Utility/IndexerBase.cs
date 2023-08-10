@@ -1,4 +1,6 @@
 using AutoMapper;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Clients.Elasticsearch.Core.Bulk;
 using Elastic.Clients.Elasticsearch.Mapping;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Search.Data.Utility;
@@ -29,8 +31,11 @@ public abstract class IndexerBase<TSourceModel, TIndexModel>
             await _client.CreateIndex<TIndexModel>(SetIndexMappingInternal);
         }
 
-        var models = await FetchFromDatabase(ids);
-        await _client.IndexModels(models.Select(Map).ToHashSet());
+        var models = (await FetchFromDatabase(ids))
+            .Select(Map)
+            .ToHashSet();
+
+        await _client.IndexModels(models);
     }
 
 
