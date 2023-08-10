@@ -4,18 +4,21 @@ using WebDisassembler.Core.Application.Exceptions.Authentication;
 using WebDisassembler.Core.Application.Models.Authentication;
 using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Repositories;
+using WebDisassembler.Search.Client.Indices;
 
 namespace WebDisassembler.Core.Application.Services;
 
 public class AuthenticationService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IUserIndex _userIndex;
     private readonly IMapper _mapper;
 
-    public AuthenticationService(IUserRepository userRepository, IMapper mapper)
+    public AuthenticationService(IUserRepository userRepository, IMapper mapper, IUserIndex userIndex)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _userIndex = userIndex;
     }
 
     public async ValueTask<string> Login(LoginRequest request)
@@ -41,7 +44,7 @@ public class AuthenticationService
     
     public async ValueTask<CurrentUser> GetCurrentUser(Guid userId)
     {
-        var user = await _userRepository.GetUserForCurrentUser(userId, false);
+        var user = await _userIndex.GetById(userId);
         return _mapper.Map<CurrentUser>(user);
     }
 

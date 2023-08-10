@@ -39,6 +39,7 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     public async ValueTask<PagedResponse<User>> GetAllForIndex(PagedRequest request)
     {
         return await Query()
+            .Include(u => u.Tenants)
             .ToPaged(request);
     }
 }

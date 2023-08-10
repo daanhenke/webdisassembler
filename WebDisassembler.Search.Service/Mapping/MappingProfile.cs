@@ -11,7 +11,10 @@ class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap(typeof(PagedResponse<>), typeof(PagedResponse<>));
+        
         CreateMap<User, IndexedUser>();
+        CreateMap<Tenant, IndexedUserTenant>();
+
         CreateMap<Tenant, IndexedTenant>();
         
         CreateMap<Project, IndexedProject>()

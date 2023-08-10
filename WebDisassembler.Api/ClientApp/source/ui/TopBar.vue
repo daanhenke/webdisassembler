@@ -19,6 +19,7 @@ import { useRoute } from "vue-router";
     </ul>
     <div>
       <RouterLink v-if="! profileStore.isLoggedIn" to="/login">Login</RouterLink>
+      <RouterLink v-if="profileStore.isLoggedIn && profileStore.isAdministrator" to="/admin/global">Admin</RouterLink>
       <RouterLink v-if="profileStore.isLoggedIn" to="/profile">Dashboard</RouterLink>
       <RouterLink v-if="profileStore.isLoggedIn" to="/logout">Logout</RouterLink>
     </div>

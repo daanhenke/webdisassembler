@@ -42,6 +42,7 @@ export interface CurrentUser {
   /** @minLength 1 */
   username: string;
   tenants: CurrentUserTenant[];
+  isAdministrator: boolean;
 }
 
 export interface CurrentUserTenant {

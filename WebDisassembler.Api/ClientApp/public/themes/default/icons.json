@@ -4,6 +4,8 @@
   "commonSuffix": ".svg",
   "icons": {
     "folder-default-open": "folder__open",
-    "folder-default-closed": "folder"
+    "folder-default-closed": "folder",
+    "close": "close",
+    "expand": "expand"
   }
 }

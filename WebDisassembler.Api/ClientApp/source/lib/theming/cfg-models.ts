@@ -31,11 +31,17 @@ export interface ColorTheme
     }
 }
 
+export interface IconConfiguration
+{
+    file: string;
+    fillColor?: string;
+}
+
 export interface IconTheme
 {
     name: string;
     base: string;
     commonPrefix?: string;
     commonSuffix?: string;
-    icons: { [id: string]: string }
+    icons: { [id: string]: string | IconConfiguration }
 }
