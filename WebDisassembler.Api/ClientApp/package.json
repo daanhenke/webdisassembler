@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build": "vite build",
     "generate-http-api": "swagger-typescript-api -p http://localhost:3000/swagger/v1/swagger.json -o ./source/api/http --modular --module-name-index 1"
   },
   "devDependencies": {
