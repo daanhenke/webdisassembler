@@ -6,8 +6,8 @@ EXPOSE 443
 FROM node:20-alpine AS build
 WORKDIR /src
 
-COPY "WebDisassembler.Api/ClientApp/" "/src"
-RUN cd "WebDisassembler.Api/ClientApp" && npm install
+COPY WebDisassembler.Api/ClientApp "/src"
+RUN cd /src/WebDisassembler.Api/ClientApp && npm install
 COPY . .
 WORKDIR "/src/WebDisassembler.Api/ClientApp"
 RUN npm run build
