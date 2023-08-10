@@ -4,8 +4,6 @@ services:
   api:
     image: registry.gitlab.com/daanhenke/web-disassembler/api
     restart: always
-    ports:
-      - '3000:3000'
     networks:
       - internal
     env_file:
@@ -45,7 +43,7 @@ services:
     image: registry.gitlab.com/daanhenke/web-disassembler/reverse-proxy
     restart: always
     ports:
-      - '3000:3000'
+      - '3100:3100'
     networks:
       - internal
     depends_on:
