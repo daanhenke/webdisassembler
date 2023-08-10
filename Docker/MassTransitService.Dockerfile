@@ -20,4 +20,4 @@ ARG PROJECT_NAME
 ENV PROJECT_NAME=$PROJECT_NAME
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT dotnet $(echo $PROJECT_NAME).dl
+ENTRYPOINT dotnet $(echo $PROJECT_NAME).dll
