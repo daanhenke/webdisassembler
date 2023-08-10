@@ -35,7 +35,8 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
-if (builder.Environment.IsDevelopment())
+// TODO: Remove XD
+if (builder.Environment.IsDevelopment() || true)
 {
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(c =>
