@@ -4,20 +4,42 @@ services:
   api:
     image: registry.gitlab.com/daanhenke/web-disassembler/api
     restart: always
+    ports:
+      - '3000:3000'
     networks:
       - internal
+    env_file:
+      - local.env
+    depends_on:
+      - database
+      - service_bus
+      - elasticsearch
 
   analyzer:
     image: registry.gitlab.com/daanhenke/web-disassembler/analyzer
     restart: always
     networks:
       - internal
+    env_file:
+      - local.env
+    depends_on:
+      - database
+      - service_bus
+      - elasticsearch
+
 
   search:
     image: registry.gitlab.com/daanhenke/web-disassembler/search
     restart: always
     networks:
       - internal
+    env_file:
+      - local.env
+    depends_on:
+      - database
+      - service_bus
+      - elasticsearch
+
 
   reverse_proxy:
     image: registry.gitlab.com/daanhenke/web-disassembler/reverse-proxy
@@ -26,6 +48,8 @@ services:
       - '3000:3000'
     networks:
       - internal
+    depends_on:
+      - api
 
   database:
     image: postgres:latest
