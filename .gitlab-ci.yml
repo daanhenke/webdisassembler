@@ -1,6 +1,9 @@
 include:
   - local: 'Gitlab/docker-tasks.yml'
 
+stages:
+  - test
+
 build-api:
   extends: .build-docker-container
   variables:
