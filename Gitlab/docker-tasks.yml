@@ -54,12 +54,11 @@ deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - docker context create remote --docker "host=ssh://daan@daan.vodka"
-    - docker context use remote
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker --context remote login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   stage: deploy
   script:
-    - docker compose down --remove-orphans
-    - docker compose pull
-    - docker compose up -d
+    - docker --context remote compose down --remove-orphans
+    - docker --context remote compose pull
+    - docker --context remote compose up -d
   only:
     - master
