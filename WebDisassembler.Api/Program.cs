@@ -67,7 +67,7 @@ app.UseCors(policyBuilder =>
         if (app.Environment.IsDevelopment())
         {
             policyBuilder
-                .SetIsOriginAllowed(origin => true)
+                .SetIsOriginAllowed(origin => true);
         }
         else
         {
