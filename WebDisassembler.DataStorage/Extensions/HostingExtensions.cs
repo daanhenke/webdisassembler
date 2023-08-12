@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebDisassembler.DataStorage.Options;
@@ -24,5 +25,14 @@ public static class HostingExtensions
         
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IBinaryRepository, BinaryRepository>();
+    }
+
+    public static void ExecuteMigrations(this IServiceProvider services)
+    {
+        using (var scope = services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+            context.Database.Migrate();
+        }
     }
 }

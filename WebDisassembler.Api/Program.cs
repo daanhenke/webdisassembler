@@ -67,4 +67,6 @@ app.UseCors(x => x
 app.MapControllers()
     .RequireAuthorization();
 
+app.Services.ExecuteMigrations();
+
 app.Run();
