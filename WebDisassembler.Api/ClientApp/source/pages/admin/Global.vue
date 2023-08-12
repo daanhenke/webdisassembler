@@ -8,20 +8,17 @@ const adminClient = useAdminClient();
 
 const reindexElastic = async () =>
 {
-  notificationStore.addNotification({
-    title: 'Reindexing',
-    body: ''
-  });
+  const notification = notificationStore.createNotification('Reindexing', 'Working...');
   
   const response = await adminClient.reindexAll();
   if (response.ok)
   {
-    notificationStore.addNotification({ title: 'Success', body: 'Reindexed elastic' })
+    notificationStore.updateNotification(notification, 'Done!');
+    notificationStore.finishNotification(notification);
   }
 }
 </script>
 
 <template>
-  
   <Button @click="reindexElastic">Reindex Elastic</Button>
 </template>

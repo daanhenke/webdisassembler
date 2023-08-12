@@ -1,7 +1,9 @@
 using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.Core.Bulk;
 using Elastic.Clients.Elasticsearch.Mapping;
+using Microsoft.Extensions.Options;
 using WebDisassembler.Core.Common.Models;
+using WebDisassembler.Search.Data.Options;
 using WebDisassembler.Search.Data.Utility;
 
 namespace WebDisassemlber.Search.Data.Utility;
@@ -9,11 +11,13 @@ namespace WebDisassemlber.Search.Data.Utility;
 public class ElasticSearchClient
 {
     private readonly ElasticsearchClient _client;
+    private readonly IOptions<ElasticSearchOptions> _options;
 
-    public ElasticSearchClient()
+    public ElasticSearchClient(IOptions<ElasticSearchOptions> options)
     {
+        _options = options;
 
-        var settings = new ElasticsearchClientSettings(new Uri("http://localhost:9201"))
+        var settings = new ElasticsearchClientSettings(new Uri(_options.Value.Host))
             .DisableDirectStreaming();
         
         _client = new(settings);
