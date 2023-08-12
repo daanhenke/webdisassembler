@@ -59,8 +59,8 @@ deploy:
     - docker --context remote login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   stage: deploy
   script:
-    - docker --context remote compose down --remove-orphans || true
-    - docker --context remote compose pull
-    - cd ./Docker/Development && docker --context remote compose up -d
+    - docker compose --context remote down --remove-orphans || true
+    - docker compose --context remote pull
+    - cd ./Docker/Development && docker compose --context remote up -d
   only:
     - master
