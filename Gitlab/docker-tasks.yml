@@ -61,8 +61,8 @@ deploy:
   stage: deploy
   script:
     - docker context use remote
-    - docker compose down --remove-orphans || true
-    - docker compose pull
-    - cd ./Docker/Development && docker compose up -d
+    - docker --context remote compose down --remove-orphans || true
+    - docker --context remote compose pull
+    - cd ./Docker/Development && docker --context remote compose up -d
   only:
     - master
