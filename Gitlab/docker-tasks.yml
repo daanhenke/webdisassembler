@@ -61,6 +61,6 @@ deploy:
   script:
     - docker --context remote compose down --remove-orphans
     - docker --context remote compose pull
-    - docker --context remote compose up -d
+    - cd ./Docker/Development && docker --context remote compose up -d
   only:
     - master
