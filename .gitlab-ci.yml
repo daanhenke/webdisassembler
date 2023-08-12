@@ -2,10 +2,10 @@ include:
   - local: 'Gitlab/docker-tasks.yml'
 
 stages:
-  - deploy
   - build
   - test
   - release
+  - deploy
 
 
 
