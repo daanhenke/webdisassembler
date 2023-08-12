@@ -62,6 +62,6 @@ deploy:
     - docker context use remote
     - docker compose down --remove-orphans || true
     - docker compose pull
-    - cd ./Docker/Development && docker compose --context remote up -d
+    - cd ./Docker/Development && docker compose up -d
   only:
     - master
