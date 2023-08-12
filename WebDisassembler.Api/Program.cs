@@ -57,11 +57,24 @@ if (app.Environment.IsDevelopment() || true)
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .SetIsOriginAllowed(origin => true)
-    .AllowCredentials()
+app.UseCors(policyBuilder =>
+    {
+        policyBuilder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+
+        if (app.Environment.IsDevelopment())
+        {
+            policyBuilder
+                .SetIsOriginAllowed(origin => true)
+        }
+        else
+        {
+            policyBuilder
+                .WithOrigins("webdisassembler.daan.vodka");
+        }
+    }
 );
 
 app.MapControllers()
