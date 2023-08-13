@@ -7,6 +7,9 @@ on:
 
 jobs:
   build-api-container:
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,7 +18,11 @@ jobs:
         with:
           container-name: 'api'
           dockerfile: './WebDisassembler.Api/Dockerfile'
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
   build-search-container:
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -24,7 +31,11 @@ jobs:
         with:
           container-name: 'search'
           dockerfile: './WebDisassembler.Search.Service/Dockerfile'
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
   build-analyzer-container:
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -33,7 +44,11 @@ jobs:
         with:
           container-name: 'analyzer'
           dockerfile: './WebDisassembler.Analyzer.Service/Dockerfile'
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
   build-reverse-proxy-container:
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -42,3 +57,4 @@ jobs:
         with:
           container-name: 'reverse-proxy'
           dockerfile: './Docker/ReverseProxy/Dockerfile'
+          registry-password: ${{ secrets.GITHUB_TOKEN }}

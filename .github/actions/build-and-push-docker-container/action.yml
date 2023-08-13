@@ -7,6 +7,8 @@ inputs:
   dockerfile:
     description: 'Path to Dockerfile'
     required: true
+  registry-password:
+    required: true
 
 permissions:
   contents: read
@@ -20,7 +22,7 @@ runs:
       with:
         registry: ghcr.io/daanhenke
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ inputs.registry_password }}
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
