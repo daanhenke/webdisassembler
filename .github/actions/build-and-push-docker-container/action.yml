@@ -36,8 +36,7 @@ runs:
       with:
         context: .
         file: ${{ inputs.project-name }}/
-        build-args:
-          - PROJECT_NAME=${{ inputs.project-name }}
+        build-args: PROJECT_NAME=${{ inputs.project-name }}
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}   
