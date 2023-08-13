@@ -22,12 +22,12 @@ runs:
       with:
         registry: ghcr.io/daanhenke
         username: ${{ github.actor }}
-        password: ${{ inputs.registry_password }}
+        password: ${{ inputs.registry-password }}
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
       with:
-        images: ghcr.io/daanhenke
+        images: ghcr.io/daanhenke/{{ inputs.container-name }}
     - name: Build and push Docker images
       uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
       with:
