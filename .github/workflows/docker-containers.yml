@@ -1,0 +1,36 @@
+﻿name: Docker Containers
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build-api-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/build-and-push-docker-container
+        with:
+          container-name: 'api'
+          dockerfile: './WebDisassembler.Api/Dockerfile'
+  build-search-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/build-and-push-docker-container
+        with:
+          container-name: 'search'
+          dockerfile: './WebDisassembler.Search.Service/Dockerfile'
+  build-analyzer-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/build-and-push-docker-container
+        with:
+          container-name: 'analyzer'
+          dockerfile: './WebDisassembler.Analyzer.Service/Dockerfile'
+  build-reverse-proxy-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/build-and-push-docker-container
+        with:
+          container-name: 'reverse-proxy'
+          dockerfile: './Docker/ReverseProxy/Dockerfile'
