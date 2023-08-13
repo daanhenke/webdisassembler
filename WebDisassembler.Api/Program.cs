@@ -72,7 +72,7 @@ app.UseCors(policyBuilder =>
         else
         {
             policyBuilder
-                .WithOrigins("webdisassembler.daan.vodka");
+                .WithOrigins("http://webdisassembler.daan.vodka:3100");
         }
     }
 );
