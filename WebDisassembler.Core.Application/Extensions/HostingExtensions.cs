@@ -14,6 +14,7 @@ public static class HostingExtensions
 
         services.AddScoped<SearchService>();
         services.AddScoped<TenantAdminService>();
+        services.AddScoped<UserAdminService>();
 
         services.AddScoped<TenantService>();
 

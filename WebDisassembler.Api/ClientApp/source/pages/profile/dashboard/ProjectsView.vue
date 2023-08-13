@@ -9,7 +9,6 @@ import {CreateProject, ProjectSummary} from "@/api/http/data-contracts.ts";
 import TenantSelectBox from "@/ui/form/select/TenantSelectBox.vue";
 
 const projectsClient = useProjectsClient();
-const tenantsClient = useTenantsClient();
 
 let pagedRequest =
     {
@@ -51,14 +50,10 @@ const onCreateTenantSubmit = async (createProject: CreateProject) =>
     </Button>
   </div>
   <div class="projects-list">
-    <div class="project-snippet-container" v-for="project in projects" :key="project.id">
-      <RouterLink :to="`/project/${project.id}/editor`">
-        <div class="project-snippet">
-          <span class="project-name">{{ project.name }}</span>
-          <span>{{ project.shortDescription }}</span>
-        </div>
-      </RouterLink>
-    </div>
+    <RouterLink class="project-snippet" v-for="project in projects" :key="project.id" :to="`/project/${project.id}/editor`">
+      <span class="project-name">{{ project.name }}</span>
+      <span>{{ project.shortDescription }}</span>
+    </RouterLink>
   </div>
   <Modal @close="doCreateProject = false;" title="Create project" v-if="doCreateProject">
     <Form @submit="onCreateTenantSubmit" ref="createProjectForm">
@@ -83,17 +78,15 @@ const onCreateTenantSubmit = async (createProject: CreateProject) =>
 
 <style scoped>
 .projects-list {
-  @apply flex flex-wrap;
+  @apply flex flex-wrap items-stretch;
 
-  .project-snippet-container {
-    @apply w-1/3;
+  .project-snippet {
+    @apply border-2 rounded-xl p-4 flex flex-col;
+    margin: .5rem;
+    width: calc(33.3% - 1rem);
 
-    .project-snippet {
-      @apply border-2 rounded-xl p-4 flex flex-col flex-grow m-4;
-
-      .project-name {
-        @apply text-lg font-semibold;
-      }
+    .project-name {
+      @apply text-lg font-semibold;
     }
   }
 }

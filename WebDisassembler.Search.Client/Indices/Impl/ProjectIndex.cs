@@ -12,9 +12,7 @@ public class ProjectIndex : IndexBase<IndexedProject>, IProjectIndex
     public async ValueTask<PagedResponse<IndexedProject>> FindForUser(Guid userId, PagedRequest request)
     {
         return await _client.FindPaged<IndexedProject>(request, q => q
-            .Query(q => q
-                .Term(p => p.UserId, userId)
-            )
+            .Term(p => p.UserId, userId)
         );
     }
 }

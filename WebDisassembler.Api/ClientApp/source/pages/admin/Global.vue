@@ -2,6 +2,7 @@
 import Button from "@/ui/misc/Button.vue";
 import {useNotificationStore} from "@/stores/notification.ts";
 import {useAdminClient} from "@/api/http-clients.ts";
+import AdminPageLayout from "@/layouts/AdminPageLayout.vue";
 
 const notificationStore = useNotificationStore();
 const adminClient = useAdminClient();
@@ -20,5 +21,7 @@ const reindexElastic = async () =>
 </script>
 
 <template>
-  <Button @click="reindexElastic">Reindex Elastic</Button>
+  <AdminPageLayout>
+    <Button @click="reindexElastic">Reindex Elastic</Button>
+  </AdminPageLayout>
 </template>

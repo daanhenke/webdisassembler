@@ -14,4 +14,12 @@ public class TenantRepository : RepositoryBase<Tenant>, ITenantRepository
         return await Query()
             .ToPaged(request);
     }
+    
+    public async ValueTask<Tenant> GetAdminTenant()
+    {
+        return await Query()
+            .Include(t => t.Roles)
+            .Where(t => t.Subdomain == "admin")
+            .FirstAsync();
+    }
 }

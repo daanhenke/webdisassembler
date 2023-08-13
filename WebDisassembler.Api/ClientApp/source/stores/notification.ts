@@ -22,8 +22,17 @@ interface NotificationStoreState
 export const useNotificationStore = defineStore('notification', {
     state: () => {
         return <NotificationStoreState> {
-            map: {},
+            map: new Map<number, Notification>(),
             nextId: 0
+        }
+    },
+    getters: {
+        hasNotifications(): boolean {
+            return Array.from(this.map.keys()).length > 0;
+        },
+        notifications(): Notification[] {
+            const keys = Array.from(this.map.keys()).sort();
+            return keys.map(key => this.map.get(key));
         }
     },
     actions: {

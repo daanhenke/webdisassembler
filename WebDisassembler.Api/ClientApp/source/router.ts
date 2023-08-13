@@ -1,5 +1,7 @@
 ﻿import Dashboard from "@/pages/profile/Dashboard.vue";
 import AdminGlobal from "@/pages/admin/Global.vue";
+import AdminTenants from "@/pages/admin/Tenants.vue";
+import AdminUsers from "@/pages/admin/Users.vue";
 import Login from "@/pages/Login.vue";
 import {createRouter, createWebHistory, Router, RouteRecordRaw} from "vue-router";
 import {useProfileStore} from "@/stores/profile.ts";
@@ -7,7 +9,9 @@ import {useProfileStore} from "@/stores/profile.ts";
 const routes: RouteRecordRaw[] = [
     { name: 'Profile', path: '/profile', component: Dashboard },
     { name: 'Login', path: '/login', component: Login },
-    { name: 'Admin', path: '/admin/global', component: AdminGlobal },
+    { name: 'AdminGlobal', path: '/admin/global', component: AdminGlobal },
+    { name: 'AdminTenants', path: '/admin/tenants', component: AdminTenants },
+    { name: 'AdminUsers', path: '/admin/users', component: AdminUsers },
 ]
 
 const anonymousRouteList = [

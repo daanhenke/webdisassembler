@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using WebDisassembler.Core.Application.Models;
 using WebDisassembler.Core.Application.Models.Admin;
+using WebDisassembler.Core.Application.Models.Identity;
 using WebDisassembler.Core.Application.Services.Admin;
+using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Core.Identity;
 
 namespace WebDisassembler.Api.Controllers.Admin;
@@ -24,5 +26,11 @@ public class TenantAdminController : ControllerBase
     {
         await _tenantAdminService.CreateDebugTenant(createTenant, _userIdentity.UserId);
         return Ok();
+    }
+
+    [HttpPost("list"), SwaggerOperation(OperationId = nameof(ListTenants))]
+    public async ValueTask<PagedResponse<TenantSummary>> ListTenants(QueryRequest request)
+    {
+        return await _tenantAdminService.GetTenants(request);
     }
 }

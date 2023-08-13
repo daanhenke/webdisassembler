@@ -1,6 +1,7 @@
 using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.Core.Bulk;
 using Elastic.Clients.Elasticsearch.Mapping;
+using Elastic.Clients.Elasticsearch.QueryDsl;
 using Microsoft.Extensions.Options;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Search.Data.Options;
@@ -73,15 +74,37 @@ public class ElasticSearchClient
         }
     }
 
-    public async ValueTask<PagedResponse<TModel>> FindPaged<TModel>(PagedRequest pagedRequest, Action<SearchRequestDescriptor<TModel>> queryCallback) where TModel : class
+    public async ValueTask<PagedResponse<TModel>> FindPaged<TModel>(PagedRequest request, Action<QueryDescriptor<TModel>> queryCallback) where TModel : class
+    {
+        var response = await FindInternal<TModel>(searchRequestDescriptor =>
+        {
+            searchRequestDescriptor
+                .From(request.Index * request.Size)
+                .Size(request.Size);
+
+            searchRequestDescriptor.Query(queryCallback);
+        });
+
+        return new PagedResponse<TModel>((int) response.Total, response.Documents.ToArray());
+    }
+    
+    public async ValueTask<PagedResponse<TModel>> FindPagedWithQuery<TModel>(QueryRequest request, Action<QueryDescriptor<TModel>> queryCallback) where TModel : class
     {
         var response = await FindInternal<TModel>(query =>
         {
             query
-                .From(pagedRequest.Index * pagedRequest.Size)
-                .Size(pagedRequest.Size);
+                .From(request.Index * request.Size)
+                .Size(request.Size)
+                .Query(queryDescriptor =>
+                {
+                    queryDescriptor.QueryString(qs => qs.Query(
+                        string.IsNullOrWhiteSpace(request.Query)
+                            ? "*"
+                            : $"*{request.Query}*"
+                    ));
 
-            queryCallback(query);
+                    queryCallback(queryDescriptor);
+                });
         });
 
         return new PagedResponse<TModel>((int) response.Total, response.Documents.ToArray());
@@ -118,5 +141,5 @@ public class ElasticSearchClient
         );
 
         return response.Documents.First();
-    }
+    } 
 }

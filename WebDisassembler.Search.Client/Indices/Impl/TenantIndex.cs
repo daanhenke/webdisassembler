@@ -12,9 +12,12 @@ public class TenantIndex : IndexBase<IndexedTenant>, ITenantIndex
     public ValueTask<PagedResponse<IndexedTenant>> FindPublic(PagedRequest request)
     {
         return _client.FindPaged<IndexedTenant>(request, q => q
-            .Query(q => q
-                .Term(t => t.Public, true)
-            )
+            .Term(t => t.Public, true)
         );
+    }
+
+    public ValueTask<PagedResponse<IndexedTenant>> FindAll(QueryRequest request)
+    {
+        return _client.FindPagedWithQuery<IndexedTenant>(request, q => {});
     }
 }

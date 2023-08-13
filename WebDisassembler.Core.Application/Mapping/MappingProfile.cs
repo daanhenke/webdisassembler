@@ -27,6 +27,9 @@ public class MappingProfile : Profile
         CreateMap<CreateTenant, Tenant>();
         CreateMap<IndexedTenant, TenantSummary>();
         
+        CreateMap<CreateAdminUser, User>();
+        CreateMap<IndexedUser, UserSummary>();
+        
         CreateMap<CreateProject, Project>();
         CreateMap<IndexedProject, ProjectSummary>();
         

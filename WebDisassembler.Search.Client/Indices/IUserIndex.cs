@@ -6,4 +6,5 @@ namespace WebDisassembler.Search.Client.Indices;
 
 public interface IUserIndex : IIndex<IndexedUser>
 {
+    ValueTask<PagedResponse<IndexedUser>> FindAll(QueryRequest request);
 }

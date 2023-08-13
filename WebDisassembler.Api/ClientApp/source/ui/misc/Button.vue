@@ -36,8 +36,4 @@
     --button-primary: var(--error);
     --button-secondary: var(--bg-base);
 }
-
-.button-group {
-    @apply flex flex-row;
-}
 </style>

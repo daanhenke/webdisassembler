@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using WebDisassembler.Core.ServiceProtocol.Extensions;
+﻿using WebDisassembler.Core.ServiceProtocol.Extensions;
 using WebDisassembler.DataStorage.Extensions;
 using WebDisassemlber.Search.Data.Utility;
 using WebDisassembler.Search.Service.Indexers;
 using System.Reflection;
+using WebDisassembler.Search.Data.Extensions;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((ctx, services) =>
@@ -13,7 +13,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddServiceBus(ctx.Configuration);
         services.AddDataStorage(ctx.Configuration);
 
-        services.AddScoped<ElasticSearchClient>();
+        services.AddElasticClient(ctx.Configuration);
         services.AddScoped<UserIndexer>();
         services.AddScoped<TenantIndexer>();
         services.AddScoped<ProjectIndexer>();

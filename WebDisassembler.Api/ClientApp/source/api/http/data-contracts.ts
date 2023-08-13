@@ -15,6 +15,13 @@ export interface BinarySummary {
   name?: string | null;
 }
 
+export interface CreateAdminUser {
+  /** @minLength 1 */
+  username: string;
+  /** @minLength 1 */
+  email: string;
+}
+
 export interface CreateBinary {
   projectPath?: string | null;
   /** @format uuid */
@@ -81,6 +88,17 @@ export interface ProjectSummaryPagedResponse {
   items?: ProjectSummary[] | null;
 }
 
+export interface QueryRequest {
+  /** @format int32 */
+  index?: number;
+  /**
+   * @format int32
+   * @default 10
+   */
+  size?: number;
+  query?: string | null;
+}
+
 export interface TenantSummary {
   /** @format uuid */
   id?: string;
@@ -92,4 +110,17 @@ export interface TenantSummaryPagedResponse {
   /** @format int32 */
   total?: number;
   items?: TenantSummary[] | null;
+}
+
+export interface UserSummary {
+  /** @format uuid */
+  id?: string;
+  username?: string | null;
+  email?: string | null;
+}
+
+export interface UserSummaryPagedResponse {
+  /** @format int32 */
+  total?: number;
+  items?: UserSummary[] | null;
 }

@@ -14,8 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddDataStorage(builder.Configuration);
 builder.Services.AddFileStorage(builder.Configuration);
 builder.Services.AddServiceBus(builder.Configuration);
+builder.Services.AddElasticClients(builder.Configuration);
 builder.Services.AddCoreServices();
-builder.Services.AddElasticClients();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpContextAccessor();

@@ -43,8 +43,6 @@
     <ItemGroup>
       <Folder Include="ClientApp/source/api/http/" />
       <Folder Include="ClientApp\public\" />
-      <Folder Include="ClientApp\source\pages\admin\" />
-      <Folder Include="ClientApp\source\pages\project\" />
       <Folder Include="ClientApp\source\pages\tenant\" />
       <Folder Include="Controllers/Identity/" />
     </ItemGroup>

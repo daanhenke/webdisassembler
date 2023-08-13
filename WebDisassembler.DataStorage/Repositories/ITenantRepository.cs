@@ -7,4 +7,5 @@ namespace WebDisassembler.DataStorage.Repositories;
 public interface ITenantRepository : IRepository<Tenant>
 {
     ValueTask<PagedResponse<Tenant>> GetAllForIndex(PagedRequest request);
+    ValueTask<Tenant> GetAdminTenant();
 }

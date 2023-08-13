@@ -1,20 +1,19 @@
 <script lang="ts" setup>
 const props = withDefaults(defineProps<{
-        type?: 'text' | 'password' | 'email',
-        name: string
+        text: string
     }>(),
     {
-        type: 'text'
+        text: 'Submit'
     });
 </script>
 
 <template>
-    <input class="textbox" :type="props.type" :name="props.name"  />
+    <input class="button" type="submit" />
 </template>
 
 <style>
-.textbox {
-  @apply border-b-2 text-base px-2 h-10;
+input {
+  @apply border-b-2 text-base px-2;
   background: var(--bg-mantle);
   color: var(--text-subtext-primary);
 }
