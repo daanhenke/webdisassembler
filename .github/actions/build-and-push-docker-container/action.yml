@@ -8,12 +8,12 @@ inputs:
     description: 'Path to Dockerfile'
     required: true
 
+permissions:
+  contents: read
+  packages: write
+
 runs:
   using: 'composite'
-  runs-on: ubuntu-latest
-  permissions:
-    contents: read
-    packages: write
   steps:
     - name: Log in to the Container registry
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
