@@ -17,7 +17,8 @@ jobs:
       - uses: ./.github/actions/build-and-push-docker-container
         with:
           container-name: 'api'
-          dockerfile: './WebDisassembler.Api/Dockerfile'
+          dockerfile: './Docker/AspNet.Dockerfile'
+          project-name: 'WebDisassembler.Api'
           registry-password: ${{ secrets.GITHUB_TOKEN }}
   build-search-container:
     permissions:
@@ -30,7 +31,8 @@ jobs:
       - uses: ./.github/actions/build-and-push-docker-container
         with:
           container-name: 'search'
-          dockerfile: './WebDisassembler.Search.Service/Dockerfile'
+          dockerfile: './Docker/MassTransitService.Dockerfile'
+          project-name: 'WebDisassembler.Search.Service'
           registry-password: ${{ secrets.GITHUB_TOKEN }}
   build-analyzer-container:
     permissions:
@@ -43,7 +45,8 @@ jobs:
       - uses: ./.github/actions/build-and-push-docker-container
         with:
           container-name: 'analyzer'
-          dockerfile: './WebDisassembler.Analyzer.Service/Dockerfile'
+          dockerfile: './Docker/MassTransitService.Dockerfile'
+          project-name: 'WebDisassembler.Analyzer.Service'
           registry-password: ${{ secrets.GITHUB_TOKEN }}
   build-reverse-proxy-container:
     permissions:

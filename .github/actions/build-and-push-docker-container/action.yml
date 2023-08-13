@@ -5,8 +5,11 @@ inputs:
     description: 'Name of the container, used in tag'
     required: true
   dockerfile:
-    description: 'Path to Dockerfile'
+    description: 'Path to dockerfile'
     required: true
+  project-name:
+    description: 'Name of project folder'
+    required: false
   registry-password:
     required: true
 
@@ -31,7 +34,10 @@ runs:
     - name: Build and push Docker images
       uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
       with:
-        file: ${{ inputs.dockerfile }}
+        context: .
+        file: ${{ inputs.project-name }}/
+        build-args:
+          - PROJECT_NAME=${{ inputs.project-name }}
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}   
