@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-    image: ghcr.io/daanhenke/api
+    image: ghcr.io/daanhenke/api:master
     restart: always
     ports:
       - '3000:3000'
@@ -16,7 +16,7 @@ services:
       - elasticsearch
 
   analyzer:
-    image: ghcr.io/daanhenke/analyzer
+    image: ghcr.io/daanhenke/analyzer:master
     restart: always
     networks:
       - internal
@@ -29,7 +29,7 @@ services:
 
 
   search:
-    image: ghcr.io/daanhenke/search
+    image: ghcr.io/daanhenke/search:master
     restart: always
     networks:
       - internal
@@ -42,7 +42,7 @@ services:
 
 
   reverse_proxy:
-    image: ghcr.io/daanhenke/reverse-proxy
+    image: ghcr.io/daanhenke/reverse-proxy:master
     restart: always
     ports:
       - '3100:3100'
