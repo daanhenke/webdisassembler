@@ -1,62 +1,35 @@
 version: '3'
 
-services: 
+services:
   database:
-    image: postgres:latest
-    restart: always
-    environment:
-      - POSTGRES_USER=devel
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=WebDisassembler
-    ports:
-      - '5432:5432'
-    volumes:
-      - database_storage:/var/lib/postgresql/data
-    networks:
-      - internal
+    extends:
+      file: Docker/common-services.yml
+      service: database
 
   service_bus:
-    image: rabbitmq:3-management-alpine
-    restart: always
-    ports:
-      - '5672:5672'
-      - '15672:15672'
-    volumes:
-      - service_bus_storage:/var/lib/rabbitmq/
-    networks: 
-      - internal
-
+    extends:
+      file: Docker/common-services.yml
+      service: service_bus
+  
   blob_storage:
-    image: mcr.microsoft.com/azure-storage/azurite
-    restart: always
-    command: 'azurite --loose --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --location /workspace'
-    ports:
-      - '10000:10000'
-      - '10001:10001'
-    volumes:
-      - blob_storage_storage:/workspace
-    networks:
-      - internal
+    extends:
+      file: Docker/common-services.yml
+      service: blob_storage
   
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
-    environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.security.enabled=false
-      - bootstrap.memory_lock=true
-      - discovery.type=single-node
-      - cluster_name=test
+    extends:
+      file: Docker/elastic-stack.yml
+      service: elasticsearch
 
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - elasticsearch_storage:/usr/share/elasticsearch/data
-    ports:
-      - '9201:9200'
-    networks:
-      - internal
+  kibana:
+    extends:
+      file: Docker/elastic-stack.yml
+      service: kibana
+
+  elastic-setup:
+    extends:
+      file: Docker/elastic-stack.yml
+      service: elastic-setup
 
 volumes:
   database_storage:
@@ -65,9 +38,16 @@ volumes:
     driver: local
   blob_storage_storage:
     driver: local
+  elasticsearch_certs:
+    driver: local
   elasticsearch_storage:
+    driver: local
+  kibana_storage:
     driver: local
 
 networks:
-  internal:
-    driver: bridge
+  default:
+    name: internal
+    external: ${EXPOSE_INTERNAL_SERVICES}
+  public:
+    external: true

@@ -3,9 +3,9 @@ using Elastic.Clients.Elasticsearch.Mapping;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.DataStorage.Models.Projects;
 using WebDisassembler.DataStorage.Repositories;
+using WebDisassembler.Search.Data.Utility;
 using WebDisassembler.Search.Service.Utility;
 using WebDisassemlber.Search.Data.Models;
-using WebDisassemlber.Search.Data.Utility;
 
 namespace WebDisassembler.Search.Service.Indexers;
 

@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\WebDisassembler.Core.Common\WebDisassembler.Core.Common.csproj" />
       <ProjectReference Include="..\WebDisassembler.Core.Identity\WebDisassembler.Core.Identity.csproj" />
+      <ProjectReference Include="..\WebDisassembler.Core.Logging\WebDisassembler.Core.Logging.csproj" />
       <ProjectReference Include="..\WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj" />
       <ProjectReference Include="..\WebDisassembler.FileStorage\WebDisassembler.FileStorage.csproj" />
       <ProjectReference Include="..\WebDisassembler.Core.ServiceProtocol\WebDisassembler.Core.ServiceProtocol.csproj" />

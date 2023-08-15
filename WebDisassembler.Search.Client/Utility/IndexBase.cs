@@ -1,6 +1,5 @@
 using Elastic.Clients.Elasticsearch.QueryDsl;
 using WebDisassembler.Search.Data.Utility;
-using WebDisassemlber.Search.Data.Utility;
 
 namespace WebDisassembler.Search.Client.Utility;
 

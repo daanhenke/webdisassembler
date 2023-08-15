@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Serilog;
 using WebDisassembler.Api.Authentication;
 using WebDisassembler.Core.Application.Extensions;
 using WebDisassembler.Core.Identity;
+using WebDisassembler.Core.Logging.Extensions;
 using WebDisassembler.DataStorage.Extensions;
 using WebDisassembler.FileStorage.Extensions;
 using WebDisassembler.Search.Client.Extensions;
@@ -16,6 +18,7 @@ builder.Services.AddFileStorage(builder.Configuration);
 builder.Services.AddServiceBus(builder.Configuration);
 builder.Services.AddElasticClients(builder.Configuration);
 builder.Services.AddCoreServices();
+builder.Services.AddLogging(builder.Configuration);
 
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpContextAccessor();
@@ -56,6 +59,8 @@ if (app.Environment.IsDevelopment() || true)
 }
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSerilogRequestLogging();
 
 app.UseCors(policyBuilder =>
     {

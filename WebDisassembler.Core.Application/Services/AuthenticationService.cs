@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 using WebDisassembler.Core.Application.Exceptions.Authentication;
 using WebDisassembler.Core.Application.Models.Authentication;
 using WebDisassembler.DataStorage.Models.Identity;
@@ -13,12 +14,14 @@ public class AuthenticationService
     private readonly IUserRepository _userRepository;
     private readonly IUserIndex _userIndex;
     private readonly IMapper _mapper;
+    private readonly ILogger<Microsoft.AspNetCore.Authentication.AuthenticationService> _logger;
 
-    public AuthenticationService(IUserRepository userRepository, IMapper mapper, IUserIndex userIndex)
+    public AuthenticationService(IUserRepository userRepository, IMapper mapper, IUserIndex userIndex, ILogger<Microsoft.AspNetCore.Authentication.AuthenticationService> logger)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _userIndex = userIndex;
+        _logger = logger;
     }
 
     public async ValueTask<string> Login(LoginRequest request)
@@ -39,6 +42,8 @@ public class AuthenticationService
         _userRepository.Update(user);
         await _userRepository.Commit();
 
+        _logger.LogInformation("User {UserId} succesfully logged in", user.Id);
+        
         return token.Token;
     }    
     

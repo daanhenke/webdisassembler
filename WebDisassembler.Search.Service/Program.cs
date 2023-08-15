@@ -1,8 +1,8 @@
 ﻿using WebDisassembler.Core.ServiceProtocol.Extensions;
 using WebDisassembler.DataStorage.Extensions;
-using WebDisassemlber.Search.Data.Utility;
 using WebDisassembler.Search.Service.Indexers;
 using System.Reflection;
+using WebDisassembler.Core.Logging.Extensions;
 using WebDisassembler.Search.Data.Extensions;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -18,6 +18,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddScoped<TenantIndexer>();
         services.AddScoped<ProjectIndexer>();
     })
+    .AddLogging()
     .Build();
 
 host.Run();

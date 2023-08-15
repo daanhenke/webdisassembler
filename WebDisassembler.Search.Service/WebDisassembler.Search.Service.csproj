@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\WebDisassembler.Core.Logging\WebDisassembler.Core.Logging.csproj" />
       <ProjectReference Include="..\WebDisassembler.Core.ServiceProtocol\WebDisassembler.Core.ServiceProtocol.csproj" />
       <ProjectReference Include="..\WebDisassembler.Search.Data\WebDisassembler.Search.Data.csproj" />
       <ProjectReference Include="..\WebDisassembler.DataStorage\WebDisassembler.DataStorage.csproj" />

@@ -2,25 +2,29 @@ using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.Core.Bulk;
 using Elastic.Clients.Elasticsearch.Mapping;
 using Elastic.Clients.Elasticsearch.QueryDsl;
+using Elastic.Transport;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Search.Data.Options;
-using WebDisassembler.Search.Data.Utility;
 
-namespace WebDisassemlber.Search.Data.Utility;
+namespace WebDisassembler.Search.Data.Utility;
 
 public class ElasticSearchClient
 {
     private readonly ElasticsearchClient _client;
     private readonly IOptions<ElasticSearchOptions> _options;
+    private readonly ILogger<ElasticSearchClient> _logger;
 
-    public ElasticSearchClient(IOptions<ElasticSearchOptions> options)
+    public ElasticSearchClient(IOptions<ElasticSearchOptions> options, ILogger<ElasticSearchClient> logger)
     {
         _options = options;
+        _logger = logger;
 
-        var settings = new ElasticsearchClientSettings(new Uri(_options.Value.Host))
-            .DisableDirectStreaming();
-        
+        var settings = new ElasticsearchClientSettings(new Uri($"{_options.Value.Protocol}://elastic:password@{_options.Value.Host}"))
+            .DisableDirectStreaming()
+            .ServerCertificateValidationCallback(CertificateValidations.AllowAll);
+
         _client = new(settings);
     }
 
@@ -33,7 +37,7 @@ public class ElasticSearchClient
 
         if (! response.IsSuccess())
         {
-            throw new NotSupportedException();
+            _logger.LogCritical("Failed to create index '{IndexName}', error: {ElasticDebugInformation}", IndexName<TModel>(), response.DebugInformation);
         }
     }
 
@@ -43,14 +47,13 @@ public class ElasticSearchClient
 
         if (! response.IsSuccess())
         {
-            throw new NotSupportedException();
+            _logger.LogCritical("Failed to delete index '{IndexName}', error: {ElasticDebugInformation}", IndexName<TModel>(), response.DebugInformation);
         }
     }
 
     public async ValueTask<bool> DoesIndexExist<TModel>() where TModel : class
     {
         var response = await _client.Indices.ExistsAsync(IndexName<TModel>());
-
         return response.Exists;
     }
 
@@ -70,7 +73,7 @@ public class ElasticSearchClient
 
         if (! response.IsSuccess())
         {
-            throw new NotSupportedException();
+            _logger.LogCritical("Failed to add models for index '{IndexName}', error: {ElasticDebugInformation}", IndexName<TModel>(), response.DebugInformation);
         }
     }
 
@@ -126,7 +129,7 @@ public class ElasticSearchClient
 
         if (! response.IsSuccess())
         {
-            throw new NotSupportedException();
+            _logger.LogCritical("Failed to find models for index '{IndexName}', error: {ElasticDebugInformation}", IndexName<TModel>(), response.DebugInformation);
         }
 
         return response;

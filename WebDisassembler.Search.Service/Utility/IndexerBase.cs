@@ -4,7 +4,6 @@ using Elastic.Clients.Elasticsearch.Core.Bulk;
 using Elastic.Clients.Elasticsearch.Mapping;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Search.Data.Utility;
-using WebDisassemlber.Search.Data.Utility;
 
 namespace WebDisassembler.Search.Service.Utility;
 

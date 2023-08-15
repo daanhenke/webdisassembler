@@ -51,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architectures", "Architectu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Loaders", "Loaders", "{DAA6FBF4-2A80-472C-B04C-2D028220C098}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDisassembler.Core.Logging", "WebDisassembler.Core.Logging\WebDisassembler.Core.Logging.csproj", "{70C5ECC2-1A90-41A6-A6C4-24CE3E2FE875}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{4E4D4650-F932-4627-B2DB-FB363E5D9317}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E4D4650-F932-4627-B2DB-FB363E5D9317}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E4D4650-F932-4627-B2DB-FB363E5D9317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70C5ECC2-1A90-41A6-A6C4-24CE3E2FE875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70C5ECC2-1A90-41A6-A6C4-24CE3E2FE875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70C5ECC2-1A90-41A6-A6C4-24CE3E2FE875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70C5ECC2-1A90-41A6-A6C4-24CE3E2FE875}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,5 +150,6 @@ Global
 		{0ED3A9E8-D2E8-46DE-A344-CAA2FC665D8D} = {10DCF073-2644-4359-843D-463ACCB1CEF6}
 		{DAA6FBF4-2A80-472C-B04C-2D028220C098} = {52B29427-B812-4DA6-99B0-F9FD323A9573}
 		{F32F8544-E5D7-4B16-BE61-A790A68CB917} = {DAA6FBF4-2A80-472C-B04C-2D028220C098}
+		{70C5ECC2-1A90-41A6-A6C4-24CE3E2FE875} = {9FE6EFD4-5B94-4CCD-BE63-C8E88361A266}
 	EndGlobalSection
 EndGlobal

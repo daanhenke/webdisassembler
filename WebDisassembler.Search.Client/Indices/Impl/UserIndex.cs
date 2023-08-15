@@ -1,7 +1,7 @@
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.Search.Client.Utility;
+using WebDisassembler.Search.Data.Utility;
 using WebDisassemlber.Search.Data.Models;
-using WebDisassemlber.Search.Data.Utility;
 
 namespace WebDisassembler.Search.Client.Indices.Impl;
 
