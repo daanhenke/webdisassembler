@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebDisassembler.Core.Common\WebDisassembler.Core.Common.csproj" />
+    <ProjectReference Include="..\WebDisassembler.Core.Logging\WebDisassembler.Core.Logging.csproj" />
   </ItemGroup>
 
 
