@@ -44,10 +44,3 @@ volumes:
     driver: local
   kibana_storage:
     driver: local
-
-networks:
-  default:
-    name: internal
-    external: ${EXPOSE_INTERNAL_SERVICES}
-  public:
-    external: true
