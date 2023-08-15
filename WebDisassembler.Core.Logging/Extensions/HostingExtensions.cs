@@ -14,19 +14,6 @@ namespace WebDisassembler.Core.Logging.Extensions;
 
 public static class HostingExtensions
 {
-    public static IHostBuilder AddLogging(this IHostBuilder builder)
-    {
-        builder.UseSerilog((ctx, cfg) =>
-        {
-        });
-
-        builder.ConfigureServices(services =>
-        {
-        });
-
-        return builder;
-    }
-    
     public static void AddLogging(this IServiceCollection services, IConfiguration configuration)
     {
         var elasticCfg = configuration.GetSection("ElasticSearch");

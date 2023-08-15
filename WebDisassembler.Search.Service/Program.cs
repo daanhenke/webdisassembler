@@ -9,6 +9,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((ctx, services) =>
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddLogging(ctx.Configuration);
 
         services.AddServiceBus(ctx.Configuration);
         services.AddDataStorage(ctx.Configuration);
@@ -18,7 +19,6 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddScoped<TenantIndexer>();
         services.AddScoped<ProjectIndexer>();
     })
-    .AddLogging()
     .Build();
 
 host.Run();
