@@ -39,9 +39,12 @@ services:
     env_file:
       - local.env
     depends_on:
-      - database
-      - service_bus
-      - elasticsearch
+      database:
+        condition: service_started  
+      service_bus:
+        condition: service_started  
+      elasticsearch:
+        condition: service_healthy
 
   analyzer:
     image: ghcr.io/daanhenke/analyzer:master
@@ -49,9 +52,12 @@ services:
     env_file:
       - local.env
     depends_on:
-      - database
-      - service_bus
-      - elasticsearch
+      database:
+        condition: service_started  
+      service_bus:
+        condition: service_started  
+      elasticsearch:
+        condition: service_healthy
 
   search:
     image: ghcr.io/daanhenke/search:master
@@ -59,9 +65,12 @@ services:
     env_file:
       - local.env
     depends_on:
-      - database
-      - service_bus
-      - elasticsearch
+      database:
+        condition: service_started  
+      service_bus:
+        condition: service_started 
+      elasticsearch:
+        condition: service_healthy
 
   reverse_proxy:
     image: ghcr.io/daanhenke/reverse-proxy:master
@@ -85,10 +94,3 @@ volumes:
     driver: local
   kibana_storage:
     driver: local
-
-networks:
-  default:
-    name: internal
-    external: ${EXPOSE_INTERNAL_SERVICES}
-  public:
-    external: true
