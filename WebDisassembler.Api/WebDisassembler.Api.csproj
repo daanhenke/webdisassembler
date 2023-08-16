@@ -25,6 +25,7 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+        <PackageReference Include="System.Text.Json" Version="8.0.0-preview.7.23375.6" />
     </ItemGroup>
 
     <ItemGroup>
@@ -46,6 +47,21 @@
       <Folder Include="ClientApp\public\" />
       <Folder Include="ClientApp\source\pages\tenant\" />
       <Folder Include="Controllers/Identity/" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\ClientStrings.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ClientStrings.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\ClientStrings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ClientStrings.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

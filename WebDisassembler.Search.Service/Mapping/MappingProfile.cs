@@ -15,7 +15,10 @@ class MappingProfile : Profile
         CreateMap<User, IndexedUser>();
         CreateMap<Tenant, IndexedUserTenant>();
 
-        CreateMap<Tenant, IndexedTenant>();
+        CreateMap<Tenant, IndexedTenant>()
+            .ForMember(t => t.Users, 
+                m => m.MapFrom(t => t.TenantUsers));
+        CreateMap<TenantUser, IndexedTenantUser>();
         
         CreateMap<Project, IndexedProject>()
             .ForMember(p => p.BinaryNames, m => m.MapFrom(p => p.Binaries.Select(b => b.ProjectPath)))

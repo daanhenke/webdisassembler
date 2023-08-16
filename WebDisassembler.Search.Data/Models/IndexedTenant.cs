@@ -8,4 +8,11 @@ public class IndexedTenant : IIndexedEntity
     public required string Name { get; set; }
     public required string Subdomain { get; set; }
     public bool Public { get; set; }
+    public List<IndexedTenantUser> Users { get; set; }
+}
+
+public class IndexedTenantUser
+{
+    public Guid UserId { get; set; }
+    public Guid RoleId { get; set; }
 }

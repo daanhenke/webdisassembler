@@ -44,7 +44,7 @@ public class ProjectService
         await _projectRepository.Commit();
     }
 
-    public async ValueTask<PagedResponse<ProjectSummary>> GetProjects(Guid userId, PagedRequest request)
+    public async ValueTask<PagedResponse<ProjectSummary>> GetUserProjects(Guid userId, PagedRequest request)
     {
         return _mapper.Map<PagedResponse<ProjectSummary>>(await _projectIndex.FindForUser(userId, request));
     }

@@ -22,9 +22,9 @@ public class ProjectController : ControllerBase
     }
 
     [HttpPost("list")]
-    public async ValueTask<PagedResponse<ProjectSummary>> List(Guid tenantId, PagedRequest request)
+    public async ValueTask<PagedResponse<ProjectSummary>> List(PagedRequest request)
     {
-        return await _projectService.GetProjects(_userIdentity.UserId, request);
+        return await _projectService.GetUserProjects(_userIdentity.UserId, request);
     }
 
     [HttpPost("create")]

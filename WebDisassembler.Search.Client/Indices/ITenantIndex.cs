@@ -6,6 +6,6 @@ namespace WebDisassembler.Search.Client.Indices;
 
 public interface ITenantIndex : IIndex<IndexedTenant>
 {
-    ValueTask<PagedResponse<IndexedTenant>> FindPublic(PagedRequest request);
+    ValueTask<PagedResponse<IndexedTenant>> FindForUser(Guid userId, PagedRequest request);
     ValueTask<PagedResponse<IndexedTenant>> FindAll(QueryRequest request);
 }

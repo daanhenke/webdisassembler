@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Icon from '@/ui/misc/Icon.vue';
+import OverlayPane from "@/ui/misc/OverlayPane.vue";
 const props = defineProps<{
     title: string
 }>();
@@ -7,21 +8,23 @@ const emit = defineEmits(['close']);
 </script>
 
 <template>
-    <Teleport to="#modal-container">
-        <div class="modal">
+    <Teleport to="#overlay-container">
+        <OverlayPane>
+          <div class="modal">
             <div class="modal-header">
-                <span class="modal-title">{{ props.title }}</span>
-                <div>
-                    <Icon class="icon-action" @click="emit('close');" name="close" />
-                </div>
+              <span class="modal-title">{{ props.title }}</span>
+              <div>
+                <Icon class="icon-action" @click="emit('close');" name="close" />
+              </div>
             </div>
             <div class="modal-content">
-                <slot />
+              <slot />
             </div>
             <div class="modal-actions">
-                <slot name="actions" />
+              <slot name="actions" />
             </div>
-        </div>
+          </div>
+        </OverlayPane>
     </Teleport>
 </template>
 

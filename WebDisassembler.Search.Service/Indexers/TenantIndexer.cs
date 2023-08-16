@@ -1,4 +1,5 @@
 using AutoMapper;
+using Elastic.Clients.Elasticsearch.Mapping;
 using WebDisassembler.Core.Common.Models;
 using WebDisassembler.DataStorage.Models.Identity;
 using WebDisassembler.DataStorage.Repositories;
@@ -15,6 +16,17 @@ public class TenantIndexer : IndexerBase<Tenant, IndexedTenant>
     public TenantIndexer(ElasticSearchClient client, IMapper mapper, ITenantRepository tenantRepository) : base(client, mapper)
     {
         _tenantRepository = tenantRepository;
+    }
+
+    protected override void SetIndexMapping(PropertiesDescriptor<IndexedTenant> descriptor)
+    {
+        descriptor
+            .Nested(t => t.Users, n => n
+                .Properties(p => p
+                    .Keyword(u => u.Users.First().UserId)
+                    .Keyword(u => u.Users.First().RoleId)
+                )
+            );
     }
 
     protected override async ValueTask<PagedResponse<Tenant>> FetchAllFromDatabase(PagedRequest request)

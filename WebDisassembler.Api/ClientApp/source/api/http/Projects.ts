@@ -20,18 +20,10 @@ export class Projects<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name ProjectsListCreate
    * @request POST:/api/projects/list
    */
-  projectsListCreate = (
-    data: PagedRequest,
-    query?: {
-      /** @format uuid */
-      tenantId?: string;
-    },
-    params: RequestParams = {},
-  ) =>
+  projectsListCreate = (data: PagedRequest, params: RequestParams = {}) =>
     this.request<ProjectSummaryPagedResponse, any>({
       path: `/api/projects/list`,
       method: "POST",
-      query: query,
       body: data,
       type: ContentType.Json,
       format: "json",

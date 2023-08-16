@@ -9,10 +9,21 @@
  * ---------------------------------------------------------------
  */
 
+export type AbstractCommandPaletteCommand = BaseAbstractCommandPaletteCommand &
+  (
+    | BaseAbstractCommandPaletteCommandTypeMapping<"GotoProject", GotoProjectCommand>
+    | BaseAbstractCommandPaletteCommandTypeMapping<"GotoTenant", GotoTenantCommand>
+  );
+
 export interface BinarySummary {
   /** @format uuid */
   id?: string;
   name?: string | null;
+}
+
+export enum CommandType {
+  GotoProject = "GotoProject",
+  GotoTenant = "GotoTenant",
 }
 
 export interface CreateAdminUser {
@@ -58,6 +69,18 @@ export interface CurrentUserTenant {
   /** @minLength 1 */
   name: string;
 }
+
+export type GotoProjectCommand = BaseAbstractCommandPaletteCommand & {
+  type?: CommandType;
+  /** @format uuid */
+  projectId?: string;
+};
+
+export type GotoTenantCommand = BaseAbstractCommandPaletteCommand & {
+  type?: CommandType;
+  /** @format uuid */
+  tenantId?: string;
+};
 
 export interface LoginRequest {
   usernameOrEmail?: string | null;
@@ -124,3 +147,11 @@ export interface UserSummaryPagedResponse {
   total?: number;
   items?: UserSummary[] | null;
 }
+
+interface BaseAbstractCommandPaletteCommand {
+  type: CommandType;
+}
+
+type BaseAbstractCommandPaletteCommandTypeMapping<Key, Type> = {
+  type: Key;
+} & Type;

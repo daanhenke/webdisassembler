@@ -50,7 +50,7 @@ const onCreateTenantSubmit = async (createProject: CreateProject) =>
     </Button>
   </div>
   <div class="projects-list">
-    <RouterLink class="project-snippet" v-for="project in projects" :key="project.id" :to="`/project/${project.id}/editor`">
+    <RouterLink class="project-snippet" v-for="project in projects" :key="project.id" :to="`/project/${project.id}`">
       <span class="project-name">{{ project.name }}</span>
       <span>{{ project.shortDescription }}</span>
     </RouterLink>

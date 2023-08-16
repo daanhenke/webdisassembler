@@ -16,8 +16,8 @@ public class TenantService
         _tenantIndex = tenantIndex;
     }
 
-    public async ValueTask<PagedResponse<TenantSummary>> GetPublicTenants(PagedRequest request)
+    public async ValueTask<PagedResponse<TenantSummary>> GetUserTenants(Guid userId, PagedRequest request)
     {
-        return _mapper.Map<PagedResponse<TenantSummary>>(await _tenantIndex.FindPublic(request));
+        return _mapper.Map<PagedResponse<TenantSummary>>(await _tenantIndex.FindForUser(userId, request));
     }
 }

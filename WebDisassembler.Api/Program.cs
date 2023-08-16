@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
@@ -12,7 +13,11 @@ using WebDisassembler.Core.ServiceProtocol.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(jsonOptions =>
+    {
+        jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddDataStorage(builder.Configuration);
 builder.Services.AddFileStorage(builder.Configuration);
 builder.Services.AddServiceBus(builder.Configuration);
@@ -44,7 +49,7 @@ if (builder.Environment.IsDevelopment() || true)
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(c =>
     {
-        c.EnableAnnotations();
+        c.EnableAnnotations(true, true);
     });
 
     builder.Services.AddCors();

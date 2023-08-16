@@ -12,6 +12,7 @@ public class TenantRepository : RepositoryBase<Tenant>, ITenantRepository
     public async ValueTask<PagedResponse<Tenant>> GetAllForIndex(PagedRequest request)
     {
         return await Query()
+            .Include(t => t.TenantUsers)
             .ToPaged(request);
     }
     

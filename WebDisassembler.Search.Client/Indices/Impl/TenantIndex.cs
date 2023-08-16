@@ -8,11 +8,16 @@ namespace WebDisassembler.Search.Client.Indices.Impl;
 public class TenantIndex : IndexBase<IndexedTenant>, ITenantIndex
 {
     public TenantIndex(ElasticSearchClient client) : base(client) {}
-
-    public ValueTask<PagedResponse<IndexedTenant>> FindPublic(PagedRequest request)
+    
+    public ValueTask<PagedResponse<IndexedTenant>> FindForUser(Guid userId, PagedRequest request)
     {
         return _client.FindPaged<IndexedTenant>(request, q => q
-            .Term(t => t.Public, true)
+            .Nested(n => n
+                .Path(t => t.Users)
+                .Query(q => q
+                    .Term(t => t.Users.First().UserId, userId)             
+                )
+            )
         );
     }
 
